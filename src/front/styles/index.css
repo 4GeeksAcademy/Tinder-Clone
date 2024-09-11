@@ -1,34 +1,3 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
-.wrapper::-webkit-scrollbar{
-    width:0;
-}
-.brand-resp{
-    font-size:40px;
-}
-@media (max-width: 991px) {
-    .brand-resp {
-        font-size: 30px;
-    }
-    .container-options{
-        justify-content: center !important;
-        position:absolute !important;
-    }
-}
-.a-visible:hover .packs{
-    display:block;
-}
-.home-btn{
-    border-radius: 90px;   
-    font-weight: bold;
-}
-.create-home-btn{
-    color:white;
-    background: rgb(252,69,69);
-    background: radial-gradient(circle, rgba(252,69,69,1) 0%, rgba(253,104,29,0.8995973389355743) 53%);
-}
-.login-home-btn{
-    color:black;
-    background-color: white;
-}
