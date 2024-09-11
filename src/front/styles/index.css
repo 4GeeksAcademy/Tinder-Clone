@@ -7,12 +7,12 @@
 .brand-resp{
     font-size:40px;
 }
-@media (min-width: 800px) {
+@media (max-width: 991px) {
     .brand-resp {
         font-size: 30px;
     }
-    .options-container{
-        justify-content: space-between !important;
+    .container-options{
+        justify-content: center !important;
         position:absolute !important;
     }
 }

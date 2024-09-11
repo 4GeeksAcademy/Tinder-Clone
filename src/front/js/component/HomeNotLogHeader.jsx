@@ -10,8 +10,7 @@ export const HomeNotLogHeader = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <div className="container-fluid d-flex justify-content-center container-options">
-
+                        <div className="container-fluid d-flex justify-content-between container-options">
                             <ul className="navbar-nav">
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle a-visible" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
