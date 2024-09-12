@@ -37,7 +37,6 @@ export const HomeNotLog = () => {
                         <HomeNotLogFooter />
                         <HomeNotLogFooter />
                     </div>
-
                     <div className="container" >
                         <h2 style={{ color: "white" }}> REDES SOCIALES</h2>
                         <div className="container d-flex me-5" style={{ color: 'white' }}>
