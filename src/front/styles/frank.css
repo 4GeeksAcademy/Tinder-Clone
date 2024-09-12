@@ -25,7 +25,8 @@
 }
 .create-home-btn{
     color:white;
-    background: rgb(252,69,69);
+    opacity: 1.0 !important;
+    background: #FC656A;
     background: radial-gradient(circle, rgba(252,69,69,1) 0%, rgba(253,104,29,0.8995973389355743) 53%);
 }
 .login-home-btn{
@@ -33,5 +34,9 @@
     background-color: white;
 }
 .social-media:hover{
-    color: #FF4458 !important
+    color: #FF4458 !important;
+}
+.navbar-opt:hover{  
+    color: #FF4458 !important;  
+    background-color: transparent
 }

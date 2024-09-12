@@ -13,7 +13,7 @@ export const HomeNotLog = () => {
     }, [])
     return (
         <section >
-            <div className="container-fluid" style={{ backgroundImage: `url(${background})`, backgroundColor: 'rgba(0, 0, 0, 0.5)',opacity:'0.7' }}>
+            <div className="container-fluid" style={{ backgroundImage: `url(${background})`, backgroundColor: 'rgba(0, 0, 0, 0.5)', opacity: '0.7' }}>
                 <header className="mb-5" style={{ position: 'sticky', top: 0, color: 'white', opacity: 'none' }}>
                     <HomeNotLogHeader />
                 </header>
@@ -23,7 +23,7 @@ export const HomeNotLog = () => {
             </div>
             <footer style={{ backgroundColor: '#111418' }}>
                 <div className="container-fluid m-0 p-0" >
-                    <div className="container d-flex justify-content-between wrapper pt-4 text-light" style={{ maxWidth: '70vw', overflowX: 'auto', columnGap: '30px' }}>
+                    <div className="container d-flex justify-content-between wrapper pt-4 text-light" style={{ maxWidth: '80vw', overflowX: 'auto', columnGap: '30px' }}>
                         <HomeNotLogFooter />
                         <HomeNotLogFooter />
                         <HomeNotLogFooter />
