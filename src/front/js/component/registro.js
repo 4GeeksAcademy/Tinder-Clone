@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 
 export const Registro = () => {
   const [formData, setFormData] = useState({
-    nombre: 'Carlos Torres',
     email: '',
-    fechaNacimiento: { dia: '05', mes: '07', anio: '1990' },
+    password: '',
+    dni: '',
+    nombres: '',
+    apellidoPaterno: '',
+    apellidoMaterno: '',
+    fechaNacimiento: '',
     sexo: 'hombre',
     mostrarGenero: true,
     mostrar: 'mujeres',
     busco: 'Relación',
-    fotos: Array(6).fill(null)
+    fotos: Array(6).fill(null),
+    intereses: ['Meditación', 'Spotify', 'Correr', 'Viajar', 'Freelance'],
+    orientacionSexual: ['Heterosexual']
   });
 
   const handleInputChange = (e) => {
@@ -17,17 +23,6 @@ export const Registro = () => {
     setFormData(prevState => ({
       ...prevState,
       [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleFechaNacimientoChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      fechaNacimiento: {
-        ...prevState.fechaNacimiento,
-        [name]: value
-      }
     }));
   };
 
@@ -47,20 +42,28 @@ export const Registro = () => {
     }));
   };
 
+  const handleInteresesChange = (interes) => {
+    setFormData(prevState => ({
+      ...prevState,
+      intereses: prevState.intereses.includes(interes)
+        ? prevState.intereses.filter(i => i !== interes)
+        : [...prevState.intereses, interes]
+    }));
+  };
+
+  const handleOrientacionSexualChange = (orientacion) => {
+    setFormData(prevState => {
+      const updatedOrientaciones = prevState.orientacionSexual.includes(orientacion)
+        ? prevState.orientacionSexual.filter(o => o !== orientacion)
+        : [...prevState.orientacionSexual, orientacion].slice(0, 3);
+      return { ...prevState, orientacionSexual: updatedOrientaciones };
+    });
+  };
+
   return (
     <div className="container">
       <form className="form">
         <h1>Crear Una Cuenta</h1>
-        <div className="form-group">
-          <label htmlFor="nombre">Nombre</label>
-          <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            value={formData.nombre}
-            onChange={handleInputChange}
-          />
-        </div>
         <div className="form-group">
           <label htmlFor="email">Dirección de correo electrónico</label>
           <input
@@ -72,27 +75,66 @@ export const Registro = () => {
           />
         </div>
         <div className="form-group">
-          <label>Fecha de nacimiento</label>
-          <div className="date-input">
-            <input
-              type="text"
-              name="dia"
-              value={formData.fechaNacimiento.dia}
-              onChange={handleFechaNacimientoChange}
-            />
-            <input
-              type="text"
-              name="mes"
-              value={formData.fechaNacimiento.mes}
-              onChange={handleFechaNacimientoChange}
-            />
-            <input
-              type="text"
-              name="anio"
-              value={formData.fechaNacimiento.anio}
-              onChange={handleFechaNacimientoChange}
-            />
-          </div>
+          <label htmlFor="password">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="dni">DNI (8 dígitos)</label>
+          <input
+            type="text"
+            id="dni"
+            name="dni"
+            value={formData.dni}
+            onChange={handleInputChange}
+            maxLength="8"
+            pattern="\d{8}"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="nombres">Nombres (PRIMER NOMBRE SEGUNDO NOMBRE ...)</label>
+          <input
+            type="text"
+            id="nombres"
+            name="nombres"
+            value={formData.nombres}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="apellidoPaterno">Apellido Paterno</label>
+          <input
+            type="text"
+            id="apellidoPaterno"
+            name="apellidoPaterno"
+            value={formData.apellidoPaterno}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="apellidoMaterno">Apellido Materno</label>
+          <input
+            type="text"
+            id="apellidoMaterno"
+            name="apellidoMaterno"
+            value={formData.apellidoMaterno}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
+          <input
+            type="date"
+            id="fechaNacimiento"
+            name="fechaNacimiento"
+            value={formData.fechaNacimiento}
+            onChange={handleInputChange}
+          />
         </div>
         <div className="form-group">
           <label>Sexo</label>
@@ -181,9 +223,42 @@ export const Registro = () => {
               </div>
             ))}
           </div>
-          <br/>          
-          <p></p>
         </div>
+        <div className="form-group">
+          <label>Opcional</label>
+          <div className="interests-group">
+            <label>Intereses</label>
+            <div className="interests-options">
+              {formData.intereses.map((interes) => (
+                <button
+                  key={interes}
+                  type="button"
+                  className={`interest-option ${formData.intereses.includes(interes) ? 'selected' : ''}`}
+                  onClick={() => handleInteresesChange(interes)}
+                >
+                  {interes}
+                </button>
+              ))}
+              <button type="button" className="add-interest">+ Agregar interés</button>
+            </div>
+          </div>
+          <div className="orientation-group">
+            <label>ORIENTACIÓN SEXUAL</label>
+            <div className="orientation-options">
+              {['Heterosexual', 'Gay', 'Lesbiana', 'Bisexual', 'Asexual', 'Demisexual', 'Pansexual'].map((orientacion) => (
+                <button
+                  key={orientacion}
+                  type="button"
+                  className={`orientation-option ${formData.orientacionSexual.includes(orientacion) ? 'selected' : ''}`}
+                  onClick={() => handleOrientacionSexualChange(orientacion)}
+                >
+                  {orientacion}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+        <button type="submit" className="submit-button">Continuar</button>
       </form>
       <style jsx>{`
         .container {
@@ -211,20 +286,15 @@ export const Registro = () => {
           margin-bottom: 5px;
         }
         input[type="text"],
-        input[type="email"] {
+        input[type="email"],
+        input[type="password"],
+        input[type="date"] {
           width: 100%;
           padding: 8px;
           border: 1px solid #ccc;
           border-radius: 4px;
           background-color: #333;
           color: white;
-        }
-        .date-input {
-          display: flex;
-          gap: 10px;
-        }
-        .date-input input {
-          width: 60px;
         }
         .radio-group {
           display: flex;
@@ -299,6 +369,42 @@ export const Registro = () => {
           justify-content: center;
           align-items: center;
           cursor: pointer;
+        }
+        .interests-group,
+        .orientation-group {
+          margin-top: 15px;
+        }
+        .interests-options,
+        .orientation-options {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 10px;
+        }
+        .interest-option,
+        .orientation-option,
+        .add-interest {
+          padding: 5px 10px;
+          border: 1px solid #ccc;
+          border-radius: 20px;
+          background-color: #333;
+          color: white;
+          cursor: pointer;
+        }
+        .interest-option.selected,
+        .orientation-option.selected {
+          background-color: #fe3c72;
+        }
+        .submit-button {
+          width: 100%;
+          padding: 10px;
+          background-color: #fe3c72;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin-top: 20px;
         }
       `}</style>
     </div>
