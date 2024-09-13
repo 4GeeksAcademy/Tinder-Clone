@@ -7,7 +7,7 @@ export const HomeMoreInfoSection = () => {
         navigate('/')
     }
     return (
-        <section style={{height:'40dvh',width:'50dvw'}}>
+        <section style={{width:'50dvw'}}>
             <article >
                 <header style={{width:'100%'}}>
                     <h1 style={{color:'white'}}>

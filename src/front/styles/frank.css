@@ -26,8 +26,7 @@
 .create-home-btn{
     color:white;
     opacity: 1.0 !important;
-    background: #FC656A;
-    background: radial-gradient(circle, rgba(252,69,69,1) 0%, rgba(253,104,29,0.8995973389355743) 53%);
+    background-color: 	#fe3c72 !important;
 }
 .login-home-btn{
     color:black;
@@ -47,4 +46,27 @@ section>h2 {
 }
 section>p{
     color: #B9BFC8;
+}
+@media (max-width: 991px){
+    .offcanvas-body>ul>li{
+        background-color: #000000;
+        margin-bottom: 2rem;
+        display:flex;
+        align-items: center;
+    }
+    .offcanvas-end{
+        width: 100vw;
+    }
+    .ul-display-bottom{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        
+    }
+    .btn-full-offcanvas{
+        width:100%;
+        background-color: 	#fe3c72 !important;
+        font-weight: bold;
+    }
+    
 }
