@@ -69,6 +69,7 @@ class User(db.Model):
   gender_to_show_id = db.Column(db.Integer, db.ForeignKey('gender.id'), nullable=True)
   subscription_id = db.Column(db.Integer, db.ForeignKey('subscription.id'), nullable=True)
   role = db.Column(db.String(120), nullable=False)
+  image = db.Column(db.LargeBinary, nullable = True)
 
   #relationship
   gender = db.relationship('Gender', foreign_keys=[gender_id])
@@ -90,5 +91,23 @@ class User(db.Model):
         "gender_to_show": self.gender_to_show.name if self.gender_to_show else None,
         "subscription": self.subscription.name if self.subscription else None,
         "role": self.role
+    }
+
+class Review(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  content = db.Column(db.String(500), nullable=False)
+
+  #relationship
+  user = db.relationship('User', backref='reviews')
+
+  def __repr__(self):
+    return f'<Review {self.id}>'
+
+  def serialize(self):
+    return {
+      "id": self.id,
+      "user_id": self.user_id,
+      "content": self.content,
     }
         
