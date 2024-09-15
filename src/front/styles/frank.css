@@ -1,0 +1,73 @@
+/* 
+    General Styles used on every website (Don't Repeat Yourself)
+*/
+.wrapper::-webkit-scrollbar{
+    width:0;
+}
+.brand-resp{
+    font-size:40px;
+}
+@media (max-width: 991px) {
+    .brand-resp {
+        font-size: 30px;
+    }
+    .container-options{
+        justify-content: center !important;
+        position:absolute !important;
+    }
+}
+.a-visible:hover .packs{
+    display:block;
+}
+.home-btn{
+    border-radius: 90px;   
+    font-weight: bold;
+}
+.create-home-btn{
+    color:white;
+    opacity: 1.0 !important;
+    background-color: 	#fe3c72 !important;
+}
+.login-home-btn{
+    color:black;
+    background-color: white;
+}
+.social-media:hover{
+    color: #FF4458 !important;
+}
+.navbar-opt:hover{  
+    color: #FF4458 !important;  
+    background-color: transparent
+}
+
+section>h2 {
+    font-size: 25px;
+    font-weight: bold;
+}
+section>p{
+    color: #B9BFC8;
+}
+@media (max-width: 991px){
+    .offcanvas-body>ul>li{
+        background-color: #000000;
+        margin-bottom: 2rem;
+        display:flex;
+        align-items: center;
+    }
+    .offcanvas-end{
+        width: 100vw;
+    }
+    .ul-display-bottom{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        
+    }
+    .btn-full-offcanvas{
+        width:100%;
+        background-color: 	#fe3c72 !important;
+        font-weight: bold;
+        color:white !important;
+    }
+    
+}

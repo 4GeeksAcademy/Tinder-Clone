@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			reviews:[]
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -46,6 +47,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			getReview: async()=>{
+				const response = await fetch(process.env.BACKEND_URL+"");
+				if (response.status===200){
+					const data = await response.json();
+					data? setStore({...getStore,reviews:data}) : setStore({...getStore,reviews:[]})
+					return 
+				}
 			}
 		}
 	};
