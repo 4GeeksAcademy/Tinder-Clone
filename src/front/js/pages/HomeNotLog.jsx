@@ -11,17 +11,18 @@ export const HomeNotLog = () => {
     useEffect(() => {
         actions.getReview()
     }, [])
+      
     return (
-        <section >
-            <div className="container-fluid" style={{ backgroundImage: `url(${background})`, backgroundColor: 'rgba(0, 0, 0, 0.5)', opacity: '0.7' }}>
+        <section>
+            <div className="container-fluid bg-img-home" style={{ backgroundImage: `url(${background})`, opacity: '0.7'}}>
                 <header className="mb-5" style={{ position: 'sticky', top: 0, color: 'white', opacity: 'none' }}>
                     <HomeNotLogHeader />
                 </header>
-                <div className="container-fluid d-flex my-auto">
+                <div className="container-fluid d-flex my-auto" style={{zIndex: '2'}}>
                     <HomeNotLogBody />
                 </div>
             </div>
-            <footer style={{ backgroundColor: '#111418' }}>
+            <footer style={{ backgroundColor: '#111418', zIndex: '1' }} >
                 <div className="container-fluid m-0 p-0" >
                     <div className="container d-flex justify-content-between wrapper pt-4 text-light" style={{ maxWidth: '80vw', overflowX: 'auto', columnGap: '30px' }}>
                         <HomeNotLogFooter />
@@ -37,7 +38,7 @@ export const HomeNotLog = () => {
                         <HomeNotLogFooter />
                         <HomeNotLogFooter />
                     </div>
-                    <div className="container" >
+                    <div className="container" style={{zIndex: '2'}}>
                         <h2 style={{ color: "white" }}> REDES SOCIALES</h2>
                         <div className="container d-flex me-5" style={{ color: 'white' }}>
                             <div className="social-media">
