@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import datetime
-import app
+
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import Gender, db, User, Payment, Subscription
 from api.utils import generate_sitemap, APIException
@@ -220,5 +220,3 @@ def delete_user(user_id):
     db.session.commit()
     return jsonify({'message': 'User deleted successfully'})
 
-if __name__ == '__main__':
-    app.run(debug=True)
