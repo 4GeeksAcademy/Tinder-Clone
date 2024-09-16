@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 import datetime
 
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import Gender, db, User, Payment, Subscription
+from api.models import Gender, db, User, Payment, Subscription, Review
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -228,3 +228,11 @@ def delete_user(user_id):
     db.session.commit()
     return jsonify({'message': 'User deleted successfully'})
 
+@api.route('/reviews', methods=['GET'])
+def create_review():
+  try:
+    reviews = Review.query.all()
+    results = list(map(lambda review: review.serialize(), reviews))
+    return jsonify(results), 201
+  except Exception as e:
+    return jsonify({"msg": str(e)}), 500
