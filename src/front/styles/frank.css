@@ -1,6 +1,9 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+body {
+    overflow: auto !important;
+}
 .bg-img-home::before{
     content: "";
     position: absolute;
