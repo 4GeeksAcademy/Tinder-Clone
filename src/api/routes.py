@@ -137,8 +137,9 @@ def delete_subscription(subscription_id):
     return jsonify({'message': 'Subscription deleted successfully'})
 
 # User CRUD
-@api.route('/users', methods=['POST'])
-def create_user():
+@api.route('/register', methods=['POST'])
+def register():
+  try:
     data = request.json
     password = data.get('password')
     
@@ -151,6 +152,10 @@ def create_user():
     # Asegúrate de que password sea una cadena
     if isinstance(password, tuple):
         password = password[0] if password else ''
+    
+    existing_user = User.query.filter_by(email=data['email']).first()
+    if existing_user:
+      return jsonify({"msg": "Email already in use"}), 400
     
     print("Password after check:", password)  # Imprime el valor de password después de la verificación
     print("Type of password after check:", type(password))  # Imprime el tipo de password después de la verificación
@@ -169,7 +174,10 @@ def create_user():
     )
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({'message': 'User created successfully'}), 201
+    return jsonify(new_user.serialize()), 201
+  except Exception as e:
+    return jsonify({"msg": str(e)}), 500
+  
 @api.route('/login', methods=['POST'])
 def login():
     data = request.json

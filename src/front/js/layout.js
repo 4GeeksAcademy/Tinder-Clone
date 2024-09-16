@@ -12,6 +12,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import {HomeNotLog} from "./pages/HomeNotLog.jsx"
 import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
+import { Registro } from "./pages/registro.js";
 
 //create your first component
 const Layout = () => {
@@ -28,6 +29,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<HomeNotLog />} path="/" />
                         <Route element={<HomeMoreInfo/>} path="/Moreinfo"/>
+                        <Route element={<Registro/>} path="/register"/>
                         
                         {/* <Route element={<Home />} path="/user/:id" />
                         <Route element={<Demo />} path="/demo" />
