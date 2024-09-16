@@ -7,15 +7,15 @@ export const HomeNotLogHeader = () => {
     const navigate = useNavigate();
     const onClickHandler = (link) => {
         navigate(`/${link}`)
+    // const offcanvasElement = document.getElementById('offcanvasNavbar');
+    // if (offcanvasElement) {
+    //     const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+    //     if (bsOffcanvas) {
+    //         bsOffcanvas.hide();
+    //     }
+    // }
     }
-    // const onMouseEnterHandler = (e) => {
-    //     setCursor("pointer")
-    //     console.log(e)
-    //     console.log(cursor)
-    // }
-    // const onMouseLeave = ()=>{
-    //     setCursor("default")
-    // }
+    
     return (
         <div className="me-3 nav-principal" style={{ color: 'transparent', verticalAlign: 'bottom' }} >
             <nav className="navbar navbar-expand-lg sticky-top pt-0" style={{ color: 'transparent' }}>
