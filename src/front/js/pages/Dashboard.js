@@ -1,3 +1,4 @@
+import React from "react";
 import TinderCard from 'react-tinder-card'
 import {useEffect, useState} from 'react'
 import MatchesContainer from '../component/MatchesContainer'
