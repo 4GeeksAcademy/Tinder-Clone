@@ -1,79 +1,41 @@
-import React from "react";
-import TinderCard from 'react-tinder-card'
-import {useEffect, useState} from 'react'
-import MatchesContainer from '../component/MatchesContainer'
-import {useCookies} from 'react-cookie'
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import TinderCard from 'react-tinder-card';
+import MatchesContainer from '../component/MatchesContainer';
 
 export const Dashboard = () => {
-    const [user, setUser] = useState(null)
-    const [genderedUsers, setGenderedUsers] = useState(null)
-    const [lastDirection, setLastDirection] = useState()
-    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+    const [user, setUser] = useState({ id: 1, gender_interest: 'male' });
+    const [genderedUsers, setGenderedUsers] = useState(null);
+    const [lastDirection, setLastDirection] = useState("");
+    const [matchedUserIds, setMatchedUserIds] = useState([2, 3]);
 
-    const userId = cookies.UserId
+    const users = [
+        { id: 1, first_name: "Juan", url: "https://picsum.photos/200/300", gender_interest: 'male' },
+        { id: 2, first_name: "Pedro", url: "https://picsum.photos/200/301", gender_interest: 'male' },
+        { id: 3, first_name: "Luis", url: "https://picsum.photos/200/302", gender_interest: 'male' },
+        { id: 4, first_name: "Maria", url: "https://picsum.photos/200/303", gender_interest: 'female' },
+    ];
 
-
-    const getUser = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/user', {
-                params: {userId}
-            })
-            setUser(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const getGenderedUsers = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/gendered-users', {
-                params: {gender: user?.gender_interest}
-            })
-            setGenderedUsers(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const genderedUsersData = users.filter(user => user.gender_interest === user.gender_interest);
 
     useEffect(() => {
-        getUser()
-
-    }, [])
-
-    useEffect(() => {
-        if (user) {
-            getGenderedUsers()
-        }
-    }, [user])
-
-    const updateMatches = async (matchedUserId) => {
-        try {
-            await axios.put('http://localhost:8000/addmatch', {
-                userId,
-                matchedUserId
-            })
-            getUser()
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
+        setGenderedUsers(genderedUsersData);
+    }, []);
 
     const swiped = (direction, swipedUserId) => {
         if (direction === 'right') {
-            updateMatches(swipedUserId)
+            setMatchedUserIds([...matchedUserIds, swipedUserId]);
         }
-        setLastDirection(direction)
+        setLastDirection(direction);
     }
 
     const outOfFrame = (name) => {
         console.log(name + ' left the screen!')
     }
 
-    const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
-
-    const filteredGenderedUsers = genderedUsers?.filter(genderedUser => !matchedUserIds.includes(genderedUser.user_id))
-
+    let filteredGenderedUsers = [];
+    if (genderedUsers) {
+        filteredGenderedUsers = genderedUsers.filter(genderedUser => !matchedUserIds.includes(genderedUser.id));
+    }
 
     console.log('filteredGenderedUsers ', filteredGenderedUsers)
     return (
@@ -84,11 +46,11 @@ export const Dashboard = () => {
                 <div className="swipe-container">
                     <div className="card-container">
 
-                        {filteredGenderedUsers?.map((genderedUser) =>
+                        {filteredGenderedUsers.map((genderedUser) =>
                             <TinderCard
                                 className="swipe"
-                                key={genderedUser.user_id}
-                                onSwipe={(dir) => swiped(dir, genderedUser.user_id)}
+                                key={genderedUser.id}
+                                onSwipe={(dir) => swiped(dir, genderedUser.id)}
                                 onCardLeftScreen={() => outOfFrame(genderedUser.first_name)}>
                                 <div
                                     style={{backgroundImage: "url(" + genderedUser.url + ")"}}

@@ -1,48 +1,59 @@
-import React from "react";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import React, { useState, useEffect } from "react";
 
-const MatchesDisplay = ({ matches, setClickedUser }) => {
+const MatchesDisplay = () => {
   const [matchedProfiles, setMatchedProfiles] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies(null);
+  const [matches, setMatches] = useState(null);
+  const [clickedUser, setClickedUser] = useState(null);
 
-  const matchedUserIds = matches.map(({ user_id }) => user_id);
-  const userId = cookies.UserId;
+  // Simulación de data de usuarios y matches
+  const users = [
+    { id: 1, name: "Juan", url: "https://picsum.photos/200/300" },
+    { id: 2, name: "Pedro", url: "https://picsum.photos/200/301" },
+    { id: 3, name: "Luis", url: "https://picsum.photos/200/302" },
+    { id: 4, name: "Maria", url: "https://picsum.photos/200/303" },
+  ];
 
-  const getMatches = async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/users", {
-        params: { userIds: JSON.stringify(matchedUserIds) },
-      });
-      setMatchedProfiles(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const matchesData = [
+    { id: 1, userId: 1, matches: [2, 3] },
+    { id: 2, userId: 2, matches: [1, 4] },
+    { id: 3, userId: 3, matches: [1, 2] },
+    { id: 4, userId: 4, matches: [2, 3] },
+  ];
 
   useEffect(() => {
-    getMatches();
-  }, [matches]);
+    // Simulación de la función getMatches
+    const getMatches = () => {
+      try {
+        // En lugar de hacer una petición a un servidor, simplemente asignamos la data simulada
+        setMatchedProfiles(users);
+        setMatches(matchesData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const filteredMatchedProfiles = matchedProfiles?.filter(
-    (matchedProfile) =>
-      matchedProfile.matches.filter((profile) => profile.user_id == userId)
-        .length > 0
-  );
+    getMatches();
+  }, []);
+
+  let filteredMatchedProfiles = [];
+  if (matchedProfiles && matches) {
+    filteredMatchedProfiles = matchedProfiles.filter((matchedProfile) =>
+      matches.find((match) => match.userId === matchedProfile.id)
+    );
+  }
 
   return (
     <div className="matches-display">
-      {filteredMatchedProfiles?.map((match, _index) => (
+      {filteredMatchedProfiles && filteredMatchedProfiles.map((match, _index) => (
         <div
           key={_index}
           className="match-card"
           onClick={() => setClickedUser(match)}
         >
           <div className="img-container">
-            <img src={match?.url} alt={match?.first_name + " profile"} />
+            <img src={match.url} alt={match.name + " profile"} />
           </div>
-          <h3>{match?.first_name}</h3>
+          <h3>{match.name}</h3>
         </div>
       ))}
     </div>
