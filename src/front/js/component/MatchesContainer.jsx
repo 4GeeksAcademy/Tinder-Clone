@@ -1,5 +1,5 @@
 import React from "react";
-import MatchesDisplay from './MatchesDisplay'
+import MatchesDisplay from './MatchesDisplay.jsx'
 import { useState } from 'react'
 
 const MatchesContainer = ({ user }) => {

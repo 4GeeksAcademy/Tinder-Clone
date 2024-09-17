@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TinderCard from 'react-tinder-card';
-import MatchesContainer from '../component/MatchesContainer';
+import MatchesContainer from '../component/MatchesContainer.jsx';
 
 export const Dashboard = () => {
     const [user, setUser] = useState({ id: 1, gender_interest: 'male' });
