@@ -4,10 +4,6 @@ export const Registro = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    dni: '',
-    nombres: '',
-    apellidoPaterno: '',
-    apellidoMaterno: '',
     fechaNacimiento: '',
     sexo: 'hombre',
     mostrarGenero: true,
@@ -84,20 +80,9 @@ export const Registro = () => {
             onChange={handleInputChange}
           />
         </div>
+        
         <div className="form-group">
-          <label htmlFor="dni">DNI (8 dígitos)</label>
-          <input
-            type="text"
-            id="dni"
-            name="dni"
-            value={formData.dni}
-            onChange={handleInputChange}
-            maxLength="8"
-            pattern="\d{8}"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="nombres">Nombres (PRIMER NOMBRE SEGUNDO NOMBRE ...)</label>
+          <label htmlFor="nombres">Nombre para tu perfil</label>
           <input
             type="text"
             id="nombres"
@@ -106,26 +91,7 @@ export const Registro = () => {
             onChange={handleInputChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="apellidoPaterno">Apellido Paterno</label>
-          <input
-            type="text"
-            id="apellidoPaterno"
-            name="apellidoPaterno"
-            value={formData.apellidoPaterno}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="apellidoMaterno">Apellido Materno</label>
-          <input
-            type="text"
-            id="apellidoMaterno"
-            name="apellidoMaterno"
-            value={formData.apellidoMaterno}
-            onChange={handleInputChange}
-          />
-        </div>
+        
         <div className="form-group">
           <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
           <input
