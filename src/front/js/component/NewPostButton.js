@@ -64,7 +64,7 @@ const NewPostButton = () => {
       padding: '0 20px 20px',
     },
     button: {
-      backgroundColor: '#fe3c72',
+      backgroundColor: 'rgb(254, 60, 114)',
       border: 'none',
       borderRadius: '20px',
       padding: '10px 20px',

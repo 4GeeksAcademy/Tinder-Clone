@@ -41,7 +41,8 @@ body {
 .create-home-btn{
     color:white;
     opacity: 1.0 !important;
-    background-color: 	#fe3c72 !important;
+    background-color: 	rgb(254, 60, 114) !important;
+    z-index: 3;
 }
 .login-home-btn{
     color:black;

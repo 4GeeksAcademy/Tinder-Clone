@@ -2,7 +2,8 @@ import React from "react";
 import { HomeMoreInfoSection } from "../component/HomeMoreInfoSection.jsx";
 import { HomeNotLogHeader } from "../component/HomeNotLogHeader.jsx";
 import { HomeMoreInfoSectionColumn } from "../component/HomeMoreInfoSectionColumn.jsx";
-import { Facebook, Instagram, X } from "lucide-react";
+import { SocialMedia } from "../component/SocialMedia.jsx";
+
 
 
 export const HomeMoreInfo = () => {
@@ -18,20 +19,7 @@ export const HomeMoreInfo = () => {
             </div>
             <div className="container-fluid" style={{ backgroundColor: '#111418' }}>
                 <HomeMoreInfoSectionColumn />
-                <div className="container" >
-                    <h2 style={{ color: "white" }}> REDES SOCIALES</h2>
-                    <div className="container d-flex me-5" style={{ color: 'white' }}>
-                        <div className="social-media">
-                            <Instagram size={48} />
-                        </div>
-                        <div className="social-media">
-                            <Facebook size={48} />
-                        </div>
-                        <div className="social-media">
-                            <X size={48} />
-                        </div>
-                    </div>
-                </div>
+                <SocialMedia/>
             </div>
         </div>
     )

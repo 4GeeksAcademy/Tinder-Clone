@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			getReviews: async () => {
         try{
-          const response = await fetch("https://super-duper-potato-xq4jqjq4g7vc9v-3001.app.github.dev/api/reviews",{
+          const response = await fetch(process.env.BACKEND_URL+"/reviews",{
             method:'GET'
           });
           console.log(response)
@@ -15,7 +15,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw new Error('Network response was not ok')
           }
           const data = await response.json();
-          console.log(data)
           setStore({...getStore,reviews:data})
           return 
         } catch(e){
@@ -42,7 +41,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getUsers: async ()=>{
         try {
-          const resp = await fetch("https://super-duper-potato-xq4jqjq4g7vc9v-3001.app.github.dev/api/users",{
+          const resp = await fetch(process.env.BACKEND_URL+"/users",{
             method:"GET"
           })
           if(resp.status===200){
