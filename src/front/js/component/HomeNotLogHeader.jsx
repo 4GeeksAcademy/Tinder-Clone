@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { AlignJustify } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
-
+import NewLoginButton from './NewLoginButton'; 
 export const HomeNotLogHeader = () => {
     const [cursor, setCursor] = useState("pointer")
     const navigate = useNavigate();
     const onClickHandler = (link) => {
         navigate(`/${link}`)
-    // const offcanvasElement = document.getElementById('offcanvasNavbar');
-    // if (offcanvasElement) {
-    //     const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
-    //     if (bsOffcanvas) {
-    //         bsOffcanvas.hide();
-    //     }
-    // }
     }
-    
+    // const onMouseEnterHandler = (e) => {
+    //     setCursor("pointer")
+    //     console.log(e)
+    //     console.log(cursor)
+    // }
+    // const onMouseLeave = ()=>{
+    //     setCursor("default")
+    // }
     return (
         <div className="me-3 nav-principal" style={{ color: 'transparent', verticalAlign: 'bottom' }} >
             <nav className="navbar navbar-expand-lg sticky-top pt-0" style={{ color: 'transparent' }}>
@@ -59,7 +59,7 @@ export const HomeNotLogHeader = () => {
                                 </li>
                             </ul>
                             <div className="btn-container">
-                                <button className="btn btn-outline-light btn-full-offcanvas bg-light text-dark fw-bold" >INICIAR SESION</button>
+                                <NewLoginButton />
                             </div>
                         </div>
                     </div>
@@ -68,4 +68,3 @@ export const HomeNotLogHeader = () => {
         </div>
     );
 }
-
