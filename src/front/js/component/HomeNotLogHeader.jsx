@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AlignJustify } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
-
+import NewLoginButton from './NewLoginButton'; 
 export const HomeNotLogHeader = () => {
     const [cursor, setCursor] = useState("pointer")
     const navigate = useNavigate();
@@ -59,7 +59,7 @@ export const HomeNotLogHeader = () => {
                                 </li>
                             </ul>
                             <div className="btn-container">
-                                <button className="btn btn-outline-light btn-full-offcanvas bg-light text-dark fw-bold" >INICIAR SESION</button>
+                                <NewLoginButton />
                             </div>
                         </div>
                     </div>
