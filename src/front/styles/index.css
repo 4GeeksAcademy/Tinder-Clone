@@ -79,6 +79,7 @@ h2 {
     border-radius: 30px;
     background-size: cover;
     background-position: center;
+    user-select: none;
 }
 
 .card h3 {

@@ -47,26 +47,40 @@ export const Dashboard = () => {
                 <div className="swipe-container">
                     <div className="card-container">
 
-                        {store.users.map((genderedUser) =>
-                            <TinderCard
-                                className="swipe"
-                                key={genderedUser.id}
-                                onSwipe={(dir) => swiped(dir, genderedUser.id)}
-                                onCardLeftScreen={() => outOfFrame(genderedUser.name)}>
-                                <div
-                                    style={{backgroundImage: "url(" + 'https://picsum.photos/200/300' + ")"}}
-                                    className="card">
-                                    <h3>{genderedUser.name}</h3>
-                                </div>
-                            </TinderCard>
-                        )}
+                    {store.users.map((genderedUser) => {
+                      // Capturar el código base64 desde la propiedad 'image'
+                      const profilePicture = `data:image/jpeg;base64,${genderedUser.image}`;
+
+                      return (
+                          <TinderCard
+                              className="swipe"
+                              key={genderedUser.id}
+                              onSwipe={(dir) => swiped(dir, genderedUser.id)}
+                              onCardLeftScreen={() => outOfFrame(genderedUser.name)}>
+                              <div className="card">
+                                <h3>{genderedUser.name}</h3>
+                                <img className="img-list-users" src={profilePicture} alt={genderedUser.name + "profile"} />
+                              </div>
+                          </TinderCard>
+                      );
+                  })}
                         <div className="swipe-info">
                             {lastDirection ? <p>You swiped {lastDirection}</p> : <p/>}
                         </div>
                     </div>
                 </div>
             </div>}
+            <style jsx>{`
+              .img-list-users {
+                width: 100%;
+                height: 100%;
+                border-radius: 30px;
+                pointer-events: none;
+              }
+            `}</style>
         </>
+        
+        
     )
 }
 export default Dashboard
