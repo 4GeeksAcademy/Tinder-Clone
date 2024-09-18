@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			getReviews: async () => {
         try{
-          const response = await fetch("https://super-duper-potato-xq4jqjq4g7vc9v-3001.app.github.dev/api/reviews",{
+          const response = await fetch(process.env.BACKEND_URL + "/reviews",{
             method:'GET'
           });
           console.log(response)
@@ -42,7 +42,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getUsers: async ()=>{
         try {
-          const resp = await fetch("https://super-duper-potato-xq4jqjq4g7vc9v-3001.app.github.dev/api/users",{
+          const resp = await fetch(process.env.BACKEND_URL + "/users",{
             method:"GET"
           })
           if(resp.status===200){
