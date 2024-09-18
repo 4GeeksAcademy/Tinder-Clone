@@ -9,7 +9,7 @@ export const HomeMoreInfo = () => {
     return (
         <div className="container-fluid px-0 pt-0"> 
             <div className="container-fluid px-0 pt-0" style={{ color: '#B9BFC8', backgroundColor: '#111418' }}>
-                <HomeNotLogHeader />
+                <HomeNotLogHeader isDisplayed={true}/>
             </div>
             <div className="container-fluid" style={{ backgroundColor: '#000000' }}>
                 <div className="container text-center pb-4 d-flex justify-content-center" style={{ width: '60dvw' }}>
