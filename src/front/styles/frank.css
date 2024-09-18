@@ -84,5 +84,13 @@ section>p{
         font-weight: bold;
         color:white !important;
     }
-    
+ 
+    /* HomeSubscription */
+
+    .stack-container{
+        position: relative;
+    }
+    .stack{
+        position: absolute;
+    }
 }
