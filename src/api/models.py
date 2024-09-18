@@ -113,3 +113,44 @@ class Review(db.Model):
       "content": self.content,
     }
 
+class Like(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  user_from_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  user_to_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  timestamp = db.Column(db.DateTime, nullable = False, default = db.func.current_timestamp())
+  
+  # Relationship
+  user_from = db.relationship('User', foreign_keys=[user_from_id], backref='likes_sent')
+  user_to = db.relationship('User', foreign_keys=[user_to_id], backref='likes_received')
+  
+  def __repre__(self):
+    return f'<Like {self.id}>'
+  
+  def serialize(self):
+    return {
+      "id": self.id,
+      "user_from_id": self.user_from_id,
+      "user_to_id": self.user_to_id,
+      "timestamp": self.timestamp.isoformat()
+    }
+
+class Match(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  user1_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  user2_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  timestamp = db.Column(db.DateTime, nullable = False, default = db.func.current_timestamp())
+  
+  #Relationship
+  user1 = db.relationship('User', foreign_keys=[user1_id], backref='matches_iniciated')
+  user2 = db.relationship('User', foreign_keys=[user2_id], backref='matches_received')
+  
+  def __repre__(self):
+    return f'<Match {self.user1_id} <-> {self.user1_id}>'
+  
+  def serialize(self):
+    return {
+      "id": self.id,
+      "user1_id": self.user1_id,
+      "user2_id": self.user2_id,
+      "timestamp": self.timestamp.isoformat()
+    }

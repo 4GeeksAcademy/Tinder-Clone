@@ -6,7 +6,7 @@ import base64
 import requests
 
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import Gender, db, User, Payment, Subscription, Review
+from api.models import Gender, db, User, Payment, Subscription, Review, Match, Like
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -269,3 +269,54 @@ def create_review():
     return jsonify(results), 201
   except Exception as e:
     return jsonify({"msg": str(e)}), 500
+  
+# Crear un "Like" y verificar si hay match
+@api.route('/likes', methods=['POST'])
+def create_like():
+    try:
+        data = request.json
+        user_from_id = data['user_from_id']
+        user_to_id = data['user_to_id']
+
+        # Verify that both users exist
+        user_from = User.query.get_or_404(user_from_id)
+        user_to = User.query.get_or_404(user_to_id)
+
+        # Verificar if exist a previous like
+        existing_like = Like.query.filter_by(user_from_id=user_from_id, user_to_id=user_to_id).first()
+        if existing_like:
+            return jsonify({"msg": "Like already exists"}), 400
+
+        # Create a new like
+        new_like = Like(user_from_id=user_from_id, user_to_id=user_to_id)
+        db.session.add(new_like)
+
+        # Verificar if user_to_id has liked user_from_id
+        mutual_like = Like.query.filter_by(user_from_id=user_to_id, user_to_id=user_from_id).first()
+
+        if mutual_like:
+            # If both users have liked each other, create a match
+            new_match = Match(user1_id=user_from_id, user2_id=user_to_id)
+            db.session.add(new_match)
+            msg = "Match created!"
+        else:
+            msg = "Like registered."
+        db.session.commit()
+        return jsonify({"msg": msg}), 201
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 500
+
+
+# Get matches from a user
+@api.route('/user/<int:user_id>/matches', methods=['GET'])
+def get_user_matches(user_id):
+    try:
+        matches = Match.query.filter(
+            (Match.user1_id == user_id) | (Match.user2_id == user_id)
+        ).all()
+        
+        # Serializar los resultados
+        results = [m.serialize() for m in matches]
+        return jsonify(results), 200
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 500
