@@ -3,6 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from datetime import datetime
 import base64
+import requests
 
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import Gender, db, User, Payment, Subscription, Review
@@ -18,6 +19,16 @@ api = Blueprint('api', __name__)
 CORS(api)
 
 bcrypt = Bcrypt()
+# Verify identity of the user
+@api.route('/<int:dni>', methods=['GET'])
+def verify(dni):
+  try:
+    url = f'https://api.datos.org.pe/reniec/dni/{dni}'
+    response = requests.get(url, verify=False)
+    data = response.json()
+    return jsonify(data), 200
+  except Exception as e:
+      return jsonify({"error": str(e)}), 500
 
 # Gender CRUD
 @api.route('/genders', methods=['POST'])

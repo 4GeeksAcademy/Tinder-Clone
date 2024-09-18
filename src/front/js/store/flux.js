@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       users: [],
       reviews: [],
       genders: [],
+      userToVerify: {}
 		},
 		actions: {
 			getReviews: async () => {
@@ -68,6 +69,20 @@ const getState = ({ getStore, getActions, setStore }) => {
             return data
           }
         }catch(error){
+          throw error
+        }
+      },
+      sendDataToVerifyIdentity: async (dni) => {
+        try {
+          const res = await fetch(process.env.BACKEND_URL + '/' + dni)
+          if(!res.ok){
+            throw new Error('Network response was not ok')
+          }
+          const data = await res.json()
+          console.log("Data: ",data)
+          setStore({...getStore(),userToVerify:data})
+          return data
+        } catch (error) {
           throw error
         }
       }
