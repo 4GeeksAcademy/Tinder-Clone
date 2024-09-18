@@ -74,7 +74,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       sendDataToVerifyIdentity: async (dni) => {
         try {
-          const res = await fetch(process.env.BACKEND_URL + '/'+ dni)
+          const res = await fetch(process.env.BACKEND_URL + '/' + dni)
           if(!res.ok){
             throw new Error('Network response was not ok')
           }
