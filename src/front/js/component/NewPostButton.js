@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { Context } from '../store/appContext';
 
 const NewPostButton = () => {
+  const { store, actions } = useContext(Context)
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     dni: '',
@@ -9,6 +12,7 @@ const NewPostButton = () => {
     apellidoPaterno: '',
     apellidoMaterno: ''
   });
+  const navigate = useNavigate(); // Inicializa navigate
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -21,10 +25,24 @@ const NewPostButton = () => {
     }));
   };
 
-  const handlePublish = () => {
-    console.log('Datos del formulario:', formData);
-    handleClose();
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const dniToVerify = {
+      dni: formData.dni
+    }
+    try{
+      await actions.sendDataToVerifyIdentity(dniToVerify.dni)
+      const userToVerify = store.userToVerify
+      console.log(userToVerify)
+      
+      userToVerify.apellido_paterno === formData.apellidoPaterno && userToVerify.apellido_materno === formData.apellidoMaterno ? navigate('/register') : alert('Los datos no coinciden. Por favor, verifica e intenta de nuevo.')
+    }catch(error){
+      console.error('Error al obtener datos:', error);
+      actions.sendDataToVerifyIdentity(dniToVerify.dni)
+      throw error
+    }
+
+  }
 
   const styles = {
     modal: {
@@ -133,14 +151,13 @@ const NewPostButton = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer style={styles.footer}>
-          <Button variant="primary" onClick={handlePublish} style={styles.button}>
+          <Button variant="primary" onClick={handleSubmit} style={styles.button}>
             Validar mis datos
           </Button>
-          {/* si esta validado ira a /register  */}
         </Modal.Footer>
       </Modal>
     </>
   );
-};
+}
 
 export default NewPostButton;
