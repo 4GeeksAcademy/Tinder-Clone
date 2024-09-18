@@ -74,7 +74,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       sendDataToVerifyIdentity: async (dni) => {
         try {
-          const res = await fetch(`https://jubilant-carnival-7v96gwjqvjp9frp65-3001.app.github.dev/api/${dni}`)
+          const res = await fetch(process.env.BACKEND_URL + '/'+ dni)
           if(!res.ok){
             throw new Error('Network response was not ok')
           }
