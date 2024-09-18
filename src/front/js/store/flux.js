@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			getReviews: async () => {
         try{
-          const response = await fetch("https://super-duper-potato-xq4jqjq4g7vc9v-3001.app.github.dev/api/reviews",{
+          const response = await fetch("https://reimagined-journey-x5rwxjw5jx97fgwq-3001.app.github.dev/api/reviews",{
             method:'GET'
           });
           console.log(response)
@@ -42,8 +42,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getUsers: async ()=>{
         try {
-          const resp = await fetch("https://super-duper-potato-xq4jqjq4g7vc9v-3001.app.github.dev/api/users",{
-            method:"GET"
+          const resp = await fetch("https://reimagined-journey-x5rwxjw5jx97fgwq-3001.app.github.dev/api/users",{
+            method:"GET",
           })
           if(resp.status===200){
             const data = await resp.json()

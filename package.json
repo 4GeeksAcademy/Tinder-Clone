@@ -74,9 +74,11 @@
 	},
 	"dependencies": {
 		"@react-spring/web": "^9.7.4",
+		"axios": "^1.7.7",
 		"lucide-react": "^0.439.0",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
+		"react-cookie": "^7.2.0",
 		"react-dom": "^16.8.4",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
