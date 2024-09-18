@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
+import base64
 
 db = SQLAlchemy()
   
@@ -90,8 +90,10 @@ class User(db.Model):
         "gender": self.gender.name if self.gender else None,
         "gender_to_show": self.gender_to_show.name if self.gender_to_show else None,
         "subscription": self.subscription.name if self.subscription else None,
-        "role": self.role
+        "role": self.role,
+        "image": base64.b64encode(self.image).decode('utf-8') if self.image else None
     }
+    
 
 class Review(db.Model):
   id = db.Column(db.Integer, primary_key=True)

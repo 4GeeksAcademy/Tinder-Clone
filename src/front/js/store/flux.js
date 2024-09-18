@@ -1,8 +1,11 @@
+import { Rss } from "lucide-react";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
       users: [],
-      reviews: []
+      reviews: [],
+      genders: [],
 		},
 		actions: {
 			getReviews: async () => {
@@ -24,7 +27,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
       registerUserData: async(registerUserData) => {
         try{
-          const res = await fetch(process.env.BACKEND_URL+"register", {
+          const res = await fetch(process.env.BACKEND_URL+"/register", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -40,7 +43,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error
         }        
       },
-      getUsers: async ()=>{
+      getUsers: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/users",{
             method:"GET"
@@ -51,7 +54,21 @@ const getState = ({ getStore, getActions, setStore }) => {
             return data
           }
         } catch (error) {
-          
+          throw error
+        }
+      },
+      getGenders: async () => {
+        try{
+          const res = await fetch(process.env.BACKEND_URL + "/genders", {
+            method: 'GET'
+          })
+          const data = await res.json()
+          if(res.ok){
+            setStore({...getStore(), genders:data})
+            return data
+          }
+        }catch(error){
+          throw error
         }
       }
 		}

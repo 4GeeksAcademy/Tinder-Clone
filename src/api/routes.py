@@ -1,7 +1,8 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-import datetime
+from datetime import datetime
+import base64
 
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import Gender, db, User, Payment, Subscription, Review
@@ -136,11 +137,31 @@ def delete_subscription(subscription_id):
     db.session.commit()
     return jsonify({'message': 'Subscription deleted successfully'})
 
+# Calculate the age of a user
+def calculate_age(birthdate):
+  today = datetime.today()
+  birthdate = datetime.strptime(birthdate, '%Y-%m-%d')
+  age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+  return age
+
 # User CRUD
 @api.route('/register', methods=['POST'])
 def register():
   try:
     data = request.json
+    birthdate = data.get('age')
+    
+    if 'image' in data and len(data['image']) > 0:
+      base64_str = data['image'][0].split(',')[1]
+      image_data = base64.b64decode(base64_str)
+    else:
+      image_data = None
+      
+    try:
+        age = calculate_age(birthdate)
+    except ValueError:
+        return jsonify({"error": "Invalid date format"}), 400
+      
     password = data.get('password')
     
     print("Password:", password)  # Imprime el valor de password
@@ -166,11 +187,12 @@ def register():
         email=data.get('email'),
         password=hashed_password,
         country=data.get('country'),
-        age=data.get('age'),
+        age=str(age),
         gender_id=data.get('gender_id'),
         gender_to_show_id=data.get('gender_to_show_id'),
         subscription_id=data.get('subscription_id'),
-        role=data.get('role')  # Cambiado de data['role'] a data.get('role')
+        role=data.get('role'),  # Cambiado de data['role'] a data.get('role')
+        image = image_data
     )
     db.session.add(new_user)
     db.session.commit()

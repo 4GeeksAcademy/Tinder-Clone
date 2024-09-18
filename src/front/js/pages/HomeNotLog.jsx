@@ -25,7 +25,7 @@ export const HomeNotLog = () => {
             <footer style={{ backgroundColor: '#111418', zIndex: '1' }} >
                 <div className="container-fluid m-0 p-0" >
                     <div className="container d-flex justify-content-between wrapper pt-4 text-light" style={{ maxWidth: '80vw', overflowX: 'auto', columnGap: '30px' }}>
-                        {store.reviews?.map((review,index) => <HomeNotLogFooter key={index} name={store.users.find(user=>user.id===review.user_id).name} content={review.content}/>)}
+                        {store.users?.length > 0 && store.reviews?.map((review,index) => <HomeNotLogFooter key={index} name={store.users.find(user=>user.id===review.user_id).name} content={review.content}/>)}
                     </div>
                     <div className="container" style={{zIndex: '2'}}>
                         <h2 style={{ color: "white" }}> REDES SOCIALES</h2>
