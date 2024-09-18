@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			getReviews: async () => {
         try{
-          const response = await fetch("https://reimagined-journey-x5rwxjw5jx97fgwq-3001.app.github.dev/api/reviews",{
+          const response = await fetch(process.env.BACKEND_URL + "/reviews",{
             method:'GET'
           });
           console.log(response)
@@ -24,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
       registerUserData: async(registerUserData) => {
         try{
-          const res = await fetch(process.env.BACKEND_URL+"register", {
+          const res = await fetch(process.env.BACKEND_URL+"/register", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -42,8 +42,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getUsers: async ()=>{
         try {
-          const resp = await fetch("https://reimagined-journey-x5rwxjw5jx97fgwq-3001.app.github.dev/api/users",{
-            method:"GET",
+          const resp = await fetch(process.env.BACKEND_URL + "/users",{
+            method:"GET"
           })
           if(resp.status===200){
             const data = await resp.json()
