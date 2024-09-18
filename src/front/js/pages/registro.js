@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react'
+import { Context } from '../store/appContext'
 
 export const Registro = () => {
+  const { store, actions } = useContext(Context);
+
+  useEffect(() => {
+    actions.getGenders()
+  }, [])
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    name: '',
     fechaNacimiento: '',
-    sexo: 'hombre',
+    role: '',
+    sexo: 0,
     mostrarGenero: true,
-    mostrar: 'mujeres',
-    busco: 'Relación',
-    fotos: Array(6).fill(null),
+    mostrar: 0,
+    busco: '',
+    fotos: Array(1).fill(null),
     intereses: ['Meditación', 'Spotify', 'Correr', 'Viajar', 'Freelance'],
     orientacionSexual: ['Heterosexual']
   });
@@ -18,7 +27,7 @@ export const Registro = () => {
     const { name, value, type, checked } = e.target;
     setFormData(prevState => ({
       ...prevState,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : (type === 'radio' ? value : value)
     }));
   };
 
@@ -30,12 +39,19 @@ export const Registro = () => {
   };
 
   const handleFotoChange = (e, index) => {
-    const newFotos = [...formData.fotos];
-    newFotos[index] = e.target.files[0];
-    setFormData(prevState => ({
-      ...prevState,
-      fotos: newFotos
-    }));
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const newFotos = [...formData.fotos];
+      newFotos[index] = reader.result;
+      setFormData(prevState => ({
+        ...prevState,
+        fotos: newFotos
+      }));
+    }
+    if(file){
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleInteresesChange = (interes) => {
@@ -56,9 +72,26 @@ export const Registro = () => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const formDataToSend = {
+      email: formData.email,
+      password: formData.password,
+      name: formData.nombres,
+      age: formData.fechaNacimiento,
+      gender_id: formData.sexo,
+      gender_to_show_id: formData.mostrar,
+      role: formData.role,
+      image: formData.fotos,
+    }
+    console.log(formDataToSend)
+    actions.registerUserData(formDataToSend)
+  }
+
   return (
     <div className="container">
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h1>Crear Una Cuenta</h1>
         <div className="form-group">
           <label htmlFor="email">Dirección de correo electrónico</label>
@@ -103,19 +136,37 @@ export const Registro = () => {
           />
         </div>
         <div className="form-group">
-          <label>Sexo</label>
+          <label>Rol</label>
           <div className="radio-group">
-            {['hombre', 'mujer', 'mas'].map((option) => (
-              <React.Fragment key={option}>
+            {['Sponsor', 'Finder'].map((option, index) => (
+              <React.Fragment key={index}>
                 <input
                   type="radio"
-                  id={option}
-                  name="sexo"
+                  id={`role-${option}`}
+                  name="role"
                   value={option}
-                  checked={formData.sexo === option}
+                  checked={formData.role === option}
                   onChange={handleInputChange}
                 />
-                <label htmlFor={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</label>
+                <label htmlFor={`role-${option}`}>{option}</label>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+        <div className="form-group">
+          <label>Sexo</label>
+          <div className="radio-group">
+            {store.genders?.map((option, index) => (
+              <React.Fragment key={index}>
+                <input
+                  type="radio"
+                  id={`sexo-${option.id}`}
+                  name="sexo"
+                  value={option.id}
+                  checked={Number(formData.sexo) === option.id}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor={`sexo-${option.id}`}>{option.name}</label>
               </React.Fragment>
             ))}
           </div>
@@ -133,17 +184,17 @@ export const Registro = () => {
         <div className="form-group">
           <label>Muéstrame</label>
           <div className="radio-group">
-            {['hombres', 'mujeres', 'todos'].map((option) => (
-              <React.Fragment key={option}>
+            {store.genders.map((option, index) => (
+              <React.Fragment key={index}>
                 <input
                   type="radio"
-                  id={option}
+                  id={`mostrar-${option.id}`}
                   name="mostrar"
-                  value={option}
-                  checked={formData.mostrar === option}
+                  value={option.id}
+                  checked={Number(formData.mostrar) === option.id}
                   onChange={handleInputChange}
                 />
-                <label htmlFor={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</label>
+                <label htmlFor={`mostrar-${option.id}`}>{option.name}</label>
               </React.Fragment>
             ))}
           </div>
@@ -229,9 +280,11 @@ export const Registro = () => {
       <style jsx>{`
         .container {
           display: flex;
+          width: 100%;
           justify-content: center;
           align-items: center;
           min-height: 100vh;
+          max-width: 1980px !important; 
           font-family: 'Proxima Nova', 'Helvetica Neue', Arial, Helvetica, sans-serif;
           background-color: #1f1f1f;
           color: white;
