@@ -16,7 +16,7 @@ export const HomeNotLog = () => {
         <section>
             <div className="container-fluid bg-img-home" style={{ backgroundImage: `url(${background})`, opacity: '0.7'}}>
                 <header className="mb-5" style={{ position: 'sticky', top: 0, color: 'white', opacity: 'none' }}>
-                    <HomeNotLogHeader />
+                    <HomeNotLogHeader isDisplayed={true}/>
                 </header>
                 <div className="container-fluid d-flex my-auto" style={{zIndex: '2'}}>
                     <HomeNotLogBody />

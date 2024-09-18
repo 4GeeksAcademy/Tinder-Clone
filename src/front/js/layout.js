@@ -14,6 +14,7 @@ import {HomeNotLog} from "./pages/HomeNotLog.jsx"
 import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
 import { Registro } from "./pages/registro.js";
 import { Dashboard } from "./pages/Dashboard.jsx"
+import { HomeSecurity } from "./pages/HomeSecurity.jsx";
 
 //create your first component
 const Layout = () => {
@@ -32,6 +33,7 @@ const Layout = () => {
                         <Route element={<HomeMoreInfo/>} path="/Moreinfo"/>
                         <Route element={<Registro/>} path="/register"/>
                         <Route element={<Dashboard/>} path="/dashboard"/>
+                        <Route element={<HomeSecurity/>} path="/Security"/>
                         {/* <Route element={<Home />} path="/user/:id" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
