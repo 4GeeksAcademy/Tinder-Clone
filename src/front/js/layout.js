@@ -13,7 +13,7 @@ import { Footer } from "./component/footer";
 import {HomeNotLog} from "./pages/HomeNotLog.jsx"
 import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
 import { Registro } from "./pages/registro.js";
-import { Dashboard } from "./pages/Dashboard.js"
+import { Dashboard } from "./pages/Dashboard.jsx"
 
 //create your first component
 const Layout = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import MatchesDisplay from './MatchesDisplay.jsx'
 import { useState } from 'react'
 
-const MatchesContainer = ({ user }) => {
+ const MatchesContainer = ({ user }) => {
     const [ clickedUser, setClickedUser ] = useState(null)
 
     return (
