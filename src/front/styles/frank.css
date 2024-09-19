@@ -84,13 +84,13 @@ section>p{
         font-weight: bold;
         color:white !important;
     }
- 
-    /* HomeSubscription */
-
-    .stack-container{
-        position: relative;
-    }
-    .stack{
-        position: absolute;
-    }
+       
+}
+/* HomeSubscription */
+.header-subscription{
+    height:60dvh;
+    background-color: black;
+} 
+.stack-container{
+    
 }
