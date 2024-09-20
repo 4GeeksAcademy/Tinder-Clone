@@ -70,6 +70,7 @@ class User(db.Model):
   subscription_id = db.Column(db.Integer, db.ForeignKey('subscription.id'), nullable=True)
   role = db.Column(db.String(120), nullable=True)
   image = db.Column(db.LargeBinary, nullable = True)
+  preferences_set = db.Column(db.Boolean, default = False)
 
   #relationship
   gender = db.relationship('Gender', foreign_keys=[gender_id])
@@ -91,7 +92,8 @@ class User(db.Model):
         "gender_to_show": self.gender_to_show.name if self.gender_to_show else None,
         "subscription": self.subscription.name if self.subscription else None,
         "role": self.role,
-        "image": base64.b64encode(self.image).decode('utf-8') if self.image else None
+        "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
+        "preferences_set": self.preferences_set
     }
     
 

@@ -47,6 +47,11 @@ const NewPostButton = () => {
       // console.log("Registered"): 
       // alert('Los datos no coinciden. Por favor, verifica e intenta de nuevo.')
       await actions.registerUserData(userToRegister)
+      .then(data => {
+        if(data && !data.error){
+          handleClose()
+        }
+      })
     }catch(error){
       console.error('Error al obtener datos:', error);
       throw error

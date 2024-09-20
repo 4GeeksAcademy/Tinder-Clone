@@ -38,7 +38,12 @@ const NewLoginButton = () => {
     actions.loginUserData(userDataLogin)
       .then(data => {
         if(data && !data.error){
-          navigate('/dashboard');
+          const userData = JSON.parse(localStorage.getItem('userDataLogin'))
+          if(userData && userData.preferences_set){
+            navigate('/dashboard');
+          }else{
+            navigate('/preferences');
+          }
         }
       })
       .catch((error) => {

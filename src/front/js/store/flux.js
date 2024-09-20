@@ -81,6 +81,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           if(!res.ok){
             throw new Error(data.msg)
           }
+          
+          const existingUserData = JSON.parse(localStorage.getItem('userDataLogin'))
+          existingUserData.preferences_set = data.preferences_set
+          localStorage.setItem('userDataLogin', JSON.stringify(existingUserData))
+
           return data
         }catch(error){
           throw error
