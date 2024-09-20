@@ -46,9 +46,9 @@ export const HomeNotLogHeader = ({isDisplayed}) => {
                                         Niveles de suscripción
                                     </p>
                                     <ul className="dropdown-menu bg-transparent border border-0">
-                                        <li><a className="dropdown-item navbar-opt" href="#" style={{ color: 'white' }}>Free</a></li>
-                                        <li><a className="dropdown-item navbar-opt" href="#" style={{ color: 'white' }}>Premiun</a></li>
-                                        <li><a className="dropdown-item navbar-opt" href="#" style={{ color: 'white' }}>Vip</a></li>
+                                        <li ><p onClick={onClickHandler('Subscription')} className="dropdown-item navbar-opt" href="#" style={{ cursor:'default',color: 'white' }}>Free</p></li>
+                                        <li ><p onClick={onClickHandler('Subscription')} className="dropdown-item navbar-opt" href="#" style={{ cursor:'default',color: 'white' }}>Premiun</p></li>
+                                        <li ><p onClick={onClickHandler('Subscription')} className="dropdown-item navbar-opt" href="#" style={{ cursor:'default',color: 'white' }}>Vip</p></li>
                                     </ul>
                                 </li>
                                 <li className="nav-item d-flex align-items-center ">
