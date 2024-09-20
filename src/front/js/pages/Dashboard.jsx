@@ -69,24 +69,24 @@ export const Dashboard = () => {
                             })}
                         </div>
                         <div>
-      <button className="return-button">
-      <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />     </button>
-      <button className="no-button">
-      <FontAwesomeIcon icon="fa-solid fa-x" />
-      </button>
-      <button className="super-like-button">
-      <FontAwesomeIcon icon="fa-solid fa-star" />
-      </button>
-      <button className="super-like-button">
-      <FontAwesomeIcon icon="fa-solid fa-heart" />
-      </button>
-      <button className="super-like-button">
-      <FontAwesomeIcon icon="fa-solid fa-bolt" />
-      </button>
-    </div>
+                            <button className="return-button">
+                                <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />     </button>
+                            <button className="no-button">
+                                <FontAwesomeIcon icon="fa-solid fa-x" />
+                            </button>
+                            <button className="super-like-button">
+                                <FontAwesomeIcon icon="fa-solid fa-star" />
+                            </button>
+                            <button className="super-like-button">
+                                <FontAwesomeIcon icon="fa-solid fa-heart" />
+                            </button>
+                            <button className="super-like-button">
+                                <FontAwesomeIcon icon="fa-solid fa-bolt" />
+                            </button>
+                        </div>
                     </div>
                 </div>}
-            <style jsx="true" >{`
+            <style jsx="true">{`
               .img-list-users {
                 width: 100%;
                 height: 100%;
