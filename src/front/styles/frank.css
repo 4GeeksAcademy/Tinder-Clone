@@ -83,6 +83,41 @@ section>p{
         background-color: 	#fe3c72 !important;
         font-weight: bold;
         color:white !important;
-    }
-    
+    }    
 }
+/* styles for card of subscriptions levels */
+.sub-lvl{
+    height: 250px;
+    width:300px;
+    background-color: #111418;
+}
+section{
+    min-width: 320px;
+}
+ul.card-lvl-body{
+    color:#A9BFC8
+}
+h2.card-lvl-title{
+    color:#F0F2F4;
+    font-size: 2rem;
+    font-style: normal;
+}
+.sub-table{
+    color: #F0F2F4
+}
+table>thead>tr{
+    font-size: 2rem;
+}
+table>tbody>tr>th{
+    font-size: 1rem;
+    font-weight: normal;
+}
+thead>tr{
+    background-color: #000000;
+}
+/* @media(min-width:895px){
+    .sub-lvl{
+        min-height: 320px;
+        min-width:300px;
+    }
+} */
