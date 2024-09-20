@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
+import {useNavigate} from 'react-router-dom'
 import { Context } from '../store/appContext'
 
 export const Registro = () => {
@@ -7,6 +8,8 @@ export const Registro = () => {
   useEffect(() => {
     actions.getGenders()
   }, [])
+
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     email: '',
@@ -87,6 +90,7 @@ export const Registro = () => {
     }
     console.log(formDataToSend)
     actions.registerUserData(formDataToSend)
+    navigate('/')
   }
 
   return (
