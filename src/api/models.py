@@ -68,7 +68,7 @@ class User(db.Model):
   gender_id = db.Column(db.Integer, db.ForeignKey('gender.id'), nullable=True)
   gender_to_show_id = db.Column(db.Integer, db.ForeignKey('gender.id'), nullable=True)
   subscription_id = db.Column(db.Integer, db.ForeignKey('subscription.id'), nullable=True)
-  role = db.Column(db.String(120), nullable=False)
+  role = db.Column(db.String(120), nullable=True)
   image = db.Column(db.LargeBinary, nullable = True)
 
   #relationship
