@@ -220,6 +220,7 @@ def preferences():
     user.subscription_id = data.get('subscription_id', user.subscription_id)
     user.role = data.get('role', user.role)
     user.image = image_data if image_data else user.image
+    user.preferences_set = True
         
     db.session.commit()
     return jsonify(user.serialize()), 201
@@ -239,7 +240,12 @@ def login():
 
     if user and check_password_hash(user.password, password):
         access_token = create_access_token(identity=user.id)
-        return jsonify({'access_token': access_token, 'name': user.name, 'email': user.email}), 200
+        return jsonify({
+          'access_token': access_token, 
+          'name': user.name, 
+          'email': user.email,
+          'preferences_set': user.preferences_set
+        }), 200
     else:
         return jsonify({"error": "Bad email or password"}), 401
 

@@ -88,11 +88,16 @@ export const Registro = () => {
       gender_id: formData.sexo,
       gender_to_show_id: formData.mostrar,
       role: formData.role,
-      image: formData.fotos,
+      image: formData.fotos
     }
     console.log(formDataToSend)
     console.log(data.access_token)
     actions.preferencesUserData(formDataToSend, data.access_token)
+    .then(data => {
+      if(data && !data.error){
+        navigate('/dashboard')
+      }
+    })
   }
 
   return (
@@ -261,7 +266,7 @@ export const Registro = () => {
         </div>
         <button type="submit" className="submit-button">Continuar</button>
       </form>
-      <style jsx>{`
+      <style jsx="true">{`
         .container {
           display: flex;
           width: 100%;

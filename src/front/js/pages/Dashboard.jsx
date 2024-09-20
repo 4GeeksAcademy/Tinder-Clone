@@ -70,7 +70,7 @@ export const Dashboard = () => {
                     </div>
                 </div>
             </div>}
-            <style jsx>{`
+            <style jsx="true">{`
               .img-list-users {
                 width: 100%;
                 height: 100%;
