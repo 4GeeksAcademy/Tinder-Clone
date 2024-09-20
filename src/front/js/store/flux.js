@@ -6,7 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       users: [],
       reviews: [],
       genders: [],
-      userToVerify: {}
+      userToVerify: {},
+      userDataLogin: {},
 		},
 		actions: {
 			getReviews: async () => {
@@ -34,6 +35,47 @@ const getState = ({ getStore, getActions, setStore }) => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(registerUserData)
+          })
+          const data = await res.json()
+          if(!res.ok){
+            throw new Error(data.msg)
+          }
+          return data
+        }catch(error){
+          throw error
+        }        
+      },
+      loginUserData: async(loginUserData) => {
+        try{
+          const res = await fetch(process.env.BACKEND_URL+"/login", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginUserData)
+          })
+          const data = await res.json()
+          if(!res.ok){
+            throw new Error(data.msg)
+          }
+          if(data.access_token){
+            localStorage.setItem('userDataLogin', JSON.stringify(data))
+          }
+          setStore({...getStore(),userDataLogin:data})
+          return data
+        }catch(error){
+          throw error
+        }        
+      },
+      preferencesUserData: async(preferencesUserData, token) => {
+        try{
+          const res = await fetch(process.env.BACKEND_URL+"/preferences", {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(preferencesUserData)
           })
           const data = await res.json()
           if(!res.ok){

@@ -15,6 +15,7 @@ import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
 import { Registro } from "./pages/registro.js";
 import { Dashboard } from "./pages/Dashboard.jsx"
 import { HomeSecurity } from "./pages/HomeSecurity.jsx";
+import PrivateRoute from "./component/Private_route/PrivateRoute.jsx";
 
 //create your first component
 const Layout = () => {
@@ -31,7 +32,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<HomeNotLog />} path="/" />
                         <Route element={<HomeMoreInfo/>} path="/Moreinfo"/>
-                        <Route element={<Registro/>} path="/register"/>
+                        <Route element={<PrivateRoute><Registro/></PrivateRoute>} path="/register"/>
                         <Route element={<Dashboard/>} path="/dashboard"/>
                         <Route element={<HomeSecurity/>} path="/Security"/>
                         {/* <Route element={<Home />} path="/user/:id" />

@@ -26,6 +26,8 @@ export const Registro = () => {
     orientacionSexual: ['Heterosexual']
   });
 
+  const data = JSON.parse(localStorage.getItem('userDataLogin'))
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prevState => ({
@@ -49,7 +51,7 @@ export const Registro = () => {
       newFotos[index] = reader.result;
       setFormData(prevState => ({
         ...prevState,
-        fotos: newFotos
+        fotos: newFotos 
       }));
     }
     if(file){
@@ -89,35 +91,14 @@ export const Registro = () => {
       image: formData.fotos,
     }
     console.log(formDataToSend)
-    actions.registerUserData(formDataToSend)
-    navigate('/')
+    console.log(data.access_token)
+    actions.preferencesUserData(formDataToSend, data.access_token)
   }
 
   return (
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
         <h1>Crear Una Cuenta</h1>
-        <div className="form-group">
-          <label htmlFor="email">Dirección de correo electrónico</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </div>
-        
         <div className="form-group">
           <label htmlFor="nombres">Nombre para tu perfil</label>
           <input
@@ -128,7 +109,6 @@ export const Registro = () => {
             onChange={handleInputChange}
           />
         </div>
-        
         <div className="form-group">
           <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
           <input
