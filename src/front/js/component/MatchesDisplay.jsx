@@ -12,6 +12,7 @@ const MatchesDisplay = () => {
   return (
     <>
     <div className="matches-display">
+      <div className="match-grid">
       {/* {filteredMatchedProfiles && filteredMatchedProfiles */}
       {store.users.map((match, _index) => {
         const profilePicture = `data:image/jpeg;base64,${match.image}`;
@@ -24,11 +25,12 @@ const MatchesDisplay = () => {
             <div className="img-container">
               {/* Since the API doesn't provide a URL for the user's image, we'll use a placeholder */}
               <img src={profilePicture} alt={match.name + "profile"} />
+              <p className="match-Name">{match.name}</p>
             </div>
-            <h3>{match.name}</h3>
           </div>
         )
     })}
+    </div>
     </div>
     </>
   );
