@@ -86,14 +86,6 @@ export const Dashboard = () => {
                         </div>
                     </div>
                 </div>}
-            <style jsx="true">{`
-              .img-list-users {
-                width: 100%;
-                height: 100%;
-                border-radius: 30px;
-                pointer-events: none;
-              }
-            `}</style>
         </>
 
 
