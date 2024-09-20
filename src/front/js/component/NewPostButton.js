@@ -10,7 +10,9 @@ const NewPostButton = () => {
     dni: '',
     nombres: '',
     apellidoPaterno: '',
-    apellidoMaterno: ''
+    apellidoMaterno: '',
+    email: '',
+    password: ''
   });
   const navigate = useNavigate(); // Inicializa navigate
 
@@ -30,15 +32,23 @@ const NewPostButton = () => {
     const dniToVerify = {
       dni: formData.dni
     }
+    const userToRegister = {
+      email: formData.email,
+      password: formData.password,
+    }
+
     try{
-      await actions.sendDataToVerifyIdentity(dniToVerify.dni)
-      const userToVerify = store.userToVerify
-      console.log(userToVerify)
+      // await actions.sendDataToVerifyIdentity(dniToVerify.dni)
+      // const userToVerify = store.userToVerify
+      // console.log(userToVerify)
       
-      userToVerify.apellido_paterno === formData.apellidoPaterno && userToVerify.apellido_materno === formData.apellidoMaterno ? navigate('/register') : alert('Los datos no coinciden. Por favor, verifica e intenta de nuevo.')
+      // userToVerify.apellido_paterno === formData.apellidoPaterno && 
+      // userToVerify.apellido_materno === formData.apellidoMaterno ? 
+      // console.log("Registered"): 
+      // alert('Los datos no coinciden. Por favor, verifica e intenta de nuevo.')
+      await actions.registerUserData(userToRegister)
     }catch(error){
       console.error('Error al obtener datos:', error);
-      actions.sendDataToVerifyIdentity(dniToVerify.dni)
       throw error
     }
 
@@ -144,6 +154,26 @@ const NewPostButton = () => {
                 type="text"
                 name="apellidoMaterno"
                 value={formData.apellidoMaterno}
+                onChange={handleInputChange}
+                style={styles.input}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formEmail" style={styles.formGroup}>
+              <Form.Label style={styles.label}>Correo electrónico</Form.Label>
+              <Form.Control
+                type="text"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                style={styles.input}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formPassword" style={styles.formGroup}>
+              <Form.Label style={styles.label}>Contraseña</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={formData.password}
                 onChange={handleInputChange}
                 style={styles.input}
               />
