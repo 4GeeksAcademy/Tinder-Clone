@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import TinderCard from 'react-tinder-card';
 import MatchesContainer from '../component/MatchesContainer.jsx';
 import { Context } from "../store/appContext.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
 
 export const Dashboard = () => {
     const [user, setUser] = useState({ id: 1, gender_interest: 'male' });
@@ -9,7 +12,7 @@ export const Dashboard = () => {
     const [lastDirection, setLastDirection] = useState("");
     const [matchedUserIds, setMatchedUserIds] = useState([]);
     const [users, setUsers] = useState([]);
-    const {actions, store} = useContext(Context)
+    const { actions, store } = useContext(Context)
 
     useEffect(() => {
         actions.getUsers()
@@ -42,35 +45,48 @@ export const Dashboard = () => {
     return (
         <>
             {user &&
-            <div className="dashboard">
-                <MatchesContainer user={user}/>
-                <div className="swipe-container">
-                    <div className="card-container">
+                <div className="dashboard">
+                    <MatchesContainer user={user} />
+                    <div className="swipe-container">
+                        <div className="card-container">
 
-                    {store.users.map((genderedUser) => {
-                      // Capturar el código base64 desde la propiedad 'image'
-                      const profilePicture = `data:image/jpeg;base64,${genderedUser.image}`;
+                            {store.users.map((genderedUser) => {
+                                // Capturar el código base64 desde la propiedad 'image'
+                                const profilePicture = `data:image/jpeg;base64,${genderedUser.image}`;
 
-                      return (
-                          <TinderCard
-                              className="swipe"
-                              key={genderedUser.id}
-                              onSwipe={(dir) => swiped(dir, genderedUser.id)}
-                              onCardLeftScreen={() => outOfFrame(genderedUser.name)}>
-                              <div className="card">
-                                <h3>{genderedUser.name}</h3>
-                                <img className="img-list-users" src={profilePicture} alt={genderedUser.name + "profile"} />
-                              </div>
-                          </TinderCard>
-                      );
-                  })}
-                        <div className="swipe-info">
-                            {lastDirection ? <p>You swiped {lastDirection}</p> : <p/>}
+                                return (
+                                    <TinderCard
+                                        className="swipe"
+                                        key={genderedUser.id}
+                                        onSwipe={(dir) => swiped(dir, genderedUser.id)}
+                                        onCardLeftScreen={() => outOfFrame(genderedUser.name)}>
+                                        <div className="card">
+                                            <h3>{genderedUser.name}</h3>
+                                            <img className="img-list-users" src={profilePicture} alt={genderedUser.name + "profile"} />
+                                        </div>
+                                    </TinderCard>
+                                );
+                            })}
                         </div>
+                        <div>
+      <button className="return-button">
+      <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />     </button>
+      <button className="no-button">
+      <FontAwesomeIcon icon="fa-solid fa-x" />
+      </button>
+      <button className="super-like-button">
+      <FontAwesomeIcon icon="fa-solid fa-star" />
+      </button>
+      <button className="super-like-button">
+      <FontAwesomeIcon icon="fa-solid fa-heart" />
+      </button>
+      <button className="super-like-button">
+      <FontAwesomeIcon icon="fa-solid fa-bolt" />
+      </button>
+    </div>
                     </div>
-                </div>
-            </div>}
-            <style jsx>{`
+                </div>}
+            <style>{`
               .img-list-users {
                 width: 100%;
                 height: 100%;
@@ -79,8 +95,8 @@ export const Dashboard = () => {
               }
             `}</style>
         </>
-        
-        
+
+
     )
 }
 export default Dashboard

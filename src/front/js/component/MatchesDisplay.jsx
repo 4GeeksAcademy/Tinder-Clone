@@ -7,26 +7,10 @@ const MatchesDisplay = () => {
   const [clickedUser, setClickedUser] = useState(null);
   const {store, actions} = useContext(Context)
 
-
-  
-  // const matchesData = [
-  //   { id: 1, userId: 1, matches: [2, 3] },
-  //   { id: 2, userId: 2, matches: [1, 4] },
-  //   { id: 3, userId: 3, matches: [1, 2] },
-  //   { id: 4, userId: 4, matches: [2, 3] },
-  // ];
-
-
-  // let filteredMatchedProfiles = [];
-  // if (matchedProfiles && matches) {
-  //   filteredMatchedProfiles = matchedProfiles.filter((matchedProfile) =>
-  //     matches.find((match) => match.userId === matchedProfile.id)
-  //   );
-  // }
-
   
 
   return (
+    <>
     <div className="matches-display">
       {/* {filteredMatchedProfiles && filteredMatchedProfiles */}
       {store.users.map((match, _index) => {
@@ -46,6 +30,7 @@ const MatchesDisplay = () => {
         )
     })}
     </div>
+    </>
   );
 };
 
