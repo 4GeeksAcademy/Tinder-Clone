@@ -16,6 +16,7 @@ import { Registro } from "./pages/registro.js";
 import { Dashboard } from "./pages/Dashboard.jsx"
 import { HomeSecurity } from "./pages/HomeSecurity.jsx";
 
+import {HomeSubscriptionLevels} from "./pages/HomeSubscriptionLevels.jsx"
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -31,9 +32,10 @@ const Layout = () => {
                     <Routes>
                         <Route element={<HomeNotLog />} path="/" />
                         <Route element={<HomeMoreInfo/>} path="/Moreinfo"/>
-                        <Route element={<Registro/>} path="/register"/>
+                        <Route element={<PrivateRoute><Registro/></PrivateRoute>} path="/preferences"/>
                         <Route element={<Dashboard/>} path="/dashboard"/>
                         <Route element={<HomeSecurity/>} path="/Security"/>
+                        <Route element={<HomeSubscriptionLevels/>} path="/Subscription"/>
                         {/* <Route element={<Home />} path="/user/:id" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />

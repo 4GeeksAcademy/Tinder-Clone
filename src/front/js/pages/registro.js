@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
+import {useNavigate} from 'react-router-dom'
 import { Context } from '../store/appContext'
 
 export const Registro = () => {
@@ -7,6 +8,8 @@ export const Registro = () => {
   useEffect(() => {
     actions.getGenders()
   }, [])
+
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     email: '',
@@ -22,6 +25,8 @@ export const Registro = () => {
     intereses: ['Meditación', 'Spotify', 'Correr', 'Viajar', 'Freelance'],
     orientacionSexual: ['Heterosexual']
   });
+
+  const data = JSON.parse(localStorage.getItem('userDataLogin'))
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -46,7 +51,7 @@ export const Registro = () => {
       newFotos[index] = reader.result;
       setFormData(prevState => ({
         ...prevState,
-        fotos: newFotos
+        fotos: newFotos 
       }));
     }
     if(file){
@@ -83,37 +88,22 @@ export const Registro = () => {
       gender_id: formData.sexo,
       gender_to_show_id: formData.mostrar,
       role: formData.role,
-      image: formData.fotos,
+      image: formData.fotos
     }
     console.log(formDataToSend)
-    actions.registerUserData(formDataToSend)
+    console.log(data.access_token)
+    actions.preferencesUserData(formDataToSend, data.access_token)
+    .then(data => {
+      if(data && !data.error){
+        navigate('/dashboard')
+      }
+    })
   }
 
   return (
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
         <h1>Crear Una Cuenta</h1>
-        <div className="form-group">
-          <label htmlFor="email">Dirección de correo electrónico</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </div>
-        
         <div className="form-group">
           <label htmlFor="nombres">Nombre para tu perfil</label>
           <input
@@ -124,7 +114,6 @@ export const Registro = () => {
             onChange={handleInputChange}
           />
         </div>
-        
         <div className="form-group">
           <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
           <input
@@ -277,7 +266,7 @@ export const Registro = () => {
         </div>
         <button type="submit" className="submit-button">Continuar</button>
       </form>
-      <style jsx>{`
+      <style jsx="true">{`
         .container {
           display: flex;
           width: 100%;

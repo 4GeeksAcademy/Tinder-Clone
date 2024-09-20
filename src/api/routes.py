@@ -156,11 +156,46 @@ def calculate_age(birthdate):
   return age
 
 # User CRUD
+# Firts endpoint to register a user
 @api.route('/register', methods=['POST'])
 def register():
+  data = request.json
+  password = data.get('password')
+  
   try:
+    existing_email = User.query.filter_by(email=data['email']).first()
+    if existing_email:
+      return jsonify({"msg": "Email already in use"}), 400
+    
+    hashed_password = generate_password_hash(password)
+    
+    new_user = User(
+        email=data['email'],
+        password=hashed_password,
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify(new_user.serialize()), 201
+  except Exception as e:
+    return jsonify({"msg": str(e)}), 500
+
+# Second endpoint to register preferences from a user
+@api.route('/preferences', methods=['PUT'])
+@jwt_required()
+def preferences():
+  try:
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if not user:
+      return jsonify({"error": "User not found"}), 404
+    
+    
     data = request.json
     birthdate = data.get('age')
+    
+    if not user:
+      return jsonify({"msg": "User not found"}), 404
     
     if 'image' in data and len(data['image']) > 0:
       base64_str = data['image'][0].split(',')[1]
@@ -172,44 +207,25 @@ def register():
         age = calculate_age(birthdate)
     except ValueError:
         return jsonify({"error": "Invalid date format"}), 400
-      
-    password = data.get('password')
     
-    print("Password:", password)  # Imprime el valor de password
-    print("Type of password:", type(password))  # Imprime el tipo de password
+    if 'email' in data and data['email']:
+        user.email = data['email']
     
-    if not password:
-        return jsonify({"msg": "Password is required"}), 400
-    
-    # Asegúrate de que password sea una cadena
-    if isinstance(password, tuple):
-        password = password[0] if password else ''
-    
-    existing_user = User.query.filter_by(email=data['email']).first()
-    if existing_user:
-      return jsonify({"msg": "Email already in use"}), 400
-    
-    print("Password after check:", password)  # Imprime el valor de password después de la verificación
-    print("Type of password after check:", type(password))  # Imprime el tipo de password después de la verificación
-    
-    hashed_password = generate_password_hash(password)
-    new_user = User(
-        name=data.get('name'),
-        email=data.get('email'),
-        password=hashed_password,
-        country=data.get('country'),
-        age=str(age),
-        gender_id=data.get('gender_id'),
-        gender_to_show_id=data.get('gender_to_show_id'),
-        subscription_id=data.get('subscription_id'),
-        role=data.get('role'),  # Cambiado de data['role'] a data.get('role')
-        image = image_data
-    )
-    db.session.add(new_user)
+
+    user.name = data.get('name', user.name)
+    user.country = data.get('country', user.country)
+    user.age = str(age)
+    user.gender_id = data.get('gender_id', user.gender_id)
+    user.gender_to_show_id = data.get('gender_to_show_id', user.gender_to_show_id)
+    user.subscription_id = data.get('subscription_id', user.subscription_id)
+    user.role = data.get('role', user.role)
+    user.image = image_data if image_data else user.image
+    user.preferences_set = True
+        
     db.session.commit()
-    return jsonify(new_user.serialize()), 201
+    return jsonify(user.serialize()), 201
   except Exception as e:
-    return jsonify({"msg": str(e)}), 500
+    return jsonify({"error": str(e)}), 500
   
 @api.route('/login', methods=['POST'])
 def login():
@@ -218,15 +234,20 @@ def login():
     password = data.get('password')
 
     if not email or not password:
-        return jsonify({"msg": "Missing email or password"}), 400
+        return jsonify({"error": "Missing email or password"}), 400
 
     user = User.query.filter_by(email=email).first()
 
     if user and check_password_hash(user.password, password):
         access_token = create_access_token(identity=user.id)
-        return jsonify(access_token=access_token, user = user.id), 200
+        return jsonify({
+          'access_token': access_token, 
+          'name': user.name, 
+          'email': user.email,
+          'preferences_set': user.preferences_set
+        }), 200
     else:
-        return jsonify({"msg": "Bad email or password"}), 401
+        return jsonify({"error": "Bad email or password"}), 401
 
 @api.route('/users', methods=['GET'])
 def get_users():
@@ -268,7 +289,7 @@ def create_review():
     results = list(map(lambda review: review.serialize(), reviews))
     return jsonify(results), 201
   except Exception as e:
-    return jsonify({"msg": str(e)}), 500
+    return jsonify({"error": str(e)}), 500
   
 # Crear un "Like" y verificar si hay match
 @api.route('/likes', methods=['POST'])
