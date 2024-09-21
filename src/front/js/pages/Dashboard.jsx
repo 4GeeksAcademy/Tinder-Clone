@@ -49,7 +49,6 @@ export const Dashboard = () => {
                     <MatchesContainer user={user} />
                     <div className="swipe-container">
                         <div className="card-container">
-
                             {store.users.map((genderedUser) => {
                                 // Capturar el código base64 desde la propiedad 'image'
                                 const profilePicture = `data:image/jpeg;base64,${genderedUser.image}`;
