@@ -6,7 +6,9 @@ export const HomeNotLogHeader = ({isDisplayed}) => {
     const [cursor, setCursor] = useState("pointer")
     const navigate = useNavigate();
     const onClickHandler = (link) => {
+      return () => {
         navigate(`/${link}`)
+      }
     }
     // const onMouseEnterHandler = (e) => {
     //     setCursor("pointer")

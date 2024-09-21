@@ -15,8 +15,8 @@ import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
 import { Registro } from "./pages/registro.js";
 import { Dashboard } from "./pages/Dashboard.jsx"
 import { HomeSecurity } from "./pages/HomeSecurity.jsx";
-
 import {HomeSubscriptionLevels} from "./pages/HomeSubscriptionLevels.jsx"
+import PrivateRoute from  "./component/Private_route/PrivateRoute.jsx";
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
