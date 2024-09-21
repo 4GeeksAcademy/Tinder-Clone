@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700;800&display=swap');
-
 html, body {
     margin: 0;
     padding: 0;
     text-align: center;
+    background-color: #212121; /* dark background color */
 }
 
 h2 {
     font-style: italic;
+    color: #fff; /* white text color */
 }
 
 * {
@@ -16,11 +16,11 @@ h2 {
 
 .primary-title {
     font-size: 90px;
-    color: rgb(255, 255, 255);
+    color: #fff; /* white text color */
 }
 
 .primary-button {
-    color: rgb(255,255,255);
+    color: #fff; /* white text color */
     text-transform: uppercase;
     font-size: 15px;
     background: linear-gradient(45deg, rgb(254, 48, 114), rgb(255, 89, 64));
@@ -34,25 +34,27 @@ h2 {
 }
 
 .secondary-button {
-    color: rgb(121, 119, 119);
-    background-color: rgb(255, 255, 255);
+    color: #fff; /* white text color */
+    background-color: #333; /* dark background color */
     font-weight: 500;
     font-size: 15px;
     text-transform: uppercase;
     padding: 12px 30px;
     border-radius: 30px;
-    border: solid 2px rgb(121, 119, 119);
+    border: solid 2px #fff; /* white border color */
     margin: 6px;
 }
 
 .secondary-button:hover {
-    color: rgb(48, 48, 48);
-    border: solid 2px rgb(48, 48, 48);
+    color: #fff; /* white text color */
+    border: solid 2px #fff; /* white border color */
 }
+
 /*-------- Dashboard  --------*/
 .dashboard {
     display: flex;
     justify-content: space-between;
+    background-color: #000000; /* dark background color */
 }
 
 .dashboard .swipe-container {
@@ -80,21 +82,25 @@ h2 {
     background-size: cover;
     background-position: center;
     user-select: none;
+    background-color: #333; /* dark background color */
 }
 
 .card h3 {
     margin-top: 0;
+    color: #fff; /* white text color */
 }
 
 .dashboard .swipe-info {
     position: absolute;
     bottom: 0;
     padding: 10px;
+    background-color: #333; /* dark background color */
+    color: #fff; /* white text color */
 }
 
 /*-------- Chat Container --------*/
 .chat-container {
-    background-color: rgb(255, 255, 255);
+    background-color: #333; /* dark background color */
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     width: 30%;
@@ -112,11 +118,12 @@ h2 {
 
 .chat-container .option {
     border: none;
-    background-color: rgb(255, 255, 255);
+    background-color: #333; /* dark background color */
     border-bottom: solid 4px rgb(243, 33, 33);
     font-size: 20px;
     margin: 2px;
     padding: 10px;
+    color: #fff; /* white text color */
 }
 
 .chat-container .option:disabled {
@@ -128,64 +135,126 @@ h2 {
     display: flex;
     align-items: center;
     padding: 20px;
-    color: rgb(255, 255, 255);
+    color: #fff; /* white text color */
 }
 
 .img-container {
-    height: 30px;
-    width: 30px;
-    border-radius: 15px;
+    position: relative;
+    height: 120px; /* adjust the size to your liking */
+    width: 80px; /* adjust the width to your liking */
+    border-radius: 10px; /* adjust the border radius to your liking */
     overflow: hidden;
     margin: 10px;
 }
 
 .img-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
+/* buttons */
 
+.return-button {
+    background-color: #333; /* dark background color */
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff; /* white text color */
+}
 
+.return-button:hover {
+    background-color: #444; /* dark hover background color */
+}
 
+.no-button {
+    background-color: #333; /* dark background color */
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 16px;
+    color: #fff; /* white text color */
+}
 
+.no-button:hover {
+    background-color: #444; /* dark hover background color */
+}
 
+.super-like-button {
+    background-color: #333; /* dark background color */
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 16px;
+    color: #fff; /* white text color */
+}
 
+.super-like-button:hover {
+    background-color: #444; /* dark hover background color */
+}
 
+/* Icon styles */
+.fa-arrow-rotate-left {
+    color: #3498db;
+}
 
+.fa-x {
+    color: #e74c3c;
+}
 
+.fa-star {
+    color: #f1c40f;
+}
 
+.fa-heart {
+    color: #e74c3c;
+}
 
+.fa-bolt {
+    color: #3498db;
+}
+.profile-picture {
+    width: 30px; /* adjust the width to your desired size */
+    height: 30px;
+    border-radius: 50%; /* make the image a circle */
+    object-fit: cover; /* ensure the image is scaled to fit the container */
+    border: 1px solid #ddd; /* add a border to distinguish the image */
+  }
+.profile-user {
+    padding: 10px
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+.userName {
+    padding: 10px;
+    color: white;
+}
+.setColor {
+    background-color: #ff4454;
+}
+.match-Name {
+    position: absolute;
+    bottom: -15px; /* add some space from the bottom of the image */
+    left: 3px; /* add some space from the left edge of the image */
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+  .match-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* adjust the number of columns as needed */
+    gap: 10px;
+  }
+  .img-list-users {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    pointer-events: none;
+  }
