@@ -15,7 +15,7 @@ import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
 import { Registro } from "./pages/registro.js";
 import { Dashboard } from "./pages/Dashboard.jsx"
 import { HomeSecurity } from "./pages/HomeSecurity.jsx";
-import PrivateRoute from "./component/Private_route/PrivateRoute.jsx";
+import PrivateRoute from  "./component/Private_route/PrivateRoute.jsx";
 
 //create your first component
 const Layout = () => {
