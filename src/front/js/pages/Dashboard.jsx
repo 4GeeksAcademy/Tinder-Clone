@@ -62,27 +62,28 @@ export const Dashboard = () => {
                                         <div className="card">
                                             <h3>{genderedUser.name}</h3>
                                             <img className="img-list-users" src={profilePicture} alt={genderedUser.name + "profile"} />
+                                            <div className="container-card-action-button">
+                                                <button className="return-button">
+                                                    <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />     </button>
+                                                <button className="no-button">
+                                                    <FontAwesomeIcon icon="fas fa-times" />
+                                                </button>
+                                                <button className="super-like-button">
+                                                    <FontAwesomeIcon icon="fa-solid fa-star" />
+                                                </button>
+                                                <button className="like-button">
+                                                    <FontAwesomeIcon icon="fa-solid fa-heart" />
+                                                </button>
+                                                <button className="boost-button">
+                                                    <FontAwesomeIcon icon="fa-solid fa-bolt" />
+                                                </button>
+                                            </div>
                                         </div>
                                     </TinderCard>
                                 );
                             })}
                         </div>
-                        <div>
-                            <button className="return-button">
-                                <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />     </button>
-                            <button className="no-button">
-                                <FontAwesomeIcon icon="fa-solid fa-x" />
-                            </button>
-                            <button className="super-like-button">
-                                <FontAwesomeIcon icon="fa-solid fa-star" />
-                            </button>
-                            <button className="super-like-button">
-                                <FontAwesomeIcon icon="fa-solid fa-heart" />
-                            </button>
-                            <button className="super-like-button">
-                                <FontAwesomeIcon icon="fa-solid fa-bolt" />
-                            </button>
-                        </div>
+                        
                     </div>
                 </div>}
         </>
