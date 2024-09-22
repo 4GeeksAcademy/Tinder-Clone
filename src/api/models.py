@@ -154,5 +154,15 @@ class Match(db.Model):
       "id": self.id,
       "user1_id": self.user1_id,
       "user2_id": self.user2_id,
-      "timestamp": self.timestamp.isoformat()
+      "timestamp": self.timestamp.isoformat(),
+      "user1":{
+        "id": self.user1.id,
+        "name": self.user1.name,
+        "image": base64.b64encode(self.user1.image).decode('utf-8') if self.user1.image else None
+      },
+      "user2":{
+        "id": self.user2.id,
+        "name": self.user2.name,
+        "image": base64.b64encode(self.user2.image).decode('utf-8') if self.user2.image else None
+      }
     }
