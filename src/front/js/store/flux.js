@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
       users: [],
+      matches: [],
       reviews: [],
       genders: [],
       userToVerify: {},
@@ -132,7 +133,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           throw error
         }
-      }
+      },
+      getMatches: async () => {
+        try {
+          const res = await fetch(process.env.BACKEND_URL + "/matches" ,{
+            method:"GET",
+            headers: {
+              'Authorization': `Bearer ${JSON.parse(localStorage.getItem('userDataLogin')).access_token}`
+            }
+          })
+          if(!res.ok){
+            throw new Error('Network response was not ok')
+          }
+          const data = await res.json()
+          setStore({...getStore(), matches: data})
+          return data
+        } catch (error) {
+          throw error
+        }
+      },
 		}
 	};
 };

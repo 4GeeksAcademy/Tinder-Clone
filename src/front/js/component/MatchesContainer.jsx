@@ -2,7 +2,7 @@ import React from "react";
 import MatchesDisplay from './MatchesDisplay.jsx'
 import { useState } from 'react'
 
-const MatchesContainer = ({ user }) => {
+const MatchesContainer = () => {
     const [ clickedUser, setClickedUser ] = useState(null)
 
     return (
@@ -21,7 +21,7 @@ const MatchesContainer = ({ user }) => {
                 <button className="option" onClick={() => setClickedUser(null)}>Matches</button>
             </div>
 
-            {!clickedUser && <MatchesDisplay matches={user.matches} setClickedUser={setClickedUser}/>}
+            <MatchesDisplay/>
         </div>
     )
 }

@@ -139,14 +139,14 @@ def update_subscription(subscription_id):
     subscription.duration_in_days = data.get('duration_in_days', subscription.duration_in_days)
     subscription.description = data.get('description', subscription.description)
     db.session.commit()
-    return jsonify({'message': 'Subscription updated successfully'})
+    return jsonify({'msg': 'Subscription updated successfully'})
 
 @api.route('/subscriptions/<int:subscription_id>', methods=['DELETE'])
 def delete_subscription(subscription_id):
     subscription = Subscription.query.get_or_404(subscription_id)
     db.session.delete(subscription)
     db.session.commit()
-    return jsonify({'message': 'Subscription deleted successfully'})
+    return jsonify({'msg': 'Subscription deleted successfully'})
 
 # Calculate the age of a user
 def calculate_age(birthdate):
@@ -165,7 +165,7 @@ def register():
   try:
     existing_email = User.query.filter_by(email=data['email']).first()
     if existing_email:
-      return jsonify({"msg": "Email already in use"}), 400
+      return jsonify({"error": "Email already in use"}), 400
     
     hashed_password = generate_password_hash(password)
     
@@ -195,7 +195,7 @@ def preferences():
     birthdate = data.get('age')
     
     if not user:
-      return jsonify({"msg": "User not found"}), 404
+      return jsonify({"error": "User not found"}), 404
     
     if 'image' in data and len(data['image']) > 0:
       base64_str = data['image'][0].split(',')[1]
@@ -242,6 +242,7 @@ def login():
         access_token = create_access_token(identity=user.id)
         return jsonify({
           'access_token': access_token, 
+          'id': user.id,
           'name': user.name, 
           'email': user.email,
           'preferences_set': user.preferences_set
@@ -329,11 +330,14 @@ def create_like():
 
 
 # Get matches from a user
-@api.route('/user/<int:user_id>/matches', methods=['GET'])
-def get_user_matches(user_id):
+@api.route('/matches', methods=['GET'])
+@jwt_required()
+def get_user_matches():
     try:
+        current_user_id = get_jwt_identity()
+        
         matches = Match.query.filter(
-            (Match.user1_id == user_id) | (Match.user2_id == user_id)
+          (Match.user1_id == current_user_id) | (Match.user2_id == current_user_id)
         ).all()
         
         # Serializar los resultados
