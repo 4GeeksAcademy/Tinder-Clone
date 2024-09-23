@@ -31,7 +31,7 @@ export const Dashboard = () => {
                     <div className="swipe-container">
                         <div className="card-container">
                             {store.users.map((user) => {
-                                const profilePicture = `data:image/jpeg;base64,${user.image}`;
+                                const profilePicture = user.image;
                                 return (
                                     <TinderCard
                                         className="swipe"

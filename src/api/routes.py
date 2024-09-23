@@ -197,12 +197,6 @@ def preferences():
     if not user:
       return jsonify({"error": "User not found"}), 404
     
-    if 'image' in data and len(data['image']) > 0:
-      base64_str = data['image'][0].split(',')[1]
-      image_data = base64.b64decode(base64_str)
-    else:
-      image_data = None
-      
     try:
         age = calculate_age(birthdate)
     except ValueError:
@@ -219,7 +213,7 @@ def preferences():
     user.gender_to_show_id = data.get('gender_to_show_id', user.gender_to_show_id)
     user.subscription_id = data.get('subscription_id', user.subscription_id)
     user.role = data.get('role', user.role)
-    user.image = image_data if image_data else user.image
+    user.image = data.get('image', user.image)
     user.preferences_set = True
         
     db.session.commit()
