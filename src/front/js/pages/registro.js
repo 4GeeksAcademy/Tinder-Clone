@@ -10,6 +10,7 @@ export const Registro = () => {
 
   useEffect(() => {
     actions.getGenders()
+    actions.getRoles()
   }, [])
 
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ export const Registro = () => {
     password: '',
     name: '',
     fechaNacimiento: '',
-    role: '',
+    role: 0,
     sexo: 0,
     mostrarGenero: true,
     mostrar: 0,
@@ -97,7 +98,7 @@ export const Registro = () => {
       age: formData.fechaNacimiento,
       gender_id: formData.sexo,
       gender_to_show_id: formData.mostrar,
-      role: formData.role,
+      role_id: formData.role,
       image: formData.fotos[0]
     }
     console.log(formDataToSend)
@@ -136,17 +137,17 @@ export const Registro = () => {
         <div className="form-group">
           <label>Rol</label>
           <div className="radio-group">
-            {['Sponsor', 'Finder'].map((option, index) => (
+            {store.roles?.map((option, index) => (
               <React.Fragment key={index}>
                 <input
                   type="radio"
-                  id={`role-${option}`}
+                  id={`role-${option.id}`}
                   name="role"
-                  value={option}
-                  checked={formData.role === option}
+                  value={option.id}
+                  checked={Number(formData.role) === option.id}
                   onChange={handleInputChange}
                 />
-                <label htmlFor={`role-${option}`}>{option}</label>
+                <label htmlFor={`role-${option.id}`}>{option.name}</label>
               </React.Fragment>
             ))}
           </div>
