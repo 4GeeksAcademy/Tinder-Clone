@@ -6,7 +6,7 @@ import base64
 import requests
 
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import Gender, db, User, Payment, Subscription, Review, Match, Like
+from api.models import Gender, db, User, Payment, Subscription, Review, Match, Like, Role
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -29,6 +29,19 @@ def verify(dni):
     return jsonify(data), 200
   except Exception as e:
       return jsonify({"error": str(e)}), 500
+# Roles
+@api.route('/roles', methods=['GET'])
+def get_roles():
+    roles = Role.query.all()
+    return jsonify([{'id': role.id, 'name': role.name} for role in roles])
+
+@api.route('/roles', methods=['POST'])
+def create_role():
+    data = request.json
+    new_role = Role(name=data['name'])
+    db.session.add(new_role)
+    db.session.commit()
+    return jsonify({'message': 'Role created successfully'}), 201
 
 # Gender CRUD
 @api.route('/genders', methods=['POST'])
@@ -247,7 +260,25 @@ def login():
 @api.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
-    return jsonify([user.serialize() for user in users])
+    results = list(map(lambda user: user.serialize(), users))
+    return jsonify(results), 200
+
+@api.route('/users_filtered', methods=['GET'])
+@jwt_required()
+def get_users_filtered():
+    try:
+      user_id = get_jwt_identity()
+      current_user  = User.query.get(user_id)
+      
+      if current_user and current_user.gender_to_show:
+        users = User.query.filter_by(gender_id = current_user.gender_to_show_id).all()
+      else:
+        users = User.query.all()
+        
+      results = list(map(lambda user: user.serialize(), users))
+      return jsonify(results), 200
+    except Exception as e:
+      return jsonify({"error": str(e)}), 500
 
 @api.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
