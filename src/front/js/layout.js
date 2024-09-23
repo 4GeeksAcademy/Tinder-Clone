@@ -15,6 +15,7 @@ import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
 import { Registro } from "./pages/registro.js";
 import { Dashboard } from "./pages/Dashboard.jsx"
 import { HomeSecurity } from "./pages/HomeSecurity.jsx";
+import { Pricing } from "./pages/Pricing.jsx";
 import {HomeSubscriptionLevels} from "./pages/HomeSubscriptionLevels.jsx"
 import PrivateRoute from  "./component/Private_route/PrivateRoute.jsx";
 //create your first component
@@ -35,6 +36,7 @@ const Layout = () => {
                         <Route element={<PrivateRoute><Registro/></PrivateRoute>} path="/preferences"/>
                         <Route element={<Dashboard/>} path="/dashboard"/>
                         <Route element={<HomeSecurity/>} path="/Security"/>
+                        <Route element={<Pricing/>} path="/pricing"/>
                         <Route element={<HomeSubscriptionLevels/>} path="/Subscription"/>
                         {/* <Route element={<Home />} path="/user/:id" />
                         <Route element={<Demo />} path="/demo" />

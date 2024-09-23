@@ -59,6 +59,9 @@ export const HomeNotLogHeader = ({isDisplayed}) => {
                                 <li className="nav-item d-flex align-items-center ">
                                     <p className="nav-link pb-0 navbar-opt text-light mb-0" style={{cursor:`${cursor}`}} onClick={ onClickHandler("Security")}>Seguridad</p>
                                 </li>
+                                <li className="nav-item d-flex align-items-center ">
+                                    <p className="nav-link pb-0 navbar-opt text-light mb-0" style={{cursor:`${cursor}`}} onClick={ onClickHandler("Pricing")}>Pricing</p>
+                                </li>
                             </ul>
                             <div className="btn-container">
                                 <NewLoginButton />
