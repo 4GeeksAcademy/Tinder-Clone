@@ -1,10 +1,11 @@
 import React from 'react';
 import { HomeNotLogHeader } from '../component/HomeNotLogHeader.jsx';
+import { TrendingUpIcon } from 'lucide-react';
 
 export const HomeSecurity = () => {    
     return (
-        <div className="container-fluid px-0">
-            <HomeNotLogHeader isDisplayed={false} />
+        <div className="container-fluid px-0" style={{color:'#FFFFFF'}}>
+            <HomeNotLogHeader isDisplayed={true} />
             <div className='container-fluid border border-secondary border-1 px-0 mx-0'></div>
             <div className='container p-3 text-start'>
                 <h1 className='text-start'> Consejos de seguridad para las citas</h1>

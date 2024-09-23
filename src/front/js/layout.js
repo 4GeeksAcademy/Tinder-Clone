@@ -18,7 +18,11 @@ import { HomeSecurity } from "./pages/HomeSecurity.jsx";
 import { Pricing } from "./pages/Pricing.jsx";
 import {HomeSubscriptionLevels} from "./pages/HomeSubscriptionLevels.jsx"
 import PrivateRoute from  "./component/Private_route/PrivateRoute.jsx";
+<<<<<<< Updated upstream
 import { ProfileSettings } from "./pages/ProfileSettings.jsx";
+=======
+import { HomeLoggedSubPremium } from "./pages/HomeLoggedSubPremium.jsx";
+>>>>>>> Stashed changes
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -45,6 +49,7 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} /> */}
+                        <Route element = {<HomeLoggedSubPremium/>} path="/premium"/>
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>

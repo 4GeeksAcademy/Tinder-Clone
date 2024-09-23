@@ -13,13 +13,13 @@ export const SubscriptionLevelsHeader = () => {
             </div>
             <div className="container-fluid d-md-flex justify-content-center w-100 mt-5 pb-4">
                 <div className="row justify-content-center">
-                    <div className="col-sm-7 col-md-7 col-lg-4 mb-3  px-3 d-flex justify-content-center">
+                    <div className="to-hover col-sm-7 col-md-7 col-lg-4 mb-3  px-3 d-flex justify-content-center">
                         <SubscriptionLevelFree />
                     </div>
-                    <div className="col-sm-7 col-md-7 col-lg-4 mb-3 px-3  d-flex justify-content-center">
+                    <div className="to-hover col-sm-7 col-md-7 col-lg-4 mb-3 px-3  d-flex justify-content-center">
                         <SubscriptionLevelGold />
                     </div>
-                    <div className="col-sm-7 col-md-7 col-lg-4 mb-3  px-3 d-flex justify-content-center">
+                    <div className="to-hover col-sm-7 col-md-7 col-lg-4 mb-3  px-3 d-flex justify-content-center">
                         <SubscriptionLevelVip />
                     </div>
                 </div>

@@ -90,6 +90,13 @@ section>p{
     height: 250px;
     width:300px;
     background-color: #111418;
+    overflow: hidden; 
+}
+.to-hover {
+    transition: transform 0.3s; 
+}
+.to-hover :hover{
+    transform: scale(1.1);  
 }
 section{
     min-width: 320px;
