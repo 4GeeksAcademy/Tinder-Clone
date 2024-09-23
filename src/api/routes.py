@@ -225,7 +225,7 @@ def preferences():
     user.gender_id = data.get('gender_id', user.gender_id)
     user.gender_to_show_id = data.get('gender_to_show_id', user.gender_to_show_id)
     user.subscription_id = data.get('subscription_id', user.subscription_id)
-    user.role = data.get('role', user.role)
+    user.role_id = data.get('role_id', user.role_id)
     user.image = data.get('image', user.image)
     user.preferences_set = True
         
@@ -271,7 +271,12 @@ def get_users_filtered():
       current_user  = User.query.get(user_id)
       
       if current_user and current_user.gender_to_show:
-        users = User.query.filter_by(gender_id = current_user.gender_to_show_id).all()
+        if current_user.role_id == 1:  # Sponsor
+            users = User.query.filter_by(gender_id=current_user.gender_to_show_id, role_id=2).all()  # Finder
+        elif current_user.role_id == 2:  # Finder
+            users = User.query.filter_by(gender_id=current_user.gender_to_show_id, role_id=1).all()  # Sponsor
+        else:
+            users = []
       else:
         users = User.query.all()
         
