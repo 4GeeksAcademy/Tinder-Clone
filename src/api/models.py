@@ -69,7 +69,7 @@ class User(db.Model):
   gender_to_show_id = db.Column(db.Integer, db.ForeignKey('gender.id'), nullable=True)
   subscription_id = db.Column(db.Integer, db.ForeignKey('subscription.id'), nullable=True)
   role = db.Column(db.String(120), nullable=True)
-  image = db.Column(db.LargeBinary, nullable = True)
+  image = db.Column(db.String(255), nullable=True)
   preferences_set = db.Column(db.Boolean, default = False)
 
   #relationship
@@ -92,7 +92,7 @@ class User(db.Model):
         "gender_to_show": self.gender_to_show.name if self.gender_to_show else None,
         "subscription": self.subscription.name if self.subscription else None,
         "role": self.role,
-        "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
+        "image": self.image,
         "preferences_set": self.preferences_set
     }
     
@@ -158,11 +158,11 @@ class Match(db.Model):
       "user1":{
         "id": self.user1.id,
         "name": self.user1.name,
-        "image": base64.b64encode(self.user1.image).decode('utf-8') if self.user1.image else None
+        "image": self.user1.image
       },
       "user2":{
         "id": self.user2.id,
         "name": self.user2.name,
-        "image": base64.b64encode(self.user2.image).decode('utf-8') if self.user2.image else None
+        "image": self.user2.image
       }
     }
