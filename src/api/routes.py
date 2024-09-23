@@ -5,13 +5,16 @@ from datetime import datetime
 import base64
 import requests
 
-from flask import Flask, request, jsonify, url_for, Blueprint
+import app
+from flask import Flask, request, jsonify, url_for, Blueprint, current_app
 from api.models import Gender, db, User, Payment, Subscription, Review, Match, Like
-from api.utils import generate_sitemap, APIException
+from api.utils import generate_sitemap, APIException, send_welcome_email
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import  JWTManager, create_access_token, get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_mail import Mail
+import logging
 
 api = Blueprint('api', __name__)
 
@@ -159,27 +162,50 @@ def calculate_age(birthdate):
 # Firts endpoint to register a user
 @api.route('/register', methods=['POST'])
 def register():
-  data = request.json
-  password = data.get('password')
-  
-  try:
-    existing_email = User.query.filter_by(email=data['email']).first()
-    if existing_email:
-      return jsonify({"error": "Email already in use"}), 400
-    
-    hashed_password = generate_password_hash(password)
-    
-    new_user = User(
-        email=data['email'],
-        password=hashed_password,
-    )
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify(new_user.serialize()), 201
-  except Exception as e:
-    return jsonify({"msg": str(e)}), 500
+    print("Iniciando proceso de registro")
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
 
+    if not email or not password:
+        print(f"Error: Datos incompletos - Email: {email}, Password: {'Proporcionado' if password else 'No proporcionado'}")
+        return jsonify({"error": "Se requieren email y contraseña"}), 400
+
+    try:
+        print(f"Verificando si el email {email} ya existe")
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            print(f"Error: El email {email} ya está en uso")
+            return jsonify({"error": "Email ya está en uso"}), 400
+
+        print(f"Creando nuevo usuario con email: {email}")
+        hashed_password = generate_password_hash(password)
+        new_user = User(
+            email=email,
+            password=hashed_password,
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        print(f"Usuario creado exitosamente: {email}")
+
+        print(f"Intentando enviar correo de bienvenida a {email}")
+        try:
+            app = current_app._get_current_object()            
+            mail = Mail(app)
+            send_welcome_email(email)
+            print(f"Correo de bienvenida enviado exitosamente a {email}")
+        except Exception as email_error:
+            print(f"Error al enviar correo de bienvenida a {email}: {str(email_error)}")
+
+        print(f"Registro completado para {email}")
+        return jsonify(new_user.serialize()), 201
+
+    except Exception as e:
+        print(f"Error durante el registro de {email}: {str(e)}")
+        db.session.rollback()
+        return jsonify({"error": "Ocurrió un error durante el registro"}), 500
 # Second endpoint to register preferences from a user
+
 @api.route('/preferences', methods=['PUT'])
 @jwt_required()
 def preferences():
