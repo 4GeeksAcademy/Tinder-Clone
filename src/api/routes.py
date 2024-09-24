@@ -125,23 +125,22 @@ def delete_payment(payment_id):
     return jsonify({'message': 'Payment deleted successfully'})
 
 # Subscription CRUD
+@api.route('/subscriptions', methods=['GET'])
+def get_subscriptions():
+    subscriptions = Subscription.query.all()
+    results = list(map(lambda subscription: subscription.serialize(), subscriptions))
+    return jsonify(results)
+  
 @api.route('/subscriptions', methods=['POST'])
 def create_subscription():
     data = request.json
     new_subscription = Subscription(
         name=data['name'],
-        price=data['price'],
-        duration_in_days=data['duration_in_days'],
-        description=data['description']
     )
     db.session.add(new_subscription)
     db.session.commit()
     return jsonify({'message': 'Subscription created successfully'}), 201
 
-@api.route('/subscriptions', methods=['GET'])
-def get_subscriptions():
-    subscriptions = Subscription.query.all()
-    return jsonify([subscription.serialize() for subscription in subscriptions])
 
 @api.route('/subscriptions/<int:subscription_id>', methods=['GET'])
 def get_subscription(subscription_id):
