@@ -11,13 +11,20 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
+from flask_mail import Mail
+import logging
 
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
-app = Flask(__name__)
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+template_dir = os.path.join(basedir, 'api/templates')
+
+app = Flask(__name__, template_folder=template_dir)
+
 app.url_map.strict_slashes = False
 
 # database condiguration
@@ -29,8 +36,26 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+# Configuración del email
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Cambia esto si usas otro proveedor
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'company.aplication2024@gmail.com'  # Cambia esto
+app.config['MAIL_PASSWORD'] = 'kvrk psxj bcai ickw'  # Cambia esto
+app.config['MAIL_DEFAULT_SENDER'] = 'yonelacv30@gmail.com'  # Cambia esto
+
+
+
 jwt = JWTManager(app)
 MIGRATE = Migrate(app, db, compare_type=True)
+mail = Mail(app)
+
+logging.basicConfig(level=logging.INFO)
+
+
 db.init_app(app)
 
 # add the admin

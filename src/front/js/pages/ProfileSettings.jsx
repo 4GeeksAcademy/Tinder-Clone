@@ -1,10 +1,13 @@
-import React from 'react';
-import { Context } from "../store/flux"
+import React, { useContext, useEffect } from 'react';
+import { Context } from "../store/appContext.js"
 import { HomeLogSubLevel, RowLevel } from "../component/HomeLogSubLevel.jsx"
 
-
-
 export const ProfileSettings = () => {
+  const {store,actions} = useContext(Context);
+  useEffect(()=>{
+    actions.getUserProfile();
+  },[])
+  console.log(store.userProfile)
   return (
     <div className="app-container">
       <div className="sidebar">
@@ -47,7 +50,7 @@ export const ProfileSettings = () => {
                 paddingBottom: '20px' // add some padding to the bottom
               }}>
                 <h3>
-                  Esteban, 20
+                  {store?.userProfile?.name}, {store?.userProfile?.age}
                 </h3>
               </div>
               <div className='user-description' style={{
@@ -55,14 +58,14 @@ export const ProfileSettings = () => {
                 paddingBottom: '10px'
               }}>
                 <p>
-                  user description
+                  {store?.userProfile?.role}
                 </p>
               </div>
               <div className='user-interests' style={{
                 paddingBottom: '20px' // add some padding to the bottom
               }}>
                 <p>
-                  más sobre mí "acuario etc"
+                {store?.userProfile?.gender}
                 </p>
               </div>
             </div>
