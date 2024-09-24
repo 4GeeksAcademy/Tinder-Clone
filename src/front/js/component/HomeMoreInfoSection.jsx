@@ -24,7 +24,6 @@ export const HomeMoreInfoSection = () => {
                 <footer>
                     <button className="create-home-btn home-btn" onClick={onClickHandler}>Crear una cuenta</button>
                 </footer>
-
             </article>
         </section>
     )
