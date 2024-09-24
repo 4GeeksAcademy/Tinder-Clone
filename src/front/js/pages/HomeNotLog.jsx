@@ -22,14 +22,14 @@ export const HomeNotLog = () => {
                     <HomeNotLogBody />
                 </div>
             </div>
-            <footer style={{ backgroundColor: '#111418', zIndex: '1' }} >
+            <footer style={{ backgroundColor: '#111418', zIndex: '1', }} >
                 <div className="container-fluid m-0 p-0" >
                     <div className="container d-flex justify-content-between wrapper pt-4 text-light" style={{ maxWidth: '80vw', overflowX: 'auto', columnGap: '30px' }}>
                         {store.users?.length > 0 && store.reviews?.map((review,index) => <HomeNotLogFooter key={index} name={store.users.find(user=>user.id===review.user_id).name} content={review.content}/>)}
                     </div>
-                    <div className="container" style={{zIndex: '2'}}>
-                        <h2 style={{ color: "white" }}> REDES SOCIALES</h2>
-                        <div className="container d-flex me-5" style={{ color: 'white' }}>
+                    <div className="container-fluid" style={{zIndex: '2', padding: '3rem 0 1rem 0'}}>
+                        <h2 style={{ color: "white", }}> REDES SOCIALES</h2>
+                        <div className="container d-flex" style={{ color: 'white' }}>
                             <div className="social-media">
                                 <Instagram size={48} />
                             </div>
