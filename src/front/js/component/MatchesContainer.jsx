@@ -18,44 +18,38 @@ const MatchesContainer = () => {
     useEffect(() => {
       actions.getUserProfile()
     }, [])
-
     return (
         <div className="chat-container">
             <div className="setColor">
-            <div className="profile-user" onClick={() => navigate('/settings')}>
+              <div className="profile-user" onClick={() => navigate('/settings')}>
                 <img 
                     src={store.userProfile.image} 
                     alt="profile picture" 
                     className="profile-picture"
                 />
-
-                <span className="userName">name </span>
-                <button
-  style={{
-    backgroundColor: '',
-    color: '#black',
-    border: 'none',
-    padding: '5px 10px',
-    fontSize: '10px',
-    cursor: 'pointer',
-    borderRadius: '5px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    float: 'right',
-  }}
->
-  <FontAwesomeIcon
-    icon="fa-solid fa-right-from-bracket"
-    style={{
-      fontSize: '20px',
-      
-    }}
-  />
-</button>
-
-
                 <span className="userName">{store.userProfile.name}</span>
-
-            </div>
+                <button
+                  style={{
+                    backgroundColor: '',
+                    color: '#black',
+                    border: 'none',
+                    padding: '5px 10px',
+                    fontSize: '10px',
+                    cursor: 'pointer',
+                    borderRadius: '5px',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                    float: 'right',
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-right-from-bracket"
+                    style={{
+                      fontSize: '20px',
+                      
+                    }}
+                  />
+                </button>
+              </div>
             </div>
             <div>
                 <button className="option" onClick={() => setClickedUser(null)}>Matches</button>
