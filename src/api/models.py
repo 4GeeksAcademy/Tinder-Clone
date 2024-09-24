@@ -158,8 +158,6 @@ class Match(db.Model):
   def serialize(self):
     return {
       "id": self.id,
-      "user1_id": self.user1_id,
-      "user2_id": self.user2_id,
       "timestamp": self.timestamp.isoformat(),
       "user1":{
         "id": self.user1.id,

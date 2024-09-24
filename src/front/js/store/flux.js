@@ -185,6 +185,27 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error
         }
       },
+      like: async (idFrom, idTo) => {
+        try{
+          const res = await fetch(process.env.BACKEND_URL + "/likes", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_from_id: idFrom,
+              user_to_id: idTo
+            })
+          })
+          const data = await res.json()
+          if(!res.ok){
+            throw new Error(data.msg)
+          }
+          return data
+        }catch(error){
+          throw error
+        }
+      }
 		}
 	};
 };
