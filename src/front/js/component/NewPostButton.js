@@ -38,20 +38,20 @@ const NewPostButton = () => {
     }
 
     try{
-      // await actions.sendDataToVerifyIdentity(dniToVerify.dni)
-      // const userToVerify = store.userToVerify
-      // console.log(userToVerify)
-      
-      // userToVerify.apellido_paterno === formData.apellidoPaterno && 
-      // userToVerify.apellido_materno === formData.apellidoMaterno ? 
-      // console.log("Registered"): 
-      // alert('Los datos no coinciden. Por favor, verifica e intenta de nuevo.')
-      await actions.registerUserData(userToRegister)
-      .then(data => {
-        if(data && !data.error){
+      await actions.sendDataToVerifyIdentity(dniToVerify.dni)
+      const userToVerify = store.userToVerify
+      if(
+        userToVerify.apellidoPaterno === formData.apellidoPaterno && 
+        userToVerify.apellidoMaterno === formData.apellidoMaterno  
+      ){
+        console.log("Registered")
+        const data = await actions.registerUserData(userToRegister)
+        if (data && !data.error){
           handleClose()
         }
-      })
+      }else{
+        alert("Los datos ingresados no coinciden con su DNI")
+      }
     }catch(error){
       console.error('Error al obtener datos:', error);
       throw error
