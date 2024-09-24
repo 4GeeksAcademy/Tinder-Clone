@@ -356,7 +356,7 @@ def create_like():
         db.session.commit()
         return jsonify({"msg": msg}), 201
     except Exception as e:
-        return jsonify({"msg": str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
 
 # Get matches from a user
@@ -365,13 +365,11 @@ def create_like():
 def get_user_matches():
     try:
         current_user_id = get_jwt_identity()
+        matches = Match.query.filter((Match.user1_id == current_user_id) | (Match.user2_id == current_user_id)).all()
         
-        matches = Match.query.filter(
-          (Match.user1_id == current_user_id) | (Match.user2_id == current_user_id)
-        ).all()
         
         # Serializar los resultados
-        results = [m.serialize() for m in matches]
+        results = list(map(lambda match: match.serialize(), matches))
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"msg": str(e)}), 500
