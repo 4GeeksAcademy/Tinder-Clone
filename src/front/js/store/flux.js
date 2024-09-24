@@ -10,6 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       genders: [],
       userToVerify: {},
       userDataLogin: {},
+      userProfile: []
 		},
 		actions: {
 			getReviews: async () => {
@@ -203,6 +204,20 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data
         }catch(error){
           throw error
+        }
+      },
+      getUserProfile: async()=>{
+        const id = JSON.parse(localStorage.getItem('userDataLogin')).id
+        console.log(id)
+        const resp = await fetch(process.env.BACKEND_URL + `/users/${id}`,{
+          method:'GET'
+        })
+        if(resp.ok)      {
+          const data = await resp.json()
+          setStore({...getStore(),userProfile: data})
+          console.log(data)
+          return
+
         }
       }
 		}
