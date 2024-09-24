@@ -15,7 +15,12 @@ const NewLoginButton = () => {
   });
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShowLogin(true);
+    setShowForgotPassword(false);
+    setShow(true);
+  }
+    
 
   const [showLogin, setShowLogin] = useState(true);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -112,6 +117,15 @@ const NewLoginButton = () => {
       padding: '10px 20px',
       width: '100%',
       fontWeight: 'bold',
+    },
+    buttonSendEmail: {
+      backgroundColor: '#00adb5',
+      border: 'none',
+      borderRadius: '20px',
+      padding: '10px 20px',
+      width: '100%',
+      fontWeight: 'bold',
+      marginBottom: '20px'
     }
   };
 
@@ -180,6 +194,9 @@ const NewLoginButton = () => {
                 />
               </Form.Group>
               <Modal.Footer style={styles.footer}>
+                <Button variant="primary" style={styles.buttonSendEmail}>
+                  Recuperar contraseña
+                </Button>
                 <Button variant="primary" style={styles.button} onClick={handleBackToLogin}>
                   Volver a inicio de sesión
                 </Button>
