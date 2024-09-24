@@ -160,7 +160,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw new Error('Network response was not ok')
           }
           const data = await res.json()
-          console.log("Data: ",data)
           setStore({...getStore(),userToVerify:data})
           return data
         } catch (error) {

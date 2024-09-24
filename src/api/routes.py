@@ -17,18 +17,20 @@ api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
-
 bcrypt = Bcrypt()
+
 # Verify identity of the user
 @api.route('/<int:dni>', methods=['GET'])
 def verify(dni):
   try:
-    url = f'https://api.datos.org.pe/reniec/dni/{dni}'
+    url = f'https://api.apis.net.pe/v2/reniec/dni?numero={dni}&token=%3Capis-token-10633.UZ5pijBV0IZKJFjTAa-HQnWH4tozl4K2%3E'
+    print(url)
     response = requests.get(url, verify=False)
     data = response.json()
     return jsonify(data), 200
   except Exception as e:
       return jsonify({"error": str(e)}), 500
+    
 # Roles
 @api.route('/roles', methods=['GET'])
 def get_roles():
@@ -308,11 +310,14 @@ def update_user(user_id):
 
 @api.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
+  try:
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message': 'User deleted successfully'})
-
+  except Exception as e:
+    return jsonify({"error": str(e)}), 500
+  
 @api.route('/reviews', methods=['GET'])
 def create_review():
   try:
