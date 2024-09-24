@@ -1,0 +1,46 @@
+.app-container {
+    height: 100vh; /* make the container full height */
+    display: flex;
+    flex-direction: row;
+    color: white
+  }
+  
+  .sidebar {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .main-content {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    background-color: #18141c;
+  }
+  
+  
+  .user-profile-card {
+    overflow-y: auto;
+  }
+  
+  .user-profile-card::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  
+  .user-profile-card::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  
+  .user-profile-card::-webkit-scrollbar-track {
+    background: transparent;
+  }

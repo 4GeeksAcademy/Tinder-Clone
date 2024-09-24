@@ -3,10 +3,14 @@ import {useNavigate} from 'react-router-dom'
 import { Context } from '../store/appContext'
 
 export const Registro = () => {
+  const preset_name = "Tinder-users-images"
+  const cloud_name = "dsfuwxsjf"
+
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
     actions.getGenders()
+    actions.getRoles()
   }, [])
 
   const navigate = useNavigate()
@@ -16,7 +20,7 @@ export const Registro = () => {
     password: '',
     name: '',
     fechaNacimiento: '',
-    role: '',
+    role: 0,
     sexo: 0,
     mostrarGenero: true,
     mostrar: 0,
@@ -43,21 +47,6 @@ export const Registro = () => {
     }));
   };
 
-  const handleFotoChange = (e, index) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const newFotos = [...formData.fotos];
-      newFotos[index] = reader.result;
-      setFormData(prevState => ({
-        ...prevState,
-        fotos: newFotos 
-      }));
-    }
-    if(file){
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleInteresesChange = (interes) => {
     setFormData(prevState => ({
@@ -77,21 +66,42 @@ export const Registro = () => {
     });
   };
 
+  const setImages = async (e, index) => {
+    try {
+      const files = e.target.files;
+      const data = new FormData();
+      data.append('file', files[0]);
+      data.append('upload_preset', preset_name) 
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, { 
+        method: 'POST',
+        body: data
+      });
+      const file = await res.json();
+      console.log(file.secure_url);
+
+      setFormData(prevState => {
+        const updatedFotos = [...prevState.fotos];
+        updatedFotos[index] = file.secure_url;
+        return { ...prevState, fotos: updatedFotos };
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     const formDataToSend = {
       email: formData.email,
       password: formData.password,
-      name: formData.nombres,
+      name: formData.name,
       age: formData.fechaNacimiento,
       gender_id: formData.sexo,
       gender_to_show_id: formData.mostrar,
-      role: formData.role,
-      image: formData.fotos
+      role_id: formData.role,
+      image: formData.fotos[0]
     }
     console.log(formDataToSend)
-    console.log(data.access_token)
     actions.preferencesUserData(formDataToSend, data.access_token)
     .then(data => {
       if(data && !data.error){
@@ -105,12 +115,12 @@ export const Registro = () => {
       <form className="form" onSubmit={handleSubmit}>
         <h1>Crear Una Cuenta</h1>
         <div className="form-group">
-          <label htmlFor="nombres">Nombre para tu perfil</label>
+          <label htmlFor="name">Nombre para tu perfil</label>
           <input
             type="text"
-            id="nombres"
-            name="nombres"
-            value={formData.nombres}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleInputChange}
           />
         </div>
@@ -127,17 +137,17 @@ export const Registro = () => {
         <div className="form-group">
           <label>Rol</label>
           <div className="radio-group">
-            {['Sponsor', 'Finder'].map((option, index) => (
+            {store.roles?.map((option, index) => (
               <React.Fragment key={index}>
                 <input
                   type="radio"
-                  id={`role-${option}`}
+                  id={`role-${option.id}`}
                   name="role"
-                  value={option}
-                  checked={formData.role === option}
+                  value={option.id}
+                  checked={Number(formData.role) === option.id}
                   onChange={handleInputChange}
                 />
-                <label htmlFor={`role-${option}`}>{option}</label>
+                <label htmlFor={`role-${option.id}`}>{option.name}</label>
               </React.Fragment>
             ))}
           </div>
@@ -219,7 +229,7 @@ export const Registro = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => handleFotoChange(e, index)}
+                  onChange={(e) => setImages(e, index)}
                   id={`foto-${index}`}
                   style={{ display: 'none' }}
                 />

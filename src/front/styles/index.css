@@ -79,15 +79,15 @@ h2 {
 }
 
 .card {
-    width: 400px;
-    height: 650px;
-    border-radius: 30px;
-    background-size: cover;
-    background-position: center;
-    user-select: none;
-    background-color: #333; /* dark background color */
+  width: 400px;
+  height: 550px;
+  border-radius: 30px;
+  background-size: cover;
+  background-position: center;
+  user-select: none;
+  background-color: #333; /* dark background color */
+  margin: -50px auto 0; /* add a negative margin top to move the card upwards */
 }
-
 .card h3 {
     margin-top: 0;
     color: #fff; /* white text color */
@@ -282,7 +282,8 @@ h2 {
   }
 .profile-user {
     padding: 1.5rem 1rem;
-    background: linear-gradient(90deg, #FF2B77, #FF5941)
+    background: linear-gradient(90deg, #FF2B77, #FF5941);
+    cursor: pointer;
 }
 .userName {
     padding: 10px;

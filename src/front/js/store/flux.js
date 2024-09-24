@@ -6,9 +6,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       users: [],
       matches: [],
       reviews: [],
+      roles: [],
       genders: [],
       userToVerify: {},
       userDataLogin: {},
+      userProfile: []
 		},
 		actions: {
 			getReviews: async () => {
@@ -95,7 +97,25 @@ const getState = ({ getStore, getActions, setStore }) => {
       getUsers: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/users",{
-            method:"GET"
+            method:"GET",
+            
+          })
+          if(resp.status===200){
+            const data = await resp.json()
+            setStore({...getStore(),users:data})
+            return data
+          }
+        } catch (error) {
+          throw error
+        }
+      },
+      getUsersByPreferences: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/users_filtered",{
+            method:"GET",
+            headers: {
+              'Authorization': `Bearer ${JSON.parse(localStorage.getItem('userDataLogin')).access_token}`
+            }
           })
           if(resp.status===200){
             const data = await resp.json()
@@ -120,6 +140,20 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error
         }
       },
+      getRoles: async () => {
+        try{
+          const res = await fetch(process.env.BACKEND_URL + "/roles", {
+            method: 'GET'
+          })
+          const data = await res.json()
+          if(res.ok){
+            setStore({...getStore(), roles:data})
+            return data
+          }
+        }catch(error){
+          throw error
+        }
+      },
       sendDataToVerifyIdentity: async (dni) => {
         try {
           const res = await fetch(process.env.BACKEND_URL + '/' + dni)
@@ -127,7 +161,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw new Error('Network response was not ok')
           }
           const data = await res.json()
-          console.log("Data: ",data)
           setStore({...getStore(),userToVerify:data})
           return data
         } catch (error) {
@@ -152,6 +185,38 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error
         }
       },
+      like: async (idFrom, idTo) => {
+        try{
+          const res = await fetch(process.env.BACKEND_URL + "/likes", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_from_id: idFrom,
+              user_to_id: idTo
+            })
+          })
+          const data = await res.json()
+          if(!res.ok){
+            throw new Error(data.msg)
+          }
+          return data
+        }catch(error){
+          throw error
+        }
+      },
+      getUserProfile: async()=>{
+        const id = JSON.parse(localStorage.getItem('userDataLogin')).id
+        const resp = await fetch(process.env.BACKEND_URL + `/users/${id}`,{
+          method:'GET'
+        })
+        if(resp.ok)      {
+          const data = await resp.json()
+          setStore({...getStore(),userProfile: data})
+          return
+        }
+      }
 		}
 	};
 };

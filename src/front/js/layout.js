@@ -15,8 +15,12 @@ import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
 import { Registro } from "./pages/registro.js";
 import { Dashboard } from "./pages/Dashboard.jsx"
 import { HomeSecurity } from "./pages/HomeSecurity.jsx";
+import { Pricing } from "./pages/Pricing.jsx";
 import {HomeSubscriptionLevels} from "./pages/HomeSubscriptionLevels.jsx"
 import PrivateRoute from  "./component/Private_route/PrivateRoute.jsx";
+import { ProfileSettings } from "./pages/ProfileSettings.jsx";
+import { HomeLoggedSubPremium } from "./pages/HomeLoggedSubPremium.jsx";
+import { HomeLoggedSubVip } from "./pages/HomeLoggedSubVip.jsx";
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -35,11 +39,15 @@ const Layout = () => {
                         <Route element={<PrivateRoute><Registro/></PrivateRoute>} path="/preferences"/>
                         <Route element={<Dashboard/>} path="/dashboard"/>
                         <Route element={<HomeSecurity/>} path="/Security"/>
+                        <Route element={<Pricing/>} path="/pricing"/>
                         <Route element={<HomeSubscriptionLevels/>} path="/Subscription"/>
+                        <Route element={<ProfileSettings/>} path="/settings"/>
                         {/* <Route element={<Home />} path="/user/:id" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} /> */}
+                        <Route element = {<HomeLoggedSubPremium/>} path="/premium"/>
+                        <Route element = {<HomeLoggedSubVip/>} path="/vip"/>
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>

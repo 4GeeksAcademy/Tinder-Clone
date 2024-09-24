@@ -7,7 +7,7 @@ import requests
 
 import app
 from flask import Flask, request, jsonify, url_for, Blueprint, current_app
-from api.models import Gender, db, User, Payment, Subscription, Review, Match, Like
+from api.models import Gender, db, User, Payment, Subscription, Review, Match, Like, Role
 from api.utils import generate_sitemap, APIException, send_welcome_email
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -20,18 +20,33 @@ api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
-
 bcrypt = Bcrypt()
+
 # Verify identity of the user
 @api.route('/<int:dni>', methods=['GET'])
 def verify(dni):
   try:
-    url = f'https://api.datos.org.pe/reniec/dni/{dni}'
+    url = f'https://api.apis.net.pe/v2/reniec/dni?numero={dni}&token=%3Capis-token-10633.UZ5pijBV0IZKJFjTAa-HQnWH4tozl4K2%3E'
+    print(url)
     response = requests.get(url, verify=False)
     data = response.json()
     return jsonify(data), 200
   except Exception as e:
       return jsonify({"error": str(e)}), 500
+    
+# Roles
+@api.route('/roles', methods=['GET'])
+def get_roles():
+    roles = Role.query.all()
+    return jsonify([{'id': role.id, 'name': role.name} for role in roles])
+
+@api.route('/roles', methods=['POST'])
+def create_role():
+    data = request.json
+    new_role = Role(name=data['name'])
+    db.session.add(new_role)
+    db.session.commit()
+    return jsonify({'message': 'Role created successfully'}), 201
 
 # Gender CRUD
 @api.route('/genders', methods=['POST'])
@@ -223,12 +238,6 @@ def preferences():
     if not user:
       return jsonify({"error": "User not found"}), 404
     
-    if 'image' in data and len(data['image']) > 0:
-      base64_str = data['image'][0].split(',')[1]
-      image_data = base64.b64decode(base64_str)
-    else:
-      image_data = None
-      
     try:
         age = calculate_age(birthdate)
     except ValueError:
@@ -244,8 +253,8 @@ def preferences():
     user.gender_id = data.get('gender_id', user.gender_id)
     user.gender_to_show_id = data.get('gender_to_show_id', user.gender_to_show_id)
     user.subscription_id = data.get('subscription_id', user.subscription_id)
-    user.role = data.get('role', user.role)
-    user.image = image_data if image_data else user.image
+    user.role_id = data.get('role_id', user.role_id)
+    user.image = data.get('image', user.image)
     user.preferences_set = True
         
     db.session.commit()
@@ -279,7 +288,30 @@ def login():
 @api.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
-    return jsonify([user.serialize() for user in users])
+    results = list(map(lambda user: user.serialize(), users))
+    return jsonify(results), 200
+
+@api.route('/users_filtered', methods=['GET'])
+@jwt_required()
+def get_users_filtered():
+    try:
+      user_id = get_jwt_identity()
+      current_user  = User.query.get(user_id)
+      
+      if current_user and current_user.gender_to_show:
+        if current_user.role_id == 1:  # Sponsor
+            users = User.query.filter_by(gender_id=current_user.gender_to_show_id, role_id=2).all()  # Finder
+        elif current_user.role_id == 2:  # Finder
+            users = User.query.filter_by(gender_id=current_user.gender_to_show_id, role_id=1).all()  # Sponsor
+        else:
+            users = []
+      else:
+        users = User.query.all()
+        
+      results = list(map(lambda user: user.serialize(), users))
+      return jsonify(results), 200
+    except Exception as e:
+      return jsonify({"error": str(e)}), 500
 
 @api.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
@@ -304,11 +336,14 @@ def update_user(user_id):
 
 @api.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
+  try:
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message': 'User deleted successfully'})
-
+  except Exception as e:
+    return jsonify({"error": str(e)}), 500
+  
 @api.route('/reviews', methods=['GET'])
 def create_review():
   try:
@@ -352,7 +387,7 @@ def create_like():
         db.session.commit()
         return jsonify({"msg": msg}), 201
     except Exception as e:
-        return jsonify({"msg": str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
 
 # Get matches from a user
@@ -361,13 +396,11 @@ def create_like():
 def get_user_matches():
     try:
         current_user_id = get_jwt_identity()
+        matches = Match.query.filter((Match.user1_id == current_user_id) | (Match.user2_id == current_user_id)).all()
         
-        matches = Match.query.filter(
-          (Match.user1_id == current_user_id) | (Match.user2_id == current_user_id)
-        ).all()
         
         # Serializar los resultados
-        results = [m.serialize() for m in matches]
+        results = list(map(lambda match: match.serialize(), matches))
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"msg": str(e)}), 500

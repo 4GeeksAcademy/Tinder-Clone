@@ -9,6 +9,11 @@ class Gender(db.Model):
   def __repr__(self):
     return f'<Gender {self.name}>'
 
+class Role(db.Model):
+  id = db.Column(db.Integer, primary_key = True)
+  name = db.Column(db.String(120), nullable = False)
+  def __repr__(self):
+    return f'<Role {self.name}>'
 
 class Payment(db.Model):
   id = db.Column(db.Integer, primary_key = True)
@@ -68,13 +73,14 @@ class User(db.Model):
   gender_id = db.Column(db.Integer, db.ForeignKey('gender.id'), nullable=True)
   gender_to_show_id = db.Column(db.Integer, db.ForeignKey('gender.id'), nullable=True)
   subscription_id = db.Column(db.Integer, db.ForeignKey('subscription.id'), nullable=True)
-  role = db.Column(db.String(120), nullable=True)
-  image = db.Column(db.LargeBinary, nullable = True)
+  role_id = db.Column(db.Integer, db.ForeignKey('role.id') ,nullable=True)
+  image = db.Column(db.String(255), nullable=True)
   preferences_set = db.Column(db.Boolean, default = False)
 
   #relationship
   gender = db.relationship('Gender', foreign_keys=[gender_id])
   gender_to_show = db.relationship('Gender', foreign_keys=[gender_to_show_id])
+  role = db.relationship('Role', foreign_keys=[role_id])
   subscription = db.relationship('Subscription', backref = 'users')
 
   def __repr__(self):
@@ -91,8 +97,8 @@ class User(db.Model):
         "gender": self.gender.name if self.gender else None,
         "gender_to_show": self.gender_to_show.name if self.gender_to_show else None,
         "subscription": self.subscription.name if self.subscription else None,
-        "role": self.role,
-        "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
+        "role": self.role.name if self.role else None,
+        "image": self.image,
         "preferences_set": self.preferences_set
     }
     
@@ -152,17 +158,15 @@ class Match(db.Model):
   def serialize(self):
     return {
       "id": self.id,
-      "user1_id": self.user1_id,
-      "user2_id": self.user2_id,
       "timestamp": self.timestamp.isoformat(),
       "user1":{
         "id": self.user1.id,
         "name": self.user1.name,
-        "image": base64.b64encode(self.user1.image).decode('utf-8') if self.user1.image else None
+        "image": self.user1.image
       },
       "user2":{
         "id": self.user2.id,
         "name": self.user2.name,
-        "image": base64.b64encode(self.user2.image).decode('utf-8') if self.user2.image else None
+        "image": self.user2.image
       }
     }
