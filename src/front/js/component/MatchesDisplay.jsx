@@ -5,8 +5,11 @@ const MatchesDisplay = () => {
   const {store, actions} = useContext(Context)
   const userDataLogin = JSON.parse(localStorage.getItem('userDataLogin'))
   useEffect(() => {
-    actions.getMatches()
-  }, [actions.getMatches])
+    const interval = setInterval(() => {
+      actions.getMatches()
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [actions])
 
   return (
     <>
