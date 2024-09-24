@@ -1,4 +1,8 @@
 from flask import jsonify, url_for
+from flask import render_template, current_app
+from flask_mail import Mail, Message
+from threading import Thread
+import re
 
 class APIException(Exception):
     status_code = 400
@@ -39,3 +43,36 @@ def generate_sitemap(app):
         <p>Start working on your project by following the <a href="https://start.4geeksacademy.com/starters/full-stack" target="_blank">Quick Start</a></p>
         <p>Remember to specify a real endpoint path like: </p>
         <ul style="text-align: left;">"""+links_html+"</ul></div>"
+
+# send emails
+
+def send_async_email(app, mail, msg):
+    with app.app_context():
+        try:
+            mail.send(msg)
+            print(f"Email enviado exitosamente a: {msg.recipients[0]}")
+        except Exception as e:
+            print(f"Error al enviar email a {msg.recipients[0]}: {str(e)}")
+
+def send_welcome_email(user_email):
+    print(f"Intentando enviar correo de bienvenida a: {user_email}")
+    
+    try:
+        app = current_app._get_current_object()  # Obtén la instancia real de la aplicación
+        mail = Mail(app)  # Asegúrate de que Mail esté importado correctamente
+        
+        print(f"Directorio de plantillas: {app.template_folder}")
+        template_content = render_template('welcome_email.html', email=user_email)
+        print(f"Contenido de la plantilla renderizada: {template_content[:100]}...")  # Primeros 100 caracteres
+        
+        msg = Message('Bienvenido a nuestra aplicación',
+                      recipients=[user_email])
+        msg.html = template_content
+        
+        thread = Thread(target=send_async_email, args=(app, mail, msg))
+        thread.start()
+        
+        print(f"Proceso de envío de email iniciado para: {user_email}")
+    except Exception as e:
+        print(f"Error al preparar el correo de bienvenida para {user_email}: {str(e)}")
+        print(f"Tipo de error: {type(e).__name__}")
