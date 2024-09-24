@@ -282,7 +282,8 @@ h2 {
   }
 .profile-user {
     padding: 1.5rem 1rem;
-    background: linear-gradient(90deg, #FF2B77, #FF5941)
+    background: linear-gradient(90deg, #FF2B77, #FF5941);
+    cursor: pointer;
 }
 .userName {
     padding: 10px;
