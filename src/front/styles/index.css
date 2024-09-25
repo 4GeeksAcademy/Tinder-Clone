@@ -284,6 +284,8 @@ h2 {
     padding: 1.5rem 1rem;
     background: linear-gradient(90deg, #FF2B77, #FF5941);
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
 }
 .userName {
     padding: 10px;

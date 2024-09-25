@@ -216,6 +216,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({...getStore(),userProfile: data})
           return
         }
+      },
+      logOut: () => {
+        localStorage.removeItem('userDataLogin')
       }
 		}
 	};
