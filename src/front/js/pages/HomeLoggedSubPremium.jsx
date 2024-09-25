@@ -1,14 +1,57 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { HomeLogSubLevel, RowLevel } from '../component/HomeLogSubLevel.jsx'
 import { Check, Lock } from 'lucide-react';
+import { Context } from '../store/appContext.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
+import {ButtonDeleteAccount} from '../component/ButtonDeleteAccount.jsx'
+
+
 
 
 export const HomeLoggedSubPremium = () => {
+    const {store} = useContext(Context);
+    const navigate = useNavigate();
     return (
         <div className='container-fluid'>
-            <div className="row">
-                <div className="col-md-3 col-sm-12">
-                    <div className="d-flex flex-column pt-5 grid gap-3">
+            <div className="row vh-100">
+                <div className="col-md-3 col-sm-12 ps-0 pe-0">
+                    <div className="d-flex flex-column grid gap-2">
+                        <div className="setColor">
+                            <div className="profile-user" onClick={() => navigate('/settings')}>
+                                <img
+                                    src={store.userProfile.image}
+                                    alt="profile picture"
+                                    className="profile-picture"
+                                />
+                                <span className="userName"></span>
+                                <button
+                                    style={{
+                                        backgroundColor: '',
+                                        color: '#black',
+                                        border: 'none',
+                                        padding: '5px 10px',
+                                        fontSize: '10px',
+                                        cursor: 'pointer',
+                                        borderRadius: '5px',
+                                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                                        float: 'right',
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon="fa-solid fa-right-from-bracket"
+                                        style={{
+                                            fontSize: '20px',
+
+                                        }}
+                                    />
+                                </button>
+
+
+                                <span className="userName">{store.userProfile.name}</span>
+
+                            </div>
+                        </div>
                         <div>
                             <p className='text-secondary' style={{ textAlign: 'center' }}>Profile Settings</p>
                         </div>
@@ -22,14 +65,16 @@ export const HomeLoggedSubPremium = () => {
                                 <RowLevel color='#111418' toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
                             </HomeLogSubLevel>
                         </div>
+                        <ButtonDeleteAccount/>
+                        
                     </div>
                 </div>
-                <div className="col-md-6 col-sm-12 p-5 d-flex justify-content-center">
+                <div className="col-md-6 col-sm-12 p-5 pt-3 d-flex justify-content-center" style={{backgroundColor:'#18141c'}}>
                     <div className='overflow-scrol position-relative' style={{ scrollbarWidth: 'none' }}>
                         <HomeLogSubLevel>
                             <RowLevel toNavigate='/premium' color='#000000' title="Clipped Premium" description="Mira a quienes les gustas" />
                         </HomeLogSubLevel>
-                        <div><h3>Clipped Premium</h3></div>
+                        <div style={{color:'#F0F2F4'}}><h3>Clipped Premium</h3></div>
                         <div className='border border-secondary mb-3'>
                             <table className="table table-borderless border-secondary align-middle sub-table text-start">
                                 <thead>

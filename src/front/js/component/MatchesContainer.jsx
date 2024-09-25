@@ -10,10 +10,10 @@ import { useNavigate } from "react-router-dom";
 
 
 const MatchesContainer = () => {
-    const [ clickedUser, setClickedUser ] = useState(null)
-    const { store, actions } = useContext(Context)
+  const [clickedUser, setClickedUser] = useState(null)
+  const { store, actions } = useContext(Context)
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
     useEffect(() => {
       actions.getUserProfile()
@@ -69,7 +69,8 @@ const MatchesContainer = () => {
 
             <MatchesDisplay/>
         </div>
-    )
+      
+  )
 }
 
 export default MatchesContainer

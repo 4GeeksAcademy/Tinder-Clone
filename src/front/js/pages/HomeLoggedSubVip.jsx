@@ -1,15 +1,54 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { HomeLogSubLevel, RowLevel } from '../component/HomeLogSubLevel.jsx'
-import { Check} from 'lucide-react';
+import { Check } from 'lucide-react';
+import { Context } from '../store/appContext.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
+import {ButtonDeleteAccount} from '../component/ButtonDeleteAccount.jsx'
+
 export const HomeLoggedSubVip = () => {
-    const onChangeHandler = ()=>{
-        
+    const { store } = useContext(Context);
+    const navigate = useNavigate();
+    const onChangeHandler = () => {
+
     }
     return (
         <div className="container-fluid">
-            <div className="row">
-                <div className="col-md-3 col-sm-12 mt-5">
-                    <div className="d-flex flex-column pt-5 grid gap-3">
+            <div className="row vh-100">
+                <div className="col-md-3 col-sm-12 ps-0 pe-0">
+                    <div className="d-flex flex-column grid gap-2">
+                        <div className="setColor">
+                            <div className="profile-user" onClick={() => navigate('/settings')}>
+                                <img
+                                    src={store.userProfile.image}
+                                    alt="profile picture"
+                                    className="profile-picture"
+                                />
+                                <span className="userName"></span>
+                                <button
+                                    style={{
+                                        backgroundColor: '',
+                                        color: '#black',
+                                        border: 'none',
+                                        padding: '5px 10px',
+                                        fontSize: '10px',
+                                        cursor: 'pointer',
+                                        borderRadius: '5px',
+                                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                                        float: 'right',
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon="fa-solid fa-right-from-bracket"
+                                        style={{
+                                            fontSize: '20px',
+
+                                        }}
+                                    />
+                                </button>
+                                <span className="userName">{store.userProfile.name}</span>
+                            </div>
+                        </div>
                         <div>
                             <p className="text-secondary p-0 mb-0">Profile Settings</p>
                         </div>
@@ -23,44 +62,50 @@ export const HomeLoggedSubVip = () => {
                                 <RowLevel color='#111418' toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
                             </HomeLogSubLevel>
                         </div>
+                        <ButtonDeleteAccount/>
                     </div>
                 </div>
-                <div className="col-md-6 col-sm-12 pt-5 d-flex justify-content-center">
-                    <div className="main-content">
+                <div className="col-md-6 col-sm-12 d-flex justify-content-center" style={{backgroundColor:'#18141c'}}>
+                    <div className="pt-3">
                         <div className='overflow-scroll position-relative' style={{ scrollbarWidth: 'none' }}>
                             <HomeLogSubLevel>
                                 <RowLevel toNavigate='/vip' color='#000000' title="Clipped Vip" description="Mira a quienes les gustas" />
                             </HomeLogSubLevel>
-                            <div><h3>Clipped Premium</h3></div>
-                            <table className="table table-borderless border-secondary align-middle sub-table text-start">
-                                <thead>
-                                    <tr>
-                                        <th className='px-4 fs-6 fw-normal inline'>
-                                            Tus likes al siguiente nivel.
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'><b>Likes ilimitados.</b></p></td></tr>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'><b>Descubre a quién le gustas.</b></p></td></tr>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'><b>Likes prioritarios</b> Tus likes se verán antes.</p></td></tr>
-                                </tbody>
-                            </table>
-                            <table className="table table-borderless border-secondary align-middle sub-table text-start">
-                                <thead>
-                                    <tr>
-                                        <th className='px-4 fs-6 fw-normal'>
-                                            Mejora de experiencia
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'>Retroceder cuantas veces necesites.</p></td></tr>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'>1 Boost gratuito al mes.</p></td></tr>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'>3 Super Likes gratis cada semana.</p></td></tr>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'>Haz Match con gente de todo el Perú.</p></td></tr>
-                                </tbody>
-                            </table>
+                            <div style={{color:'#F0F2F4'}}><h3>Clipped Vip</h3></div>
+                            <div className="border border-secondary mb-3">
+                                <table className="table table-borderless border-secondary align-middle sub-table text-start ">
+                                    <thead>
+                                        <tr>
+                                            <th className='px-4 fs-6 fw-normal inline'>
+                                                Tus likes al siguiente nivel.
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'><b>Likes ilimitados.</b></p></td></tr>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'><b>Descubre a quién le gustas.</b></p></td></tr>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'><b>Likes prioritarios</b> Tus likes se verán antes.</p></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className='border border-secondary mb-3'>
+                                <table className="table table-borderless border-secondary align-middle sub-table text-start">
+                                    <thead>
+                                        <tr>
+                                            <th className='px-4 fs-6 fw-normal'>
+                                                Mejora de experiencia
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'>Retroceder cuantas veces necesites.</p></td></tr>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'>1 Boost gratuito al mes.</p></td></tr>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'>3 Super Likes gratis cada semana.</p></td></tr>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check />    <p className='ps-3 my-auto'>Haz Match con gente de todo el Perú.</p></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className='border border-secondary mb-3'>
                             <table className="table table-borderless border-secondary align-middle sub-table text-start">
                                 <thead>
                                     <tr>
@@ -75,6 +120,8 @@ export const HomeLoggedSubVip = () => {
                                     <tr><td className='px-4 d-flex align-items-center'><Check /><p className='ps-3 my-auto'>Controla quién te ve.</p></td></tr>
                                 </tbody>
                             </table>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +141,7 @@ export const HomeLoggedSubVip = () => {
                             </label>
                         </div>
                         <div className="form-check d-flex align-items-center">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="1month" checked onChange={onChangeHandler}/>
+                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="1month" checked onChange={onChangeHandler} />
                             <label className="form-check-label" for="1month">
                                 <div className="container d-flex flex-column ps-3">
                                     <p className='fs-5'> 1 mes</p>
@@ -104,7 +151,7 @@ export const HomeLoggedSubVip = () => {
                             </label>
                         </div>
                         <div className="form-check d-flex align-items-center">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="6moths" checked onChange={onChangeHandler}/>
+                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="6moths" checked onChange={onChangeHandler} />
                             <label className="form-check-label" for="6moths">
                                 <div className="container d-flex flex-column ps-3">
                                     <p className='fs-5 my-0'> 6 meses</p>

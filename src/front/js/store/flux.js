@@ -23,7 +23,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw new Error('Network response was not ok')
           }
           const data = await response.json();
-          console.log(data)
           setStore({...getStore,reviews:data})
           return 
         } catch(e){
