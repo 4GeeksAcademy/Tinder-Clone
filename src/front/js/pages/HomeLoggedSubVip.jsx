@@ -4,7 +4,7 @@ import { Check } from 'lucide-react';
 import { Context } from '../store/appContext.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-import {ButtonDeleteAccount} from '../component/ButtonDeleteAccount.jsx'
+import { ButtonDeleteAccount } from '../component/ButtonDeleteAccount.jsx'
 
 export const HomeLoggedSubVip = () => {
     const { store } = useContext(Context);
@@ -16,7 +16,7 @@ export const HomeLoggedSubVip = () => {
         <div className="container-fluid">
             <div className="row vh-100">
                 <div className="col-md-3 col-sm-12 ps-0 pe-0">
-                    <div className="d-flex flex-column grid gap-2">
+                    <div className="d-flex h-100 flex-column grid gap-2">
                         <div className="setColor">
                             <div className="profile-user" onClick={() => navigate('/settings')}>
                                 <img
@@ -49,29 +49,33 @@ export const HomeLoggedSubVip = () => {
                                 <span className="userName">{store.userProfile.name}</span>
                             </div>
                         </div>
-                        <div>
-                            <p className="text-secondary p-0 mb-0">Profile Settings</p>
+                        <div className="h-100">
+                            <div>
+                                <p className="text-secondary p-0 mb-0">Profile Settings</p>
+                            </div>
+                            <div>
+                                <HomeLogSubLevel>
+                                    <RowLevel color='#111418' toNavigate='/vip' title="Clipped Vip" description="Clipped al siguiente nivel" />
+                                </HomeLogSubLevel>
+                            </div>
+                            <div>
+                                <HomeLogSubLevel>
+                                    <RowLevel color='#111418' toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
+                                </HomeLogSubLevel>
+                            </div>
                         </div>
                         <div>
-                            <HomeLogSubLevel>
-                                <RowLevel color='#111418' toNavigate='/vip' title="Clipped Vip" description="Clipped al siguiente nivel" />
-                            </HomeLogSubLevel>
+                            <ButtonDeleteAccount />
                         </div>
-                        <div>
-                            <HomeLogSubLevel>
-                                <RowLevel color='#111418' toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
-                            </HomeLogSubLevel>
-                        </div>
-                        <ButtonDeleteAccount/>
                     </div>
                 </div>
-                <div className="col-md-6 col-sm-12 d-flex justify-content-center" style={{backgroundColor:'#18141c'}}>
+                <div className="col-md-6 col-sm-12 d-flex justify-content-center" style={{ backgroundColor: '#18141c' }}>
                     <div className="pt-3">
                         <div className='overflow-scroll position-relative' style={{ scrollbarWidth: 'none' }}>
                             <HomeLogSubLevel>
                                 <RowLevel toNavigate='/vip' color='#000000' title="Clipped Vip" description="Mira a quienes les gustas" />
                             </HomeLogSubLevel>
-                            <div style={{color:'#F0F2F4'}}><h3>Clipped Vip</h3></div>
+                            <div style={{ color: '#F0F2F4' }}><h3>Clipped Vip</h3></div>
                             <div className="border border-secondary mb-3">
                                 <table className="table table-borderless border-secondary align-middle sub-table text-start ">
                                     <thead>
@@ -106,20 +110,20 @@ export const HomeLoggedSubVip = () => {
                                 </table>
                             </div>
                             <div className='border border-secondary mb-3'>
-                            <table className="table table-borderless border-secondary align-middle sub-table text-start">
-                                <thead>
-                                    <tr>
-                                        <th className='px-4 fs-6 fw-normal'>
-                                            Toma el control
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check /><p className='ps-3 my-auto'>Descubre a quién le gustas.</p></td></tr>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check /><p className='ps-3 my-auto'>Controla a quién ves.</p></td></tr>
-                                    <tr><td className='px-4 d-flex align-items-center'><Check /><p className='ps-3 my-auto'>Controla quién te ve.</p></td></tr>
-                                </tbody>
-                            </table>
+                                <table className="table table-borderless border-secondary align-middle sub-table text-start">
+                                    <thead>
+                                        <tr>
+                                            <th className='px-4 fs-6 fw-normal'>
+                                                Toma el control
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check /><p className='ps-3 my-auto'>Descubre a quién le gustas.</p></td></tr>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check /><p className='ps-3 my-auto'>Controla a quién ves.</p></td></tr>
+                                        <tr><td className='px-4 d-flex align-items-center'><Check /><p className='ps-3 my-auto'>Controla quién te ve.</p></td></tr>
+                                    </tbody>
+                                </table>
 
                             </div>
                         </div>

@@ -5,7 +5,7 @@ import { Pencil } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Save } from 'lucide-react';
-import {ButtonDeleteAccount} from '../component/ButtonDeleteAccount.jsx'
+import { ButtonDeleteAccount } from '../component/ButtonDeleteAccount.jsx'
 
 export const ProfileSettings = () => {
   const { store, actions } = useContext(Context);
@@ -29,62 +29,62 @@ export const ProfileSettings = () => {
     setIsEdit(prev => !prev)
   }
   console.log(store.userProfile)
-
   return (
     <div className="app-container">
-      <div className="">
-        <div className="flex-column">
-            <div className="setColor">
-              <div className="profile-user" onClick={() => navigate('/settings')}>
-                <img
-                  src={store.userProfile.image}
-                  alt="profile picture"
-                  className="profile-picture"
-                />
-                <span className="userName"></span>
-                <button
+      <div className="h-100">
+        <div className="flex-column h-75">
+          <div className="setColor">
+            <div className="profile-user" onClick={() => navigate('/settings')}>
+              <img
+                src={store.userProfile.image}
+                alt="profile picture"
+                className="profile-picture"
+              />
+              <span className="userName"></span>
+              <button
+                style={{
+                  backgroundColor: '',
+                  color: '#black',
+                  border: 'none',
+                  padding: '5px 10px',
+                  fontSize: '10px',
+                  cursor: 'pointer',
+                  borderRadius: '5px',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                  float: 'right',
+                }}
+              >
+                <FontAwesomeIcon
+                  icon="fa-solid fa-right-from-bracket"
                   style={{
-                    backgroundColor: '',
-                    color: '#black',
-                    border: 'none',
-                    padding: '5px 10px',
-                    fontSize: '10px',
-                    cursor: 'pointer',
-                    borderRadius: '5px',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                    float: 'right',
+                    fontSize: '20px',
+
                   }}
-                >
-                  <FontAwesomeIcon
-                    icon="fa-solid fa-right-from-bracket"
-                    style={{
-                      fontSize: '20px',
-
-                    }}
-                  />
-                </button>
+                />
+              </button>
 
 
-                <span className="userName">{store.userProfile.name}</span>
+              <span className="userName">{store.userProfile.name}</span>
 
-              </div>
             </div>
-          
-          <div className='mt-3'>
-            <p style={{ textAlign: 'center' }}>Profile Settings</p>
+          </div>
+          <div className="h-100">
+            <div className='mt-3'>
+              <p style={{ textAlign: 'center' }}>Profile Settings</p>
+            </div>
+            <div>
+              <HomeLogSubLevel>
+                <RowLevel color='#111418' toNavigate='/vip' title="Clipped Vip" description="Clipped al siguiente nivel" />
+              </HomeLogSubLevel>
+            </div>
+            <div>
+              <HomeLogSubLevel>
+                <RowLevel color='#111418' toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
+              </HomeLogSubLevel>
+            </div>
           </div>
           <div>
-            <HomeLogSubLevel>
-              <RowLevel toNavigate='/vip' title="Clipped Vip" description="Clipped al siguiente nivel" />
-            </HomeLogSubLevel>
-          </div>
-          <div>
-            <HomeLogSubLevel>
-              <RowLevel toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
-            </HomeLogSubLevel>
-          </div>
-          <div>
-            <ButtonDeleteAccount/>
+            <ButtonDeleteAccount />
           </div>
         </div>
       </div>
@@ -97,19 +97,19 @@ export const ProfileSettings = () => {
               overflowY: 'auto',
               borderRadius: '10px',
               border: '1px solid #ccc',
-              padding: '20px' // add some padding to the card
+              padding: '20px'
             }}>
               <img src={store?.userProfile?.image} alt="Profile picture" style={{
                 maxWidth: '100%',
                 height: 'auto',
                 maxHeight: '250px',
-                borderRadius: '10px', // add a rounded corner to the image
-                marginBottom: '20px' // add some margin between the image and the text
+                borderRadius: '10px',
+                marginBottom: '20px'
               }} />
               <div className="user-info">
                 <div className='user-basic' style={{
-                  borderBottom: '1px solid #ddd', // add a thin gray line
-                  paddingBottom: '20px' // add some padding to the bottom
+                  borderBottom: '1px solid #ddd',
+                  paddingBottom: '20px'
                 }}>
                   <div className="d-flex justify-content-center">
                     <h3 className='mb-0 d-flex w-100 justify-content-center align-items-center'>
@@ -150,14 +150,14 @@ export const ProfileSettings = () => {
               overflowY: 'auto',
               borderRadius: '10px',
               border: '1px solid #ccc',
-              padding: '20px' // add some padding to the card
+              padding: '20px'
             }}>
               <img src={store?.userProfile?.image} alt="Profile picture" style={{
                 maxWidth: '100%',
                 height: 'auto',
                 maxHeight: '250px',
-                borderRadius: '10px', // add a rounded corner to the image
-                marginBottom: '20px' // add some margin between the image and the text
+                borderRadius: '10px',
+                marginBottom: '20px'
               }} />
               <div className="user-info">
                 <form onSubmit={handleRegister}>
@@ -202,8 +202,8 @@ export const ProfileSettings = () => {
                     </div>
                     <div className="container d-flex justify-content-center">
                       <button onClick={() => { navigate('/settings'); setIsEdit(false) }} type="button" className="btn btn-primary me-3" style={{ minWidth: "80px", background: 'linear-gradient(90deg, #FF2B77, #FF5941)' }}>
-                        <i className="fa-solid fa-person-walking-arrow-loop-left pe-1"/></button>
-                      <button type="submit" className="btn btn-primary" style={{ minWidth: "80px", background: 'linear-gradient(90deg, #FF2B77, #FF5941)'}}><Save/></button>
+                        <i className="fa-solid fa-person-walking-arrow-loop-left pe-1" /></button>
+                      <button type="submit" className="btn btn-primary" style={{ minWidth: "80px", background: 'linear-gradient(90deg, #FF2B77, #FF5941)' }}><Save /></button>
                     </div>
                   </div>
                 </form>
