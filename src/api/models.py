@@ -72,6 +72,9 @@ class User(db.Model):
   role_id = db.Column(db.Integer, db.ForeignKey('role.id') ,nullable=True)
   image = db.Column(db.String(255), nullable=True)
   preferences_set = db.Column(db.Boolean, default = False)
+  instagram = db.Column(db.String(255), nullable=True)
+  facebook = db.Column(db.String(255), nullable=True)
+  phone = db.Column(db.String(255), nullable=True)
 
   #relationship
   gender = db.relationship('Gender', foreign_keys=[gender_id])
@@ -95,7 +98,10 @@ class User(db.Model):
         "subscription": self.subscription.name if self.subscription else None,
         "role": self.role.name if self.role else None,
         "image": self.image,
-        "preferences_set": self.preferences_set
+        "preferences_set": self.preferences_set,
+        "instagram": self.instagram,
+        "facebook": self.facebook,
+        "phone": self.phone
     }
     
 

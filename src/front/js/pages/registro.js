@@ -6,6 +6,8 @@ export const Registro = () => {
   const preset_name = "Tinder-users-images"
   const cloud_name = "dsfuwxsjf"
 
+  const [errors, setErrors] = useState({})
+
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
@@ -16,8 +18,6 @@ export const Registro = () => {
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
     name: '',
     fechaNacimiento: '',
     role: 0,
@@ -27,7 +27,10 @@ export const Registro = () => {
     busco: '',
     fotos: Array(1).fill(null),
     intereses: ['Meditación', 'Spotify', 'Correr', 'Viajar', 'Freelance'],
-    orientacionSexual: ['Heterosexual']
+    orientacionSexual: ['Heterosexual'],
+    facebook: null,
+    instagram: null,
+    phone: null
   });
 
   const data = JSON.parse(localStorage.getItem('userDataLogin'))
@@ -66,6 +69,7 @@ export const Registro = () => {
     });
   };
 
+  //This function is used to upload images to Cloudinary
   const setImages = async (e, index) => {
     try {
       const files = e.target.files;
@@ -91,6 +95,25 @@ export const Registro = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const newErrors = {};
+    if (!formData.name) newErrors.name = 'El nombre es obligatorio';
+    if (!formData.fechaNacimiento) newErrors.fechaNacimiento = 'La fecha de nacimiento es obligatoria';
+    if (!formData.role) newErrors.role = 'El rol es obligatorio';
+    if (!formData.sexo) newErrors.sexo = 'El sexo es obligatorio';
+    if (!formData.fotos[0]) newErrors.fotos = 'La foto de perfil es obligatoria';
+
+    const socialMediaFilled = formData.facebook || formData.instagram || formData.phone;
+    if (!socialMediaFilled) {
+      newErrors.facebook = 'Al menos una red social es obligatoria';
+      newErrors.instagram = 'Al menos una red social es obligatoria';
+      newErrors.phone = 'Al menos una red social es obligatoria';
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
     const formDataToSend = {
       email: formData.email,
       password: formData.password,
@@ -99,8 +122,12 @@ export const Registro = () => {
       gender_id: formData.sexo,
       gender_to_show_id: formData.mostrar,
       role_id: formData.role,
-      image: formData.fotos[0]
+      image: formData.fotos[0],
+      facebook: formData.facebook,
+      instagram: formData.instagram,
+      phone: formData.phone,
     }
+
     console.log(formDataToSend)
     actions.preferencesUserData(formDataToSend, data.access_token)
     .then(data => {
@@ -122,6 +149,7 @@ export const Registro = () => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
+            className={errors.name ? 'error' : ''}
           />
         </div>
         <div className="form-group">
@@ -132,6 +160,7 @@ export const Registro = () => {
             name="fechaNacimiento"
             value={formData.fechaNacimiento}
             onChange={handleInputChange}
+            className={errors.fechaNacimiento ? 'error' : ''}
           />
         </div>
         <div className="form-group">
@@ -146,11 +175,13 @@ export const Registro = () => {
                   value={option.id}
                   checked={Number(formData.role) === option.id}
                   onChange={handleInputChange}
+                  className={errors.role ? 'error' : ''}
                 />
                 <label htmlFor={`role-${option.id}`}>{option.name}</label>
               </React.Fragment>
             ))}
           </div>
+          {errors.role && <span className="error-message">{errors.role}</span>}
         </div>
         <div className="form-group">
           <label>Sexo</label>
@@ -164,6 +195,7 @@ export const Registro = () => {
                   value={option.id}
                   checked={Number(formData.sexo) === option.id}
                   onChange={handleInputChange}
+                  className={errors.sexo ? 'error' : ''}
                 />
                 <label htmlFor={`sexo-${option.id}`}>{option.name}</label>
               </React.Fragment>
@@ -222,7 +254,7 @@ export const Registro = () => {
           </div>
         </div>
         <div className="form-group">
-          <label>Foto de perfil (Agrega un mínimo de 2 fotos para continuar)</label>
+          <label>Foto de perfil (Agrega al menos 1 foto para continuar)</label>
           <div className="photo-grid">
             {formData.fotos.map((foto, index) => (
               <div key={index} className="photo-placeholder">
@@ -233,12 +265,43 @@ export const Registro = () => {
                   id={`foto-${index}`}
                   style={{ display: 'none' }}
                 />
-                <label htmlFor={`foto-${index}`}>
-                  {foto ? foto.name : '+'}
+                <label htmlFor={`foto-${index}`} style={{ width: '180px', height: '180px'  }}>
+                  {foto ? <img src={foto} alt={`Foto ${index + 1}`} style={{ width: '100%', height: '100%'  }} /> : '+'}
                 </label>
               </div>
             ))}
           </div>
+          {errors.fotos && <span className="error-message">{errors.fotos}</span>}
+        </div>
+        <div className='form-group'>
+            <label>Redes de contacto</label>
+            <div className='social-media'>
+                <input 
+                  type='text' 
+                  name='facebook' 
+                  placeholder='Facebook'
+                  value={formData.facebook || ''}
+                  onChange={handleInputChange}
+                  className={errors.facebook ? 'error' : ''} 
+                />
+                <input 
+                  type='text' 
+                  name='instagram' 
+                  placeholder='Instagram'
+                  value={formData.instagram || ''}
+                  onChange={handleInputChange}
+                  className={errors.instagram ? 'error' : ''} 
+                />
+                <input 
+                  type='text' 
+                  name='phone' 
+                  placeholder='Teléfono'
+                  value={formData.phone || ''}
+                  onChange={handleInputChange}
+                  className={errors.phone ? 'error' : ''} 
+                />
+            </div>
+            {(errors.facebook || errors.instagram || errors.phone) && <span className="error-message">Al menos una método de contacto es obligatorio</span>}
         </div>
         <div className="form-group">
           <label>Opcional</label>
@@ -423,6 +486,19 @@ export const Registro = () => {
           cursor: pointer;
           font-size: 16px;
           margin-top: 20px;
+        }
+        .social-media{
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 10px;
+        }
+        .error {
+          border-color: red !important;
+        }
+        .error-message{
+          color: red;
+          font-size: 12px;
+          margin-top: 5px;
         }
       `}</style>
     </div>
