@@ -15,46 +15,47 @@ export const HomeLoggedSubPremium = () => {
     return (
         <div className='container-fluid'>
             <div className="row vh-100">
-                <div className="col-md-3 col-sm-12 ps-0 pe-0">
-                    <div className="d-flex h-100 flex-column grid gap-2">
-                        <div className="setColor">
-                            <div className="profile-user" onClick={() => navigate('/settings')}>
-                                <img
-                                    src={store.userProfile.image}
-                                    alt="profile picture"
-                                    className="profile-picture"
-                                />
-                                <span className="userName"></span>
-                                <button
-                                    style={{
-                                        backgroundColor: '',
-                                        color: '#black',
-                                        border: 'none',
-                                        padding: '5px 10px',
-                                        fontSize: '10px',
-                                        cursor: 'pointer',
-                                        borderRadius: '5px',
-                                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                                        float: 'right',
-                                    }}
-                                >
-                                    <FontAwesomeIcon
-                                        icon="fa-solid fa-right-from-bracket"
-                                        style={{
-                                            fontSize: '20px',
-
-                                        }}
-                                    />
-                                </button>
-
-
-                                <span className="userName">{store.userProfile.name}</span>
-
-                            </div>
+                <div className="ps-0 pe-0 col-md-3 col-sm-12" >
+                    <div className="d-flex h-100 flex-column grid">
+                      <div className="setColor">
+                        <div className="profile-user" >
+                          <div className="profile-user-info" onClick={() => navigate('/settings')}>
+                            <img 
+                                src={store.userProfile.image} 
+                                alt="profile picture" 
+                                className="profile-picture"
+                            />
+                            <span className="userName">{store.userProfile.name}</span>
+                          </div>
+                          <div>
+                            <button
+                              onClick={() => logOutSession()}
+                              style={{
+                                backgroundColor: '',
+                                color: '#black',
+                                border: 'none',
+                                padding: '5px 10px',
+                                fontSize: '10px',
+                                cursor: 'pointer',
+                                borderRadius: '5px',
+                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                                float: 'right',
+                              }}
+                            >
+                              <FontAwesomeIcon
+                                icon="fa-solid fa-right-from-bracket"
+                                style={{
+                                  fontSize: '20px',
+                                  
+                                }}
+                              />
+                            </button>
+                          </div>
                         </div>
+                      </div>
                         <div className='h-100'>
-                            <div>
-                                <p className='text-secondary mb-0' style={{ textAlign: 'center' }}>Profile Settings</p>
+                            <div className='mt-3 text-light' >
+                                <p className='text-white p-0' style={{ textAlign: 'center' }}>Profile Settings</p>
                             </div>
                             <div>
                                 <HomeLogSubLevel>
