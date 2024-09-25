@@ -11,7 +11,7 @@ const MatchesDisplay = () => {
       actions.getMatches()
     }, 5000)
     return () => clearInterval(interval)
-  }, [actions])
+  }, [])
 
   return (
     <>
