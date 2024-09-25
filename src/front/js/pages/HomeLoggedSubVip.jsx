@@ -5,54 +5,18 @@ import { Context } from '../store/appContext.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { ButtonDeleteAccount } from '../component/ButtonDeleteAccount.jsx'
+import { LeftHeader } from '../component/LeftHeader.jsx';
 
 export const HomeLoggedSubVip = () => {
-    const { store } = useContext(Context);
-    const navigate = useNavigate();
     const onChangeHandler = () => {
 
     }
     return (
         <div className="container-fluid">
             <div className="row vh-100">
-                <div className="ps-0 pe-0 col-md-3 col-sm-12" >
+                <div className="ps-0 pe-0 col-lg-2 col-md-3 col-sm-12" >
                     <div className="d-flex h-100 flex-column grid">
-                      <div className="setColor">
-                        <div className="profile-user" >
-                          <div className="profile-user-info" onClick={() => navigate('/settings')}>
-                            <img 
-                                src={store.userProfile.image} 
-                                alt="profile picture" 
-                                className="profile-picture"
-                            />
-                            <span className="userName">{store.userProfile.name}</span>
-                          </div>
-                          <div>
-                            <button
-                              onClick={() => logOutSession()}
-                              style={{
-                                backgroundColor: '',
-                                color: '#black',
-                                border: 'none',
-                                padding: '5px 10px',
-                                fontSize: '10px',
-                                cursor: 'pointer',
-                                borderRadius: '5px',
-                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                                float: 'right',
-                              }}
-                            >
-                              <FontAwesomeIcon
-                                icon="fa-solid fa-right-from-bracket"
-                                style={{
-                                  fontSize: '20px',
-                                  
-                                }}
-                              />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                        <LeftHeader/>
                         <div className="h-100">
                             <div className='mt-3'>
                                 <p className="text-white p-0">Profile Settings</p>
