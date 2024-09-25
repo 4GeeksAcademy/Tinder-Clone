@@ -255,6 +255,9 @@ def preferences():
     user.role_id = data.get('role_id', user.role_id)
     user.image = data.get('image', user.image)
     user.preferences_set = True
+    user.instagram = data.get('instagram', user.instagram)
+    user.facebook = data.get('facebook', user.facebook)
+    user.phone = data.get('phone', user.phone)
         
     db.session.commit()
     return jsonify(user.serialize()), 201
@@ -388,6 +391,17 @@ def create_like():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# Delete all likes 
+@api.route('/likes', methods=['DELETE'])
+def delete_likes():
+    try:
+        likes = Like.query.all()
+        for like in likes:
+            db.session.delete(like)
+        db.session.commit()
+        return jsonify({"msg": "Likes deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # Get matches from a user
 @api.route('/matches', methods=['GET'])
