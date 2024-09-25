@@ -4,6 +4,8 @@ import { Check, Lock } from 'lucide-react';
 import { Context } from '../store/appContext.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
+import {ButtonDeleteAccount} from '../component/ButtonDeleteAccount.jsx'
+
 
 
 
@@ -58,16 +60,8 @@ export const HomeLoggedSubPremium = () => {
                                 <RowLevel color='#111418' toNavigate='/vip' title="Clipped Vip" description="Clipped al siguiente nivel" />
                             </HomeLogSubLevel>
                         </div>
-                        <div>
-                            <HomeLogSubLevel>
-                                <RowLevel color='#111418' toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
-                            </HomeLogSubLevel>
-                        </div>
-                        <div>
-                            <HomeLogSubLevel>
-                                <RowLevel color='#111418' toNavigate='/' title="" description="Eliminar cuenta" />
-                            </HomeLogSubLevel>
-                        </div>
+                        <ButtonDeleteAccount/>
+                        
                     </div>
                 </div>
                 <div className="col-md-6 col-sm-12 p-5 pt-3 d-flex justify-content-center" style={{backgroundColor:'#18141c'}}>
