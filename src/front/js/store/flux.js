@@ -1,8 +1,8 @@
 import { Rss } from "lucide-react";
 
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
+  return {
+    store: {
       users: [],
       matches: [],
       reviews: [],
@@ -11,27 +11,27 @@ const getState = ({ getStore, getActions, setStore }) => {
       userToVerify: {},
       userDataLogin: {},
       userProfile: []
-		},
-		actions: {
-			getReviews: async () => {
-        try{
-          const response = await fetch(process.env.BACKEND_URL + "/reviews",{
-            method:'GET'
+    },
+    actions: {
+      getReviews: async () => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + "/reviews", {
+            method: 'GET'
           });
           console.log(response)
-          if (!response.ok){
+          if (!response.ok) {
             throw new Error('Network response was not ok')
           }
           const data = await response.json();
-          setStore({...getStore,reviews:data})
-          return 
-        } catch(e){
+          setStore({ ...getStore, reviews: data })
+          return
+        } catch (e) {
           throw e
         }
-			},
-      registerUserData: async(registerUserData) => {
-        try{
-          const res = await fetch(process.env.BACKEND_URL+"/register", {
+      },
+      registerUserData: async (registerUserData) => {
+        try {
+          const res = await fetch(process.env.BACKEND_URL + "/register", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -39,17 +39,17 @@ const getState = ({ getStore, getActions, setStore }) => {
             body: JSON.stringify(registerUserData)
           })
           const data = await res.json()
-          if(!res.ok){
+          if (!res.ok) {
             throw new Error(data.msg)
           }
           return data
-        }catch(error){
+        } catch (error) {
           throw error
-        }        
+        }
       },
-      loginUserData: async(loginUserData) => {
-        try{
-          const res = await fetch(process.env.BACKEND_URL+"/login", {
+      loginUserData: async (loginUserData) => {
+        try {
+          const res = await fetch(process.env.BACKEND_URL + "/login", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -57,21 +57,21 @@ const getState = ({ getStore, getActions, setStore }) => {
             body: JSON.stringify(loginUserData)
           })
           const data = await res.json()
-          if(!res.ok){
+          if (!res.ok) {
             throw new Error(data.msg)
           }
-          if(data.access_token){
+          if (data.access_token) {
             localStorage.setItem('userDataLogin', JSON.stringify(data))
           }
-          setStore({...getStore(),userDataLogin:data})
+          setStore({ ...getStore(), userDataLogin: data })
           return data
-        }catch(error){
+        } catch (error) {
           throw error
-        }        
+        }
       },
-      preferencesUserData: async(preferencesUserData, token) => {
-        try{
-          const res = await fetch(process.env.BACKEND_URL+"/preferences", {
+      preferencesUserData: async (preferencesUserData, token) => {
+        try {
+          const res = await fetch(process.env.BACKEND_URL + "/preferences", {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -80,28 +80,28 @@ const getState = ({ getStore, getActions, setStore }) => {
             body: JSON.stringify(preferencesUserData)
           })
           const data = await res.json()
-          if(!res.ok){
+          if (!res.ok) {
             throw new Error(data.msg)
           }
-          
+
           const existingUserData = JSON.parse(localStorage.getItem('userDataLogin'))
           existingUserData.preferences_set = data.preferences_set
           localStorage.setItem('userDataLogin', JSON.stringify(existingUserData))
 
           return data
-        }catch(error){
+        } catch (error) {
           throw error
-        }        
+        }
       },
       getUsers: async () => {
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/users",{
-            method:"GET",
-            
+          const resp = await fetch(process.env.BACKEND_URL + "/users", {
+            method: "GET",
+
           })
-          if(resp.status===200){
+          if (resp.status === 200) {
             const data = await resp.json()
-            setStore({...getStore(),users:data})
+            setStore({ ...getStore(), users: data })
             return data
           }
         } catch (error) {
@@ -110,15 +110,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getUsersByPreferences: async () => {
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/users_filtered",{
-            method:"GET",
+          const resp = await fetch(process.env.BACKEND_URL + "/users_filtered", {
+            method: "GET",
             headers: {
               'Authorization': `Bearer ${JSON.parse(localStorage.getItem('userDataLogin')).access_token}`
             }
           })
-          if(resp.status===200){
+          if (resp.status === 200) {
             const data = await resp.json()
-            setStore({...getStore(),users:data})
+            setStore({ ...getStore(), users: data })
             return data
           }
         } catch (error) {
@@ -126,41 +126,41 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       getGenders: async () => {
-        try{
+        try {
           const res = await fetch(process.env.BACKEND_URL + "/genders", {
             method: 'GET'
           })
           const data = await res.json()
-          if(res.ok){
-            setStore({...getStore(), genders:data})
+          if (res.ok) {
+            setStore({ ...getStore(), genders: data })
             return data
           }
-        }catch(error){
+        } catch (error) {
           throw error
         }
       },
       getRoles: async () => {
-        try{
+        try {
           const res = await fetch(process.env.BACKEND_URL + "/roles", {
             method: 'GET'
           })
           const data = await res.json()
-          if(res.ok){
-            setStore({...getStore(), roles:data})
+          if (res.ok) {
+            setStore({ ...getStore(), roles: data })
             return data
           }
-        }catch(error){
+        } catch (error) {
           throw error
         }
       },
       sendDataToVerifyIdentity: async (dni) => {
         try {
           const res = await fetch(process.env.BACKEND_URL + '/' + dni)
-          if(!res.ok){
+          if (!res.ok) {
             throw new Error('Network response was not ok')
           }
           const data = await res.json()
-          setStore({...getStore(),userToVerify:data})
+          setStore({ ...getStore(), userToVerify: data })
           return data
         } catch (error) {
           throw error
@@ -168,24 +168,24 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getMatches: async () => {
         try {
-          const res = await fetch(process.env.BACKEND_URL + "/matches" ,{
-            method:"GET",
+          const res = await fetch(process.env.BACKEND_URL + "/matches", {
+            method: "GET",
             headers: {
               'Authorization': `Bearer ${JSON.parse(localStorage.getItem('userDataLogin')).access_token}`
             }
           })
-          if(!res.ok){
+          if (!res.ok) {
             throw new Error('Network response was not ok')
           }
           const data = await res.json()
-          setStore({...getStore(), matches: data})
+          setStore({ ...getStore(), matches: data })
           return data
         } catch (error) {
           throw error
         }
       },
       like: async (idFrom, idTo) => {
-        try{
+        try {
           const res = await fetch(process.env.BACKEND_URL + "/likes", {
             method: 'POST',
             headers: {
@@ -197,30 +197,70 @@ const getState = ({ getStore, getActions, setStore }) => {
             })
           })
           const data = await res.json()
-          if(!res.ok){
+          if (!res.ok) {
             throw new Error(data.msg)
           }
           return data
-        }catch(error){
+        } catch (error) {
           throw error
         }
       },
-      getUserProfile: async()=>{
+      getUserProfile: async () => {
         const id = JSON.parse(localStorage.getItem('userDataLogin')).id
-        const resp = await fetch(process.env.BACKEND_URL + `/users/${id}`,{
-          method:'GET'
+        const resp = await fetch(process.env.BACKEND_URL + `/users/${id}`, {
+          method: 'GET'
         })
-        if(resp.ok)      {
+        if (resp.ok) {
           const data = await resp.json()
-          setStore({...getStore(),userProfile: data})
+          setStore({ ...getStore(), userProfile: data })
           return
         }
       },
       logOut: () => {
         localStorage.removeItem('userDataLogin')
+      },
+      putUserData: async (formData) => {
+        console.log(formData)
+        const id = getStore().userProfile.id;
+        console.log(id)
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + `/users/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          })
+          if (!resp.ok) {
+            throw new Error('Something went wrong')
+          }
+          const data = await resp.json()
+          return
+        }
+        catch (e) {
+          throw new Error(data.msg)
+        }
+      },
+      deleteAccount: async () => {
+        const id = getStore().userProfile.id;
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + `/users/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          })
+          if (!resp.ok) {
+            throw new Error('Something went wrong')
+          }
+          return
+        }
+        catch (e) {
+          throw new Error(data.msg)
+        }
       }
-		}
-	};
+    }
+  };
 };
 
 export default getState;
