@@ -80,7 +80,6 @@ h2 {
 
 .card {
   width: 400px;
-  height: 550px;
   border-radius: 30px;
   background-size: cover;
   background-position: center;
@@ -311,7 +310,7 @@ h2 {
 }
 .img-list-users {
   width: 100%;
-  height: 100%;
+  height: 420px;
   border-radius: 30px;
   pointer-events: none;
 }
