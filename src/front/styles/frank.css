@@ -1,9 +1,14 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+
 body {
     overflow: auto !important;
+    
 }
+
+
+
 .bg-img-home::before{
     content: "";
     position: absolute;
@@ -12,7 +17,7 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5); 
-    z-index: -1;
+    z-index: -999;
 }
 .wrapper::-webkit-scrollbar{
     width:0;
@@ -40,8 +45,10 @@ body {
 }
 .create-home-btn{
     color:white;
-    opacity: 1.0 !important;
-    background-color: 	#fe3c72 !important;
+    background: linear-gradient(90deg, #D82B61, #FE5641);
+    padding: 0.5rem 1rem;
+    font-size: 20px;
+    border: none;
 }
 .login-home-btn{
     color:black;
