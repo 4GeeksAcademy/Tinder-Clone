@@ -316,7 +316,7 @@ h2 {
 }
 .matches-display {
   width: 350px;
-  height: 100%; /* Ajusta esta altura según tus necesidades */
+  height: 78%; /* Ajusta esta altura según tus necesidades */
   overflow-y: auto;
 }
 
