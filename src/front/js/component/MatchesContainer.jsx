@@ -57,13 +57,7 @@ const MatchesContainer = () => {
 
             <MatchesDisplay/>
         </div>
-      </div>
-      <div>
-        <button className="option" onClick={() => setClickedUser(null)}>Matches</button>
-      </div>
-
-      <MatchesDisplay />
-    </div>
+      
   )
 }
 
