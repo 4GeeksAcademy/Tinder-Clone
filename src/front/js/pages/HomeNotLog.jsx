@@ -16,7 +16,7 @@ export const HomeNotLog = () => {
 
     return (
         <section>
-            <div className="container-fluid bg-img-home" style={{ backgroundImage: `url(${background})`, opacity: '0.7' }}>
+            <div className="container-fluid bg-img-home" style={{ backgroundImage: `url(${background})`, opacity: '0.9' }}>
                 <header className="mb-5" style={{ position: 'sticky', top: 0, color: 'white', opacity: 'none' }}>
                     <HomeNotLogHeader isDisplayed={true} />
                 </header>
@@ -49,5 +49,6 @@ export const HomeNotLog = () => {
                 </div>
             </footer>
         </section>
+        
     );
 };

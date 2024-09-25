@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import { Context } from '../store/appContext';
+import { Toaster, toast } from 'sonner'
 
 const NewPostButton = () => {
   const { store, actions } = useContext(Context)
@@ -44,17 +45,17 @@ const NewPostButton = () => {
         userToVerify.apellidoPaterno === formData.apellidoPaterno && 
         userToVerify.apellidoMaterno === formData.apellidoMaterno  
       ){
-        console.log("Registered")
         const data = await actions.registerUserData(userToRegister)
         if (data && !data.error){
+          toast.success('Usuario registrado correctamente')
           handleClose()
         }
       }else{
-        alert("Los datos ingresados no coinciden con su DNI")
+        toast.error('Los datos ingresados no coinciden con los de la RENIEC')
       }
     }catch(error){
       console.error('Error al obtener datos:', error);
-      throw error
+      toast.error(error.message)
     }
 
   }
@@ -108,11 +109,13 @@ const NewPostButton = () => {
 
   return (
     <>
+      <Toaster richColors position='top-center'/>
       <Button className="create-home-btn home-btn" onClick={handleShow}>
         Crear una cuenta
       </Button>
 
       <Modal show={show} onHide={handleClose} contentClassName="bg-dark">
+      <Toaster richColors  position='top-center'/>
         <Modal.Header closeButton style={styles.header}>
           <Modal.Title style={styles.title}>Crear una cuenta</Modal.Title>
         </Modal.Header>

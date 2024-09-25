@@ -40,7 +40,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           const data = await res.json()
           if (!res.ok) {
-            throw new Error(data.msg)
+            throw new Error(data.error)
           }
           return data
         } catch (error) {

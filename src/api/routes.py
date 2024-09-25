@@ -189,8 +189,7 @@ def register():
         print(f"Verificando si el email {email} ya existe")
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            print(f"Error: El email {email} ya está en uso")
-            return jsonify({"error": "Email ya está en uso"}), 400
+            return jsonify({"error": "Correo ya registrado"}), 400
 
         print(f"Creando nuevo usuario con email: {email}")
         hashed_password = generate_password_hash(password)
