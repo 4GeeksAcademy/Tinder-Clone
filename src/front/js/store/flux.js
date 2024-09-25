@@ -237,6 +237,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch(e){
           throw new Error(data.msg)
         }
+      },
+      deleteAccount: async()=>{
+        const id = getStore().userProfile.id;
+        try{
+          
+        }
+        catch{
+
+        }
       }
 		}
 	};
