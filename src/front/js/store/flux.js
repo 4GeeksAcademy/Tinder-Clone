@@ -216,27 +216,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           return
         }
       },
-      putUserData: async(formData)=>{
-        console.log(formData)
-        const id = getStore().userProfile.id;
-        console.log(id)
-        try{
-          const resp = await fetch(process.env.BACKEND_URL + `/users/${id}`,{
-            method:'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-          })
-          if(!resp.ok){
-            throw new Error('Something went wrong')
-          }
-          const data = await resp.json()
-          return
-        }
-        catch(e){
-          throw new Error(data.msg)
-        }
+      logOut: () => {
+        localStorage.removeItem('userDataLogin')
       }
 		}
 	};
