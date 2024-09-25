@@ -72,8 +72,8 @@ export const HomeLoggedSubVip = () => {
                                 <RowLevel toNavigate='/vip' color='#000000' title="Clipped Vip" description="Mira a quienes les gustas" />
                             </HomeLogSubLevel>
                             <div style={{color:'#F0F2F4'}}><h3>Clipped Vip</h3></div>
-                            <div className="border border-secondary ">
-                                <table className="table table-borderless border-secondary align-middle sub-table text-start">
+                            <div className="border border-secondary mb-3">
+                                <table className="table table-borderless border-secondary align-middle sub-table text-start ">
                                     <thead>
                                         <tr>
                                             <th className='px-4 fs-6 fw-normal inline'>
@@ -88,7 +88,7 @@ export const HomeLoggedSubVip = () => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className='border border-secondary '>
+                            <div className='border border-secondary mb-3'>
                                 <table className="table table-borderless border-secondary align-middle sub-table text-start">
                                     <thead>
                                         <tr>
@@ -105,7 +105,7 @@ export const HomeLoggedSubVip = () => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className='border border-secondary '>
+                            <div className='border border-secondary mb-3'>
                             <table className="table table-borderless border-secondary align-middle sub-table text-start">
                                 <thead>
                                     <tr>

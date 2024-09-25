@@ -5,6 +5,7 @@ import { Pencil } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Save } from 'lucide-react';
+import {ButtonDeleteAccount} from '../component/ButtonDeleteAccount.jsx'
 
 export const ProfileSettings = () => {
   const { store, actions } = useContext(Context);
@@ -81,6 +82,9 @@ export const ProfileSettings = () => {
             <HomeLogSubLevel>
               <RowLevel toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
             </HomeLogSubLevel>
+          </div>
+          <div>
+            <ButtonDeleteAccount/>
           </div>
         </div>
       </div>
@@ -212,34 +216,3 @@ export const ProfileSettings = () => {
     </div>
   );
 }
-
-
-// <form onSubmit={handleRegister}>
-//   <div className="div-flex">
-//     <div className="mb-3">
-//       <label for="regName" className="form-label">Name</label>
-//       <input name="name" type="text" className="form-control" id="regName" onChange={handlerData} style={{ width: "100%" }} />
-//     </div>
-//     <div className="mb-3">
-//       <label for="regAge" className="form-label">Age</label>
-//       <input name="email" type="text" className="form-control" id="regAge" onChange={handlerData} />
-//     </div>
-//   </div>
-//   <div className="mb-3">
-//     <label for="regGender" className="form-label">Gender</label>
-//     <input name="address" type="text" className="form-control" id="regGender" onChange={handlerData} />
-//   </div>
-//   <div className="mb-3">
-//     <label for="regPhone" className="form-label">Phone</label>
-//     <input name="phone" type="text" className="form-control" id="regPhone" onChange={handlerData} />
-//   </div>
-//   <div className="mb-3">
-//     <label for="regGender" className="form-label">Password</label>
-//     <input name="password" type="password" className="form-control" id="regGender" onChange={handlerData} />
-//   </div>
-//   <div className="container d-flex justify-content-center">
-//     <button onClick={() => navigate('/')} type="button" className="btn btn-primary me-3" style={{ minWidth: "80px" }}>
-//       <i className="fa-solid fa-person-walking-arrow-loop-left pe-1"></i>Home</button>
-//     <button type="submit" className="btn btn-primary" style={{ minWidth: "80px" }}>Register</button>
-//   </div>
-// </form>

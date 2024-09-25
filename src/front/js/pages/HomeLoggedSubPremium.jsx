@@ -60,6 +60,11 @@ export const HomeLoggedSubPremium = () => {
                                 <RowLevel color='#111418' toNavigate='/vip' title="Clipped Vip" description="Clipped al siguiente nivel" />
                             </HomeLogSubLevel>
                         </div>
+                        <div>
+                            <HomeLogSubLevel>
+                                <RowLevel color='#111418' toNavigate='/premium' title="Clipped Premium" description="Mira a quienes les gustas" />
+                            </HomeLogSubLevel>
+                        </div>
                         <ButtonDeleteAccount/>
                         
                     </div>
