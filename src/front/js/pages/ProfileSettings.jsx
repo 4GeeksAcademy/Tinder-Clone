@@ -31,44 +31,45 @@ export const ProfileSettings = () => {
   console.log(store.userProfile)
   return (
     <div className="app-container">
-      <div className="h-100">
-        <div className="flex-column h-75">
-          <div className="setColor">
-            <div className="profile-user" onClick={() => navigate('/settings')}>
-              <img
-                src={store.userProfile.image}
-                alt="profile picture"
-                className="profile-picture"
-              />
-              <span className="userName"></span>
-              <button
-                style={{
-                  backgroundColor: '',
-                  color: '#black',
-                  border: 'none',
-                  padding: '5px 10px',
-                  fontSize: '10px',
-                  cursor: 'pointer',
-                  borderRadius: '5px',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                  float: 'right',
-                }}
-              >
-                <FontAwesomeIcon
-                  icon="fa-solid fa-right-from-bracket"
-                  style={{
-                    fontSize: '20px',
-
-                  }}
-                />
-              </button>
-
-
-              <span className="userName">{store.userProfile.name}</span>
-
+      <div style={{width: '25%'}}>
+        <div className="flex-column h-100">
+        <div className="setColor">
+              <div className="profile-user">
+                <div className="profile-user-info" onClick={() => navigate('/settings')}>
+                  <img 
+                      src={store.userProfile.image} 
+                      alt="profile picture" 
+                      className="profile-picture"
+                  />
+                  <span className="userName">{store.userProfile.name}</span>
+                </div>
+                <div>
+                  <button
+                    onClick={() => logOutSession()}
+                    style={{
+                      backgroundColor: '',
+                      color: '#black',
+                      border: 'none',
+                      padding: '5px 10px',
+                      fontSize: '10px',
+                      cursor: 'pointer',
+                      borderRadius: '5px',
+                      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                      float: 'right',
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon="fa-solid fa-right-from-bracket"
+                      style={{
+                        fontSize: '20px',
+                        
+                      }}
+                    />
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="h-100">
+          <div className="" style={{height: '81%'}}>
             <div className='mt-3'>
               <p style={{ textAlign: 'center' }}>Profile Settings</p>
             </div>
