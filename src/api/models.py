@@ -164,11 +164,19 @@ class Match(db.Model):
       "user1":{
         "id": self.user1.id,
         "name": self.user1.name,
-        "image": self.user1.image
+        "image": self.user1.image,
+        "age": self.user1.age,
+        "instagram": self.user1.instagram,
+        "facebook": self.user1.facebook,
+        "phone": self.user1.phone
       },
       "user2":{
         "id": self.user2.id,
         "name": self.user2.name,
-        "image": self.user2.image
+        "image": self.user2.image,
+        "age": self.user2.age,
+        "instagram": self.user2.instagram,
+        "facebook": self.user2.facebook,
+        "phone": self.user2.phone
       }
     }

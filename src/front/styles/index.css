@@ -323,3 +323,13 @@ h2 {
 .matches-display::-webkit-scrollbar {
   display: none; /* Oculta la barra de scroll en navegadores WebKit */
 }
+.match-card-contact{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+.match-card-contact a {
+  font-size: 40px;
+  color: #28C6A3;
+}
