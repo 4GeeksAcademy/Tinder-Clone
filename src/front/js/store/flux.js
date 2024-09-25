@@ -23,7 +23,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw new Error('Network response was not ok')
           }
           const data = await response.json();
-          console.log(data)
           setStore({...getStore,reviews:data})
           return 
         } catch(e){
@@ -215,6 +214,28 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await resp.json()
           setStore({...getStore(),userProfile: data})
           return
+        }
+      },
+      putUserData: async(formData)=>{
+        console.log(formData)
+        const id = getStore().userProfile.id;
+        console.log(id)
+        try{
+          const resp = await fetch(process.env.BACKEND_URL + `/users/${id}`,{
+            method:'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          })
+          if(!resp.ok){
+            throw new Error('Something went wrong')
+          }
+          const data = await resp.json()
+          return
+        }
+        catch(e){
+          throw new Error(data.msg)
         }
       }
 		}
