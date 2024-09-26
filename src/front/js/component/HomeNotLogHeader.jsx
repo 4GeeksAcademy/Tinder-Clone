@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { AlignJustify, Blocks } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import NewLoginButton from './NewLoginButton'; 
+import logope from '../../img/logope.png'
+
 export const HomeNotLogHeader = ({isDisplayed}) => {
     const [cursor, setCursor] = useState("pointer")
     const navigate = useNavigate();
@@ -22,11 +24,12 @@ export const HomeNotLogHeader = ({isDisplayed}) => {
         <div className="me-3 nav-principal" style={{ color: 'transparent', verticalAlign: 'bottom'}}  >
             <nav className="navbar navbar-expand-lg sticky-top pt-0" style={{ color: 'transparent' }}>
                 <div className="container-fluid d-flex align-items-center position-relative">
-                    <div className="d-flex align-items-end" onClick={ onClickHandler("")} style={{ cursor: `${cursor}` }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 48 48" >
+                    <div className="d-flex align-items-center" onClick={ onClickHandler("")} style={{ cursor: `${cursor}`, display: "flex", justifyContent: "center" }} > 
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 48 48" >
                             <radialGradient id="Tkc2EFCGCAaG3EvLlEqzza_hp54uGDlrEZB_gr1" cx="24.39" cy="40.173" r="38.605" gradientUnits="userSpaceOnUse"><stop offset="0" stopColor="#fe7356"></stop><stop offset="1" stopColor="#fd297c"></stop></radialGradient><path fill="url(#Tkc2EFCGCAaG3EvLlEqzza_hp54uGDlrEZB_gr1)" d="M17.2,20.187c7.65-2.429,8.864-9.471,7.893-15.786c0,0,0-0.364,0.243-0.243	C32.743,7.802,41,15.452,41,27.23c0,8.743-6.921,16.636-17,16.636c-10.929,0-17-7.65-17-16.757c0-5.464,3.643-10.929,7.893-13.357	c0,0,0.364,0,0.364,0.243c0,1.214,0.486,4.25,1.821,6.071L17.2,20.187z"></path>
-                        </svg>
-                        <p className="navbar-brand brand-resp pb-0 mb-0" style={{ color: isDisplayed?'white':'black', verticalAlign: "bottom", display: "table-cell" }}>Tinder</p>
+                        </svg> */}
+                        <img src={logope} width ="50" height="50" alt="Logo" style={{marginRight:"5px"}} />
+                        <p className="navbar-brand brand-resp pb-0 mb-0" style={{ color: isDisplayed?'white':'black', verticalAlign: "bottom", display: "table-cell" }}>Cliped</p>
                     </div>
                     <button className="navbar-toggler border border-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" style={{ color: "white" }}>
                         <AlignJustify />
@@ -59,9 +62,9 @@ export const HomeNotLogHeader = ({isDisplayed}) => {
                                 <li className="nav-item d-flex align-items-center ">
                                     <p className="nav-link pb-0 navbar-opt text-light mb-0" style={{cursor:`${cursor}`}} onClick={ onClickHandler("Security")}>Seguridad</p>
                                 </li>
-                                <li className="nav-item d-flex align-items-center ">
+                                {/* <li className="nav-item d-flex align-items-center ">
                                     <p className="nav-link pb-0 navbar-opt text-light mb-0" style={{cursor:`${cursor}`}} onClick={ onClickHandler("Pricing")}>Pricing</p>
-                                </li>
+                                </li> */}
                             </ul>
                             <div className="btn-container">
                                 <NewLoginButton />

@@ -11,14 +11,14 @@ export const HomeMoreInfoSection = () => {
             <article >
                 <header style={{width:'100%'}}>
                     <h1 style={{color:'white'}}>
-                        <em>¿POR QUÉ ELEGIRNOS?</em>
+                        <em>¿POR QUÉ USAR CLIPED?</em>
                     </h1>
                     <p className="text-start mt-4" style={{color:'#B9BFBB'}}>... Es la web indicada si lo que es buscar es encontrar gente con gustos similares y que sean reales, hoy en dia surge la necesidad de filtrar posibles bots
                         y proteger la integridad de nuestros usuarios mientras hacen match es nuestra prioridad.
                     </p>
                     <p className="text-start mt-3" style={{color:'#B9BFBB'}}>
-                        A diferencia de otras páginas web, nosotros solicitamos el documento de nacional de identidad con el fin mantener la tranquilidad de nuestros usuarios de que las personas
-                        con las que contactan son realmente quien dice ser y lo mejor <em> NINGUNO DE TUS DATOS PERSONALES</em> seran visibles para otros usuarios.
+                        A diferencia de otras páginas web, nosotros validamos tu identidad con el fin mantener la tranquilidad de nuestros usuarios de que las personas
+                        con las que contactan son realmente quien dice ser y lo mejor <em> NINGUNO DE TUS DATOS PERSONALES</em> serán visibles para otros usuarios.
                     </p>
                 </header>
                 <footer>

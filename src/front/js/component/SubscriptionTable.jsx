@@ -10,9 +10,9 @@ export const SubscriptionTable = () => {
                     <thead>
                         <tr style={{backgroundColor:'#000000'}}>
                             <th scope="col">Características</th>
-                            <th scope="col">clipped</th>
-                            <th scope="col">clipped</th>
-                            <th scope="col">clipped</th>
+                            <th scope="col">Gratis</th>
+                            <th scope="col">Premium</th>
+                            <th scope="col">VIP</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,7 +29,7 @@ export const SubscriptionTable = () => {
                             <td><Dot size={40} color={'#E1E4E8'} /></td>
                         </tr>
                         <tr>
-                            <th scope="row">Haz match.</th>
+                            <th scope="row">Haz clip.</th>
                             <td><Dot size={40} color={'#FE4556'} /></td>
                             <td><Dot size={40} color={'#896707'} /></td>
                             <td><Dot size={40} color={'#E1E4E8'} /></td>
@@ -154,7 +154,7 @@ export const SubscriptionTable = () => {
                         <tr><td className='px-4'>Manda mensajes antes de hacer match.</td></tr>
                         <tr><td className='px-4'>Likes priorizados.</td></tr>
                         <tr><td className='px-4'>Revisa los Likes que has enviado los últimos 7 días.</td></tr>
-                        <tr><td className='px-4'>Sumando todos los beneficios de Clipped Gold!</td></tr>
+                        <tr><td className='px-4'>Sumando todos los beneficios de Clipped Gold.</td></tr>
                     </tbody>
                 </table>
             </div>

@@ -133,7 +133,7 @@ export const HomeLoggedSubVip = () => {
                             </label>
                         </div>
                         <div className="d-grid">
-                            <p className='text-start' style={{ fontSize: '0.8rem' }}>Al Continuar, se cobrará tu pago, tu suscripción se renovará por la misma duración dedl paquete al mismo precio hasta que canceles a través de los Ajustes de tu cuenta</p>
+                            <p className='text-start' style={{ fontSize: '0.8rem' }}>Al Continuar, se cobrará tu pago, tu suscripción se renovará por la misma duración del paquete al mismo precio hasta que canceles a través de los Ajustes de tu cuenta</p>
                             <button type="button" className="btn btn-warning rounded-pill fw-bold" style={{ height: '50px' }}>Continuar</button>
                         </div>
                     </div>
