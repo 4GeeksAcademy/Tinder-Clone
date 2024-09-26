@@ -103,7 +103,7 @@ export const HomeLoggedSubPremium = () => {
                         <div className='mt-3'>
                             <div className="form-check d-flex align-items-center">
                                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="1week" />
-                                <label className="form-check-label" for="1week">
+                                <label className="form-check-label" htmlFor="1week">
                                     <div className="container d-flex flex-column ps-3">
                                         <p className='fs-5'> 1 semana</p>
                                         <p className='fs-6'>50,00 PEN/semana</p>
@@ -112,7 +112,7 @@ export const HomeLoggedSubPremium = () => {
                             </div>
                             <div className="form-check d-flex align-items-center">
                                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="1month" checked />
-                                <label className="form-check-label" for="1month">
+                                <label className="form-check-label" htmlFor="1month">
                                     <div className="container d-flex flex-column ps-3">
                                         <p className='fs-5'> 1 mes</p>
                                         <p className='fs-6'>25,00 PEN/semana</p>
@@ -122,7 +122,7 @@ export const HomeLoggedSubPremium = () => {
                             </div>
                             <div className="form-check d-flex align-items-center">
                                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="6moths" checked />
-                                <label className="form-check-label" for="6moths">
+                                <label className="form-check-label" htmlFor="6moths">
                                     <div className="container d-flex flex-column ps-3">
                                         <p className='fs-5 my-0'> 6 meses</p>
                                         <p className='fs-6 my-0'>12,50 PEN/semana</p>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Context } from '../store/appContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 export const LeftHeader = () => {
   const {store,actions} = useContext(Context);
   const navigate = useNavigate();
-  const [isProfile,setIsProfile] = useState(false);
 
   const onClickHandler = () => {
     if (location.pathname === '/settings') {

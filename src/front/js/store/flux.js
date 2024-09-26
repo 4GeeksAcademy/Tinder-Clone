@@ -253,10 +253,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!resp.ok) {
             throw new Error('Something went wrong')
           }
+          localStorage.removeItem('userDataLogin')
           return
         }
         catch (e) {
-          throw new Error(data.msg)
+          throw new Error(e)
         }
       }
     }
