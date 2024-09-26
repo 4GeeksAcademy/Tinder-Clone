@@ -300,15 +300,27 @@ def get_users_filtered():
       current_user  = User.query.get(user_id)
       
       if current_user and current_user.gender_to_show:
+        # Obtener los IDs de los usuarios a los que el usuario logueado ya les ha dado "like"
+        liked_user_ids = db.session.query(Like.user_to_id).filter_by(user_from_id=user_id).all()
+        liked_user_ids = [id[0] for id in liked_user_ids]  # Convertir a una lista de IDs
+
         if current_user.role_id == 1:  # Sponsor
-            users = User.query.filter_by(gender_id=current_user.gender_to_show_id, role_id=2).all()  # Finder
+          users = User.query.filter(
+              User.gender_id == current_user.gender_to_show_id,
+              User.role_id == 2,  # Finder
+              ~User.id.in_(liked_user_ids)  # Excluir usuarios a los que ya se les ha dado "like"
+          ).all()
         elif current_user.role_id == 2:  # Finder
-            users = User.query.filter_by(gender_id=current_user.gender_to_show_id, role_id=1).all()  # Sponsor
+          users = User.query.filter(
+              User.gender_id == current_user.gender_to_show_id,
+              User.role_id == 1,  # Sponsor
+              ~User.id.in_(liked_user_ids)  # Excluir usuarios a los que ya se les ha dado "like"
+          ).all()
         else:
-            users = []
+          users = []
       else:
-        users = User.query.all()
-        
+          users = User.query.all()
+      
       results = list(map(lambda user: user.serialize(), users))
       return jsonify(results), 200
     except Exception as e:
@@ -354,7 +366,7 @@ def create_review():
   except Exception as e:
     return jsonify({"error": str(e)}), 500
   
-# Crear un "Like" y verificar si hay match
+# Create like and verify is a match exists
 @api.route('/likes', methods=['POST'])
 def create_like():
     try:
@@ -365,8 +377,10 @@ def create_like():
         # Verify that both users exist
         user_from = User.query.get_or_404(user_from_id)
         user_to = User.query.get_or_404(user_to_id)
-
-        # Verificar if exist a previous like
+        
+        
+              
+        # Verify if exist a previous like
         existing_like = Like.query.filter_by(user_from_id=user_from_id, user_to_id=user_to_id).first()
         if existing_like:
             return jsonify({"msg": "Like already exists"}), 400
@@ -375,16 +389,33 @@ def create_like():
         new_like = Like(user_from_id=user_from_id, user_to_id=user_to_id)
         db.session.add(new_like)
 
-        # Verificar if user_to_id has liked user_from_id
+        # Verify if user_to_id has liked user_from_id
         mutual_like = Like.query.filter_by(user_from_id=user_to_id, user_to_id=user_from_id).first()
 
         if mutual_like:
-            # If both users have liked each other, create a match
+            # If both users have liked each other, check match constraints
+            if not user_from.is_premium:
+                user_matches_count = Match.query.filter(
+                    (Match.user1_id == user_from_id) | (Match.user2_id == user_from_id)
+                ).count()
+                if user_matches_count >= 1:
+                    db.session.rollback()
+                    return jsonify({"msg": "Usuario con cuenta gratuita solo pueden tener 1 match"}), 403
+
+            if not user_to.is_premium:
+                user_to_matches_count = Match.query.filter(
+                    (Match.user1_id == user_to_id) | (Match.user2_id == user_to_id)
+                ).count()
+                if user_to_matches_count >= 1:
+                    db.session.rollback()
+                    return jsonify({"msg": "El usuario objetivo ya tiene un match y no es premium"}), 403
+
+            # Create a new match
             new_match = Match(user1_id=user_from_id, user2_id=user_to_id)
             db.session.add(new_match)
-            msg = "Match created!"
+            msg = "Es un match!"
         else:
-            msg = "Like registered."
+            msg = "Like registrado"
         db.session.commit()
         return jsonify({"msg": msg}), 201
     except Exception as e:
@@ -409,7 +440,6 @@ def get_user_matches():
     try:
         current_user_id = get_jwt_identity()
         matches = Match.query.filter((Match.user1_id == current_user_id) | (Match.user2_id == current_user_id)).all()
-        
         
         # Serializar los resultados
         results = list(map(lambda match: match.serialize(), matches))

@@ -105,7 +105,7 @@ const MatchesDisplay = () => {
               <p>
                 <strong>Edad:</strong>{selectedMatch.user1.id === userDataLogin.id ? selectedMatch.user2.age : selectedMatch.user1.age}
               </p>
-              <p style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <div>
                   <strong>Redes sociales:</strong>
                 </div>
@@ -117,10 +117,10 @@ const MatchesDisplay = () => {
                     <i className="fab fa-facebook-f" /> 
                   </a>
                   <a href="#" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> 
+                    <i className="fa-brands fa-whatsapp"></i> 
                   </a>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>

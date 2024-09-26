@@ -3,13 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
-import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
 import {HomeNotLog} from "./pages/HomeNotLog.jsx"
 import { HomeMoreInfo } from "./pages/HomeMoreInfo.jsx";
 import { Registro } from "./pages/registro.js";
@@ -37,15 +32,11 @@ const Layout = () => {
                         <Route element={<HomeNotLog />} path="/" />
                         <Route element={<HomeMoreInfo/>} path="/Moreinfo"/>
                         <Route element={<PrivateRoute><Registro/></PrivateRoute>} path="/preferences"/>
-                        <Route element={<Dashboard/>} path="/dashboard"/>
+                        <Route element={<PrivateRoute><Dashboard/></PrivateRoute>} path="/dashboard"/>
                         <Route element={<HomeSecurity/>} path="/Security"/>
                         <Route element={<Pricing/>} path="/pricing"/>
                         <Route element={<HomeSubscriptionLevels/>} path="/Subscription"/>
-                        <Route element={<ProfileSettings/>} path="/settings"/>
-                        {/* <Route element={<Home />} path="/user/:id" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<h1>Not found!</h1>} /> */}
+                        <Route element={<PrivateRoute><ProfileSettings/></PrivateRoute>} path="/settings"/>
                         <Route element = {<HomeLoggedSubPremium/>} path="/premium"/>
                         <Route element = {<HomeLoggedSubVip/>} path="/vip"/>
                     </Routes>

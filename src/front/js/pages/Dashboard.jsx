@@ -1,12 +1,14 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef, useState } from "react";
 import TinderCard from 'react-tinder-card';
 import MatchesContainer from '../component/MatchesContainer.jsx';
 import { Context } from "../store/appContext.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Toaster, toast } from 'sonner'
 
 export const Dashboard = () => {
   const { actions, store } = useContext(Context)
   const cardRef = useRef([])
+  const [likedCards, setLikedCards] = useState(new Set())
 
   const idUserFromLocalStorage = JSON.parse(localStorage.getItem('userDataLogin')).id
 
@@ -28,12 +30,17 @@ export const Dashboard = () => {
     cardRef.current[index]?.swipe(dir)
   }
   const handleLike = async (idFrom, idTo, index) => {
+    if (likedCards.has(index)) return
+    setLikedCards(prev => new Set(prev).add(index))
     try {
       const likeResponse = await actions.like(idFrom, idTo)
+      if(likeResponse.msg === 'Es un match!'){
+        toast.success(likeResponse.msg)
+      }
       console.log(likeResponse)
       swipeCard('right', index)
     } catch (error) {
-      console.error(error)
+      toast.error(error.message)
     }
   }
   const onSwipeLike = (dir, idTo, index) => {
@@ -44,8 +51,9 @@ export const Dashboard = () => {
 
   return (
     <>
+      <Toaster richColors position="top-center"/>
       <div className="dashboard">        
-            <MatchesContainer />      
+        <MatchesContainer />      
         <div className="swipe-container">
           <div className="card-container">
             {store.users.map((user, index) => {
