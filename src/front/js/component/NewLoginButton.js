@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { Context } from '../store/appContext';
+import { Toaster, toast } from 'sonner'
 
 const NewLoginButton = () => {
 
@@ -69,7 +70,7 @@ const NewLoginButton = () => {
         }
       })
       .catch((error) => {
-        console.error('Error al iniciar sesión:', error);
+        toast.error(error.message)
       })
   };
 
@@ -136,6 +137,7 @@ const NewLoginButton = () => {
       </Button>
 
       <Modal show={show} onHide={handleClose} contentClassName="bg-dark">
+        <Toaster richColors position='top-center'/>
         {showLogin && (
           <Modal.Header closeButton style={styles.header}>
             <Modal.Title style={styles.title}>Iniciar sesión</Modal.Title>
