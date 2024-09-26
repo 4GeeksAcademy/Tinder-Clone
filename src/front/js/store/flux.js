@@ -58,7 +58,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           const data = await res.json()
           if (!res.ok) {
-            throw new Error(data.msg)
+            throw new Error(data.error)
           }
           if (data.access_token) {
             localStorage.setItem('userDataLogin', JSON.stringify(data))

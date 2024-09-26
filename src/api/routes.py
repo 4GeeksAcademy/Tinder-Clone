@@ -270,9 +270,12 @@ def login():
     password = data.get('password')
 
     if not email or not password:
-        return jsonify({"error": "Missing email or password"}), 400
+        return jsonify({"error": "Correo o contraseña faltantes"}), 400
 
     user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        return jsonify({"error": "Correo no registrado"}), 404
 
     if user and check_password_hash(user.password, password):
         access_token = create_access_token(identity=user.id)
@@ -284,7 +287,7 @@ def login():
           'preferences_set': user.preferences_set
         }), 200
     else:
-        return jsonify({"error": "Bad email or password"}), 401
+        return jsonify({"error": "Correo y contraseña no coinciden"}), 401
 
 @api.route('/users', methods=['GET'])
 def get_users():
@@ -447,3 +450,29 @@ def get_user_matches():
     except Exception as e:
         return jsonify({"msg": str(e)}), 500
 
+@api.route('/reset_password', methods=['POST'])
+def reset_password():
+  try:
+    data = request.json
+    email = data.get('email')
+    new_password = data.get('password')
+
+    if not email:
+      return jsonify({"error": "Correo requerido"}), 400
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+      return jsonify({"error": "Correo no registrado"}), 404
+
+    if not new_password:
+      return jsonify({"error": "Contraseña requerida"}), 400
+    
+    # Actualizar contraseña
+    hashed_password = generate_password_hash(new_password)
+    user.password = hashed_password
+    db.session.commit()
+
+    return jsonify({"message": "Contraseña recuperada correctamente"}), 200
+  except Exception as e:
+    return jsonify({"error": str(e)}), 500
