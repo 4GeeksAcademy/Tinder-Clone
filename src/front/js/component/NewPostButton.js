@@ -38,22 +38,22 @@ const NewPostButton = () => {
       password: formData.password,
     }
 
-    try{
+    try {
       await actions.sendDataToVerifyIdentity(dniToVerify.dni)
       const userToVerify = store.userToVerify
-      if(
-        userToVerify.apellidoPaterno === formData.apellidoPaterno && 
-        userToVerify.apellidoMaterno === formData.apellidoMaterno  
-      ){
+      if (
+        userToVerify.apellidoPaterno === formData.apellidoPaterno &&
+        userToVerify.apellidoMaterno === formData.apellidoMaterno
+      ) {
         const data = await actions.registerUserData(userToRegister)
-        if (data && !data.error){
+        if (data && !data.error) {
           toast.success('Usuario registrado correctamente')
           handleClose()
         }
-      }else{
+      } else {
         toast.error('Los datos ingresados no coinciden con los de la RENIEC')
       }
-    }catch(error){
+    } catch (error) {
       console.error('Error al obtener datos:', error);
       toast.error(error.message)
     }
@@ -109,13 +109,30 @@ const NewPostButton = () => {
 
   return (
     <>
-      <Toaster richColors position='top-center'/>
-      <Button className="create-home-btn home-btn" onClick={handleShow}>
-        Crear una cuenta
-      </Button>
-
+      <Toaster richColors position='top-center' />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+  <Button
+    className="create-home-btn home-btn"
+    style={{
+      padding: '30px 60px',
+      fontSize: '24px',
+      height: '80px',
+      borderRadius: '30px',
+      backgroundColor: '#fe3c72',
+      border: 'none',
+      color: 'white',
+      cursor: 'pointer',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}
+    onClick={handleShow}
+  >
+    Crear una cuenta
+  </Button>
+</div>
       <Modal show={show} onHide={handleClose} contentClassName="bg-dark">
-      <Toaster richColors  position='top-center'/>
+        <Toaster richColors position='top-center' />
         <Modal.Header closeButton style={styles.header}>
           <Modal.Title style={styles.title}>Crear una cuenta</Modal.Title>
         </Modal.Header>

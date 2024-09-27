@@ -321,7 +321,7 @@ export const Registro = () => {
               <button type="button" className="add-interest">+ Agregar interés</button>
             </div>
           </div>
-          <div className="orientation-group">
+          {/* <div className="orientation-group">
             <label>ORIENTACIÓN SEXUAL</label>
             <div className="orientation-options">
               {['Heterosexual', 'Gay', 'Lesbiana', 'Bisexual', 'Asexual', 'Demisexual', 'Pansexual'].map((orientacion) => (
@@ -335,7 +335,7 @@ export const Registro = () => {
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
         <button type="submit" className="submit-button">Continuar</button>
       </form>

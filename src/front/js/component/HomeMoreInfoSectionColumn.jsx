@@ -13,7 +13,7 @@ export const HomeMoreInfoSectionColumn = () => {
                     <div>
                         <section className="mt-2 mb-3">
                             <h2>Explora tu ciudad</h2>
-                            <p>Desde la comodida de casa! conoce personas cerca de tu localidad. Contacta y descubre personas con gustos similares a los tuyos y has un <b>Match</b>.</p>
+                            <p>Desde la comodida de casa, conoce personas cerca de tu localidad. Contacta y descubre personas con gustos similares a los tuyos y has un <b>clip</b>.</p>
                         </section>
                     </div>
                     <div>
@@ -24,7 +24,7 @@ export const HomeMoreInfoSectionColumn = () => {
                     <div>
                         <section className="mt-2 mb-3">
                             <h2>Sube una foto para empezar</h2>
-                            <p>Tómate una selfie para darte a conocer por tu ciudad, este es el momento.</p>
+                            <p>Tómate una selfie para darte a conocer por tu ciudad, este es tu momento.</p>
                         </section>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ export const HomeMoreInfoSectionColumn = () => {
                     <div>
                         <section className="mt-2 mb-3">
                             <h2>Haz que tus likes impresionen</h2>
-                            <p>Los likes prioritarios del nivel <a>Premium</a> sorprenderá a otros usuarios, esta exclusiva funcion muestra tu perfil a la gente que te gusta más rápido!</p>
+                            <p>Los likes prioritarios del nivel <a>Premium</a> sorprenderá a otros usuarios, esta exclusiva funcion muestra tu perfil a la gente que te gusta más rápido</p>
                         </section>
                     </div>
                     <div>
@@ -52,12 +52,12 @@ export const HomeMoreInfoSectionColumn = () => {
                 <div className="mt-4 mb-4">
                     <div>
                         <section className="mt-2 mb-3">
-                            <h2>Tinder te acompaña donde sea!</h2>
-                            <p>Con la versión actual podrás interactuar con personas que vivan en Perú! pero no te desanimes, pronto abriremos nuestras puertas para otros países!</p>
+                            <h2>Clipped te acompaña donde sea</h2>
+                            <p>Con la versión actual podrás interactuar con personas que vivan en Perú, pero no te desanimes, pronto abriremos nuestras puertas para otros países.</p>
                         </section>
                         <section className="mt-2 mb-3">
                             <h2>Video llamadas seguras</h2>
-                            <p>Contextos como el COVID-19 mostraron la necesidad de la digitalización de medios y como tal modificó la interacción de individuos, con el fin de cuidarte y evitar contagios tenemos la opción de realizar una videollamada y sin la preocupación de que vulneren tu privacidad debido a la encriptación end-to-end</p>
+                            <p>Contextos como el COVID-19 mostraron la necesidad de la digitalización de medios y como tal modificó la interacción de individuos, con el fin de cuidarte y evitar contagios tenemos la opción de realizar una videollamada y sin la preocupación de que vulneren tu privacidad.</p>
                             <div>
                                 <img className="img-fluid" src={date3} alt="" style={{ width: '100%' }} />
                             </div>
