@@ -292,6 +292,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
+      resetPassword: async (dataRecovery) => {
+        try {
+          const res = await fetch(process.env.BACKEND_URL + "/reset_password", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataRecovery)
+          })
+          const data = await res.json()
+          if (!res.ok) {
+            throw new Error(data.msg)
+          }
+          return data
+        } catch (error) {
+          throw error
+        }
+      }
     }
   };
 };

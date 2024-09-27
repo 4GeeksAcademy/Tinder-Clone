@@ -462,6 +462,8 @@ def get_user_matches():
         return jsonify({"msg": str(e)}), 500
 
 @api.route('/reset_password', methods=['POST'])
+
+# Reset password
 def reset_password():
   try:
     data = request.json
@@ -484,6 +486,6 @@ def reset_password():
     user.password = hashed_password
     db.session.commit()
 
-    return jsonify({"message": "Contraseña recuperada correctamente"}), 200
+    return jsonify({"msg": "Contraseña recuperada correctamente"}), 200
   except Exception as e:
     return jsonify({"error": str(e)}), 500
