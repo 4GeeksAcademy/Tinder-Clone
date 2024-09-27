@@ -25,7 +25,7 @@ const NewLoginButton = () => {
 
   const [showLogin, setShowLogin] = useState(true);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotEmail, setForgotEmail] = useState({});
 
   const handleForgotPasswordClick = () => {
     setShowLogin(false);
@@ -33,7 +33,9 @@ const NewLoginButton = () => {
   };
 
   const handleForgotEmailChange = (e) => {
-    setForgotEmail(e.target.value);
+    let value = e.target.value
+    let prop = e.target.name
+    setForgotEmail({...forgotEmail,[prop]:value});
   };
 
   const handleBackToLogin = () => {
@@ -193,6 +195,14 @@ const NewLoginButton = () => {
                   onChange={handleForgotEmailChange}
                   style={styles.input}
                   placeholder="Ingresa tu correo electrónico"
+                />
+                <Form.Label style={styles.label}>Ingresa tu correo electrónico</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={forgotEmail}
+                  onChange={handleForgotEmailChange}
+                  style={styles.input}
+                  placeholder="Ingresa nueva contraseña"
                 />
               </Form.Group>
               <Modal.Footer style={styles.footer}>
