@@ -25,7 +25,11 @@ const NewLoginButton = () => {
 
   const [showLogin, setShowLogin] = useState(true);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [forgotEmail, setForgotEmail] = useState({});
+  const [formDataRecovery, setFormDataRecovery] = useState({
+    email: '',
+    password: ''
+  });
+
 
   const handleForgotPasswordClick = () => {
     setShowLogin(false);
@@ -33,15 +37,18 @@ const NewLoginButton = () => {
   };
 
   const handleForgotEmailChange = (e) => {
-    let value = e.target.value
-    let prop = e.target.name
-    setForgotEmail({...forgotEmail,[prop]:value});
+    const { name, value } = e.target;
+    setFormDataRecovery(prevState => ( {
+      ...prevState,
+      [name]: value
+    }))
   };
 
   const handleBackToLogin = () => {
     setShowLogin(true);
     setShowForgotPassword(false);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -75,6 +82,27 @@ const NewLoginButton = () => {
         toast.error(error.message)
       })
   };
+
+  const handleSubmitRecoveryData = (e) => {
+    e.preventDefault();
+
+    const dataToRecovery = {
+      email: formDataRecovery.email,
+      password: formDataRecovery.password
+    }
+    console.log(dataToRecovery)
+    actions.resetPassword(dataToRecovery)
+      .then(data => {
+        if(data && !data.error){
+          toast.success(data.msg)
+          setShowLogin(true);
+          setShowForgotPassword(false);
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message)
+      })
+  }
 
   const styles = {
     modal: {
@@ -184,36 +212,40 @@ const NewLoginButton = () => {
             </Form>
           )}
           {showForgotPassword && (
-            <div>
+            <Form onSubmit={handleSubmitRecoveryData}>
               <p style={{ fontSize: '18px', color: '#8e8e8e' }}>Recupera tu contraseña</p>
               <p style={{ fontSize: '14px', color: '#8e8e8e' }}>Ingresa tu correo electrónico para recibir instrucciones de recuperación de contraseña.</p>
               <Form.Group className="mb-3" controlId="formForgotEmail" style={styles.formGroup}>
-                <Form.Label style={styles.label}>Ingresa tu correo electrónico</Form.Label>
+                <Form.Label style={styles.label}>Correo electrónico</Form.Label>
                 <Form.Control
                   type="email"
-                  value={forgotEmail}
+                  name='email'
+                  value={formDataRecovery.email}
                   onChange={handleForgotEmailChange}
                   style={styles.input}
                   placeholder="Ingresa tu correo electrónico"
                 />
-                <Form.Label style={styles.label}>Ingresa tu correo electrónico</Form.Label>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formForgotPassword" style={styles.formGroup}>
+                <Form.Label style={styles.label}>Contraseña nueva</Form.Label>
                 <Form.Control
                   type="password"
-                  value={forgotEmail}
+                  name='password'
+                  value={formDataRecovery.password}
                   onChange={handleForgotEmailChange}
                   style={styles.input}
                   placeholder="Ingresa nueva contraseña"
                 />
-              </Form.Group>
+                </Form.Group>
               <Modal.Footer style={styles.footer}>
-                <Button variant="primary" style={styles.buttonSendEmail}>
+                <Button variant="primary" style={styles.buttonSendEmail} type='submit'>
                   Recuperar contraseña
                 </Button>
                 <Button variant="primary" style={styles.button} onClick={handleBackToLogin}>
                   Volver a inicio de sesión
                 </Button>
               </Modal.Footer>
-            </div>
+            </Form>
           )}
         </Modal.Body>
       </Modal>
