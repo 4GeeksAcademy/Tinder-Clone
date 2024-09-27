@@ -1,10 +1,10 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from datetime import datetime
+from datetime import datetime, timezone
 import base64
 import requests
-
+from dateutil import parser
 import app
 from flask import Flask, request, jsonify, url_for, Blueprint, current_app
 from api.models import Gender, db, User, Payment, Subscription, Review, Match, Like, Role
@@ -86,16 +86,27 @@ def delete_gender(gender_id):
 @api.route('/payments', methods=['POST'])
 def create_payment():
     data = request.json
+    payment_date = parser.isoparse(data['payment_date'])
+
     new_payment = Payment(
         user_id=data['user_id'],
         payment_id=data['payment_id'],
         amount=data['amount'],
         currency=data.get('currency'),
-        payment_date=datetime.fromisoformat(data['payment_date']),
+        payment_date=payment_date,
         payment_status=data.get('payment_status', 'pending'),
         payment_method=data['payment_method']
     )
     db.session.add(new_payment)
+
+    user = User.query.get(data['user_id'])
+    if user:
+        user.is_premium = True
+    else:
+        return jsonify({'error': 'User not found'}), 404
+        
+
+
     db.session.commit()
     return jsonify({'message': 'Payment created successfully'}), 201
 

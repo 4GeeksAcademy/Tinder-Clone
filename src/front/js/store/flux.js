@@ -10,7 +10,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       genders: [],
       userToVerify: {},
       userDataLogin: {},
-      userProfile: []
+      userProfile: [],
+      payments: []
     },
     actions: {
       getReviews: async () => {
@@ -259,7 +260,38 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (e) {
           throw new Error(e)
         }
-      }
+      },
+
+      //Payments
+      createPayment: async (paymentData) => {
+        try {
+          const res = await fetch(process.env.BACKEND_URL + "/payments", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(paymentData)
+          });
+
+          if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || 'Error al crear el pago');
+          }
+
+          const data = await res.json();
+
+          // Actualizamos el store con el nuevo pago
+          setStore({
+            ...getStore(),
+            payments: [...getStore().payments, data.payment]
+          });
+
+          return data;
+        } catch (error) {
+          console.error("Error creating payment:", error);
+          throw error;
+        }
+      },
     }
   };
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { HomeLogSubLevel, RowLevel } from '../component/HomeLogSubLevel.jsx'
 import { Check, Lock } from 'lucide-react';
 import { Context } from '../store/appContext.js';
@@ -6,17 +6,65 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { ButtonDeleteAccount } from '../component/ButtonDeleteAccount.jsx'
 import { LeftHeader } from '../component/LeftHeader.jsx';
+import { PayPalButton } from '../component/paypal.jsx'; // Asegúrate de que la ruta de importación sea correcta
+
+
 
 
 
 
 export const HomeLoggedSubPremium = () => {
+
+    const { store, actions } = useContext(Context);
+    const [selectedPlan, setSelectedPlan] = useState('1month');
+    const [subscriptionStatus, setSubscriptionStatus] = useState('inactive');
+    const [showPayPalButton, setShowPayPalButton] = useState(true);
+
+    useEffect(() => {
+        console.log("HomeLoggedSubPremium montado. Context cargado:", !!store, !!actions);
+    }, []);
+
+    const planPricesUSD = {
+        '1week': 13.50,
+        '1month': 27.00,
+        '6months': 87.75
+    };
+
+    const handlePlanChange = (event) => {
+        console.log("Plan seleccionado:", event.target.id);
+        setSelectedPlan(event.target.id);
+    }
+
+    const handlePaymentSuccess = async (paymentData) => {
+        console.log("handlePaymentSuccess iniciado con datos:", paymentData);
+        console.log("User ID en handlePaymentSuccess:", store.userDataLogin?.id);
+        try {
+            console.log("Llamando a actions.createPayment");
+            const result = await actions.createPayment({
+                ...paymentData,
+                user_id: store.userDataLogin?.id,
+                plan: selectedPlan,
+                amount: planPricesUSD[selectedPlan]
+            });
+            console.log('Pago creado exitosamente:', result);
+            setSubscriptionStatus('active');
+            setShowPayPalButton(false);  // Oculta el botón después del pago exitoso
+        } catch (error) {
+            console.error('Error detallado al crear el pago:', error);
+        }
+    };
+
+    const handlePaymentError = (error) => {
+        console.error('Error detallado en el pago:', error);
+        // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
+    };
+
     return (
         <div className='container-fluid'>
             <div className="row vh-100">
                 <div className="ps-0 pe-0 col-lg-2 col-md-3 col-sm-12" >
                     <div className="d-flex h-100 flex-column grid">
-                        <LeftHeader/>
+                        <LeftHeader />
                         <div className='h-100'>
                             <div className='mt-3 text-light' >
                                 <p className='text-white p-0' style={{ textAlign: 'center' }}>Profile Settings</p>
@@ -102,7 +150,14 @@ export const HomeLoggedSubPremium = () => {
                         </div>
                         <div className='mt-3'>
                             <div className="form-check d-flex align-items-center">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="1week" />
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="1week"
+                                    checked={selectedPlan === '1week'}
+                                    onChange={handlePlanChange}
+                                />
                                 <label className="form-check-label" htmlFor="1week">
                                     <div className="container d-flex flex-column ps-3">
                                         <p className='fs-5'> 1 semana</p>
@@ -111,7 +166,14 @@ export const HomeLoggedSubPremium = () => {
                                 </label>
                             </div>
                             <div className="form-check d-flex align-items-center">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="1month" checked />
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="1month"
+                                    checked={selectedPlan === '1month'}
+                                    onChange={handlePlanChange}
+                                />
                                 <label className="form-check-label" htmlFor="1month">
                                     <div className="container d-flex flex-column ps-3">
                                         <p className='fs-5'> 1 mes</p>
@@ -121,7 +183,14 @@ export const HomeLoggedSubPremium = () => {
                                 </label>
                             </div>
                             <div className="form-check d-flex align-items-center">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="6moths" checked />
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="6months"
+                                    checked={selectedPlan === '6months'}
+                                    onChange={handlePlanChange}
+                                />
                                 <label className="form-check-label" htmlFor="6moths">
                                     <div className="container d-flex flex-column ps-3">
                                         <p className='fs-5 my-0'> 6 meses</p>
@@ -133,7 +202,19 @@ export const HomeLoggedSubPremium = () => {
                         </div>
                         <div className="d-grid">
                             <p className='text-start' style={{ fontSize: '0.8rem' }}>Al Continuar, se cobrará tu pago, tu suscripción se renovará por la misma duración dedl paquete al mismo precio hasta que canceles a través de los Ajustes de tu cuenta</p>
-                            <button type="button" className="btn btn-warning rounded-pill fw-bold" style={{ height: '50px' }}>Continuar</button>
+                            {showPayPalButton && store.userDataLogin && store.userDataLogin.id ? (
+                                <PayPalButton
+                                    amount={planPricesUSD[selectedPlan].toFixed(2)}
+                                    currency="USD"
+                                    userId={store.userDataLogin.id}
+                                    onPaymentSuccess={handlePaymentSuccess}
+                                    onPaymentError={handlePaymentError}
+                                />
+                            ) : subscriptionStatus === 'active' ? (
+                                <p>¡Tu suscripción está activa! Disfruta de los beneficios premium.</p>
+                            ) : (
+                                <p>Por favor, inicia sesión para suscribirte.</p>
+                            )}
                         </div>
                     </div>
                 </div>
