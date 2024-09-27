@@ -17,11 +17,10 @@ const MatchesContainer = () => {
       actions.getUserProfile()
     }, [])  
     return (
-        <div className="chat-container">
-            <LeftHeader/>
-            
-            <div>
-                <button className="option" onClick={() => setClickedUser(null)}>Matches</button>
+        <div className="p-0">
+            <LeftHeader/>            
+            <div className="d-flex justify-content-start">
+                <button className="option-button" onClick={() => setClickedUser(null)}>Matches</button>
             </div>
 
             <MatchesDisplay/>

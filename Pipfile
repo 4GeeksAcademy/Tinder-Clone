@@ -22,6 +22,7 @@ flask-bcrypt = "*"
 flask-jwt-extended = "*"
 requests = "*"
 flask-mail = "*"
+python-dateutil = "*"
 
 [requires]
 python_version = "3.10"

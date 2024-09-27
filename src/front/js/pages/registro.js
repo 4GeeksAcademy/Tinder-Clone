@@ -302,41 +302,7 @@ export const Registro = () => {
                 />
             </div>
             {(errors.facebook || errors.instagram || errors.phone) && <span className="error-message">Al menos una método de contacto es obligatorio</span>}
-        </div>
-        <div className="form-group">
-          <label>Opcional</label>
-          <div className="interests-group">
-            <label>Intereses</label>
-            <div className="interests-options">
-              {formData.intereses.map((interes) => (
-                <button
-                  key={interes}
-                  type="button"
-                  className={`interest-option ${formData.intereses.includes(interes) ? 'selected' : ''}`}
-                  onClick={() => handleInteresesChange(interes)}
-                >
-                  {interes}
-                </button>
-              ))}
-              <button type="button" className="add-interest">+ Agregar interés</button>
-            </div>
-          </div>
-          {/* <div className="orientation-group">
-            <label>ORIENTACIÓN SEXUAL</label>
-            <div className="orientation-options">
-              {['Heterosexual', 'Gay', 'Lesbiana', 'Bisexual', 'Asexual', 'Demisexual', 'Pansexual'].map((orientacion) => (
-                <button
-                  key={orientacion}
-                  type="button"
-                  className={`orientation-option ${formData.orientacionSexual.includes(orientacion) ? 'selected' : ''}`}
-                  onClick={() => handleOrientacionSexualChange(orientacion)}
-                >
-                  {orientacion}
-                </button>
-              ))}
-            </div>
-          </div> */}
-        </div>
+        </div>        
         <button type="submit" className="submit-button">Continuar</button>
       </form>
       <style jsx="true">{`

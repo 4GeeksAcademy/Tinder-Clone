@@ -27,7 +27,7 @@ const MatchesDisplay = () => {
   
   return (
     <>
-      <div className="matches-display">
+      <div className="matches-display w-100">
         <div className="match-grid">
           {store.matches.map((match, _index) => {
             const user = match.user1.id === userDataLogin.id ? match.user2 : match.user1;
